@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Bangun Ruang Lancip & Bola (GeoMaster 20)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration for perfect LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #f8fafc, #eef2f6);
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom styling for MathJax output to match the font */
+        mjx-container {
+            font-size: 1.05em !important;
+            color: inherit;
+        }
+        /* Custom scrollbar for question navigation */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="w-full max-w-6xl flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-200">
+                <!-- SVG Icon Cone/Sphere style -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a2 2 0 11-4 0V4zM4 14a2 2 0 114 0v1a2 2 0 11-4 0v-1zM18 14a2 2 0 114 0v1a2 2 0 11-4 0v-1z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8.5V20M12 20l-4-4m4 4l4-4" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-xl font-extrabold text-gray-800 tracking-tight">GeoMaster 2.0</h1>
+                <p class="text-xs text-indigo-600 font-extrabold uppercase tracking-widest">Kuis Limas, Kerucut, & Bola</p>
+            </div>
+        </div>
+        <div class="text-sm font-bold px-5 py-2.5 bg-white/90 backdrop-blur rounded-2xl shadow-sm text-indigo-700 border border-indigo-100 flex items-center gap-2" id="global-score-badge">
+            <span>Skor:</span>
+            <span id="score-val" class="text-indigo-600 font-black">0</span>
+            <span class="text-slate-400">/</span>
+            <span class="text-slate-500">20</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-6xl bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 p-6 md:p-8 flex-grow flex flex-col justify-between min-h-[650px] relative overflow-hidden">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="flex flex-col items-center justify-center text-center my-auto py-10 fade-in">
+            <div class="w-40 h-40 mb-8">
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-2xl">
+                    <circle cx="100" cy="100" r="80" fill="#e0e7ff" opacity="0.6"/>
+                    <g transform="translate(10, -5)">
+                        <!-- Cone style graphic -->
+                        <ellipse cx="90" cy="130" rx="45" ry="15" fill="#818cf8" opacity="0.7" />
+                        <path d="M45 130 L90 40 L135 130 Z" fill="#6366f1" opacity="0.9" />
+                        <!-- Sphere graphic -->
+                        <circle cx="110" cy="100" r="30" fill="#4f46e5" />
+                        <ellipse cx="110" cy="100" rx="30" ry="10" fill="none" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="3,3" />
+                    </g>
+                </svg>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4 tracking-tight">
+                Limas, Kerucut, & <span class="text-indigo-600 italic">Bola</span>
+            </h2>
+            <p class="text-slate-500 max-w-2xl mb-8 leading-relaxed text-base md:text-lg">
+                Uji pemahaman Anda mengenai rumus volume, luas permukaan, dan aplikasi nyata dari bangun ruang lancip (<span class="font-bold text-indigo-800">Limas & Kerucut</span>) serta <span class="font-bold text-indigo-800">Bola</span>.
+            </p>
+            <div class="bg-indigo-50/50 rounded-2xl p-5 mb-8 max-w-lg text-left text-sm text-indigo-950 border border-indigo-100">
+                <span class="font-extrabold text-indigo-800 block mb-1">✨ Fitur Baru: Navigasi Bebas Nomor Soal!</span>
+                Anda sekarang bisa mengerjakan kuis dengan urutan acak melalui panel navigasi nomor soal di samping layar. Klik tombol kirim akhir di bagian bawah jika sudah selesai menjawab seluruh soal.
+            </div>
+            <button id="start-btn" class="px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-3xl shadow-xl shadow-indigo-100 hover:shadow-indigo-200 transition-all transform hover:-translate-y-1 active:translate-y-0 duration-200 text-xl w-full sm:w-auto">
+                Mulai Tantangan (20 Soal)
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden flex-col h-full justify-between fade-in">
+            <!-- Top Progress & Navigation Bar -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-black text-indigo-600 bg-indigo-50 px-4 py-2 rounded-xl whitespace-nowrap" id="progress-text">Soal 1 dari 20</span>
+                    <div class="w-32 md:w-48 bg-gray-100 h-3 rounded-full overflow-hidden border border-gray-50 shadow-inner">
+                        <div id="progress-bar" class="bg-indigo-600 h-full transition-all duration-500 rounded-full" style="width: 5%;"></div>
+                    </div>
+                </div>
+
+                <!-- Soal Quick Navigation Grid -->
+                <div class="flex items-center gap-2 overflow-x-auto py-1 max-w-full custom-scrollbar">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1 hidden sm:inline">Navigasi:</span>
+                    <div class="flex gap-1.5" id="nav-dots-container">
+                        <!-- Navigation boxes will be injected here (1-20) -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-grow">
+                <!-- SVG Area (Col 5) -->
+                <div class="lg:col-span-5 bg-slate-50/50 rounded-[2rem] border-2 border-dashed border-slate-200 p-6 flex flex-col items-center justify-center min-h-[250px] lg:h-full relative overflow-hidden">
+                    <div id="svg-container" class="w-full max-w-[240px] h-auto flex items-center justify-center transition-transform duration-500 hover:scale-105">
+                        <!-- SVG content -->
+                    </div>
+                </div>
+
+                <!-- Interaction Area (Col 7) -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <div id="question-text" class="text-gray-800 font-semibold leading-relaxed mb-6 text-base md:text-lg">
+                            Memuat pertanyaan...
+                        </div>
+                        
+                        <div id="options-container" class="space-y-3.5">
+                            <!-- Options buttons -->
+                        </div>
+                    </div>
+
+                    <!-- Action Area inside right column to save space -->
+                    <div class="mt-8">
+                        <div id="explanation-panel" class="hidden p-5 rounded-[1.5rem] border-2 transition-all duration-300 mb-5">
+                            <div class="flex items-start gap-4">
+                                <div id="explanation-icon" class="p-1.5 rounded-lg text-white shadow-sm mt-0.5 font-bold flex items-center justify-center w-6 h-6 text-xs"></div>
+                                <div class="flex-1">
+                                    <h4 id="explanation-title" class="font-black text-xs uppercase tracking-wider mb-1">Pembahasan</h4>
+                                    <div id="explanation-text" class="text-xs md:text-sm leading-relaxed text-slate-700"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center gap-4">
+                            <button id="hint-btn" class="flex items-center gap-2 text-xs md:text-sm font-bold text-amber-600 hover:text-white bg-amber-50 hover:bg-amber-500 px-4 py-3 rounded-xl transition-all duration-200 border border-amber-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Petunjuk
+                            </button>
+                            <div class="flex gap-2">
+                                <button id="prev-btn" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all text-xs md:text-sm">
+                                    ← Sblmnya
+                                </button>
+                                <button id="next-btn" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-xl shadow-md shadow-indigo-100 transition-all text-xs md:text-sm flex items-center gap-1.5">
+                                    Berikutnya →
+                                </button>
+                                <button id="submit-quiz-btn" class="hidden px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl shadow-lg transition-all text-xs md:text-sm">
+                                    Kirim Jawaban Akhir 🏁
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="hidden flex-col items-center justify-center text-center py-6 fade-in">
+            <div id="result-medal" class="w-32 h-32 mb-6">
+                <!-- SVG Medal -->
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="40" fill="#fbbf24"/>
+                    <circle cx="50" cy="50" r="32" fill="#f59e0b"/>
+                    <path d="M50 25 L55 38 L68 38 L58 46 L62 58 L50 50 L38 58 L42 46 L32 38 L45 38 Z" fill="#fff"/>
+                </svg>
+            </div>
+            <h2 id="result-title" class="text-3xl md:text-4xl font-black text-gray-800 mb-2 tracking-tight">Kuis Selesai!</h2>
+            <p id="result-subtitle" class="text-slate-500 mb-8 text-base">Berikut adalah ringkasan hasil latihan Anda.</p>
+            
+            <div class="bg-indigo-50 border-2 border-indigo-100 rounded-[2.5rem] p-8 mb-8 w-full max-w-md flex justify-around items-center shadow-inner">
+                <div class="text-center">
+                    <span class="block text-xs font-black text-indigo-400 uppercase mb-1">Benar</span>
+                    <span id="correct-count" class="text-4xl font-black text-indigo-600">0</span>
+                </div>
+                <div class="h-16 w-[2px] bg-indigo-200"></div>
+                <div class="text-center">
+                    <span class="block text-xs font-black text-indigo-400 uppercase mb-1">Skor Akhir</span>
+                    <span id="score-percentage" class="text-4xl font-black text-indigo-600">0</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-lg">
+                <button id="restart-btn" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition-all shadow-xl shadow-indigo-100 w-full">Ulangi Kuis</button>
+                <button id="review-btn" class="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-2xl transition-all w-full">Tinjau Semua Pembahasan</button>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="hidden flex-col h-full fade-in">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b">
+                <h3 class="text-2xl font-black text-gray-800 tracking-tight">Ulasan Jawaban & Pembahasan</h3>
+                <button id="back-to-results-btn" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-xl font-bold hover:bg-indigo-100 transition-colors text-sm">Kembali</button>
+            </div>
+            <div id="review-list" class="space-y-6 overflow-y-auto max-h-[480px] pr-2 custom-scrollbar">
+                <!-- Reviews content -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Petunjuk -->
+    <div id="hint-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-all duration-300">
+        <div class="bg-white rounded-[2rem] p-7 max-w-sm w-full shadow-2xl border border-white/20 transform scale-95 transition-all">
+            <div class="flex items-center gap-4 mb-5">
+                <div class="p-3 bg-amber-100 text-amber-600 rounded-2xl shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+                <h3 class="font-black text-lg text-gray-800">Petunjuk Pengerjaan</h3>
+            </div>
+            <div id="hint-modal-text" class="text-slate-600 text-sm leading-relaxed mb-6"></div>
+            <button id="close-hint-btn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl transition-all shadow-lg shadow-indigo-100">Mengerti, Lanjutkan</button>
+        </div>
+    </div>
+
+    <!-- Footer Credit -->
+    <footer class="mt-6 text-xs text-slate-400">
+        GeoMaster 2.0 © 2026 - Kuis Interaktif Geometri Ruang Lancip & Bola
+    </footer>
+
+    <script>
+        // Helper to update MathJax content safely
+        function typeset() {
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // --- 20 Questions Data (Limas, Kerucut, & Bola with Detailed 3D SVGs) ---
+        const questions = [
+            // --- LIMAS (Q1-Q7) ---
+            {
+                id: 1,
+                question: "Sebuah limas dengan alas persegi memiliki panjang sisi alas $10\\text{ cm}$ dan tinggi limas $12\\text{ cm}$. Hitunglah volume limas tersebut!",
+                hint: "Volume limas dicari dengan rumus: $V = \\frac{1}{3} \\times \\text{Luas Alas} \\times \\text{Tinggi}$. Luas alas persegi adalah $s^2$.",
+                explanation: "Alas persegi dengan sisi $s = 10\\text{ cm}$, maka Luas Alas $= 10 \\times 10 = 100\\text{ cm}^2$.<br>Volume limas $= \\frac{1}{3} \\times 100 \\times 12 = 400\\text{ cm}^3$.",
+                options: [{text:"1.200 cm³", isCorrect:false}, {text:"400 cm³", isCorrect:true}, {text:"300 cm³", isCorrect:false}, {text:"133,3 cm³", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="pyr-grad-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#818cf8"/>
+                            <stop offset="100%" stop-color="#4f46e5"/>
+                        </linearGradient>
+                        <linearGradient id="pyr-grad-right" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#312e81"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Base dashed background -->
+                    <path d="M40 140 L100 115 L160 140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="100" y1="115" x2="100" y2="40" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" /> <!-- Height t -->
+                    <!-- Solid Pyramids Faces -->
+                    <path d="M40 140 L100 160 L100 40 Z" fill="url(#pyr-grad-left)" stroke="#312e81" stroke-width="1.5"/>
+                    <path d="M100 160 L160 140 L100 40 Z" fill="url(#pyr-grad-right)" stroke="#312e81" stroke-width="1.5"/>
+                    <path d="M40 140 L100 160 L160 140" fill="none" stroke="#312e81" stroke-width="2"/>
+                    <!-- Height indicator line -->
+                    <line x1="100" y1="160" x2="100" y2="115" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+                    <!-- Labels -->
+                    <text x="55" y="160" fill="#312e81" font-weight="900" font-size="10">s = 10 cm</text>
+                    <text x="105" y="85" fill="#312e81" font-weight="900" font-size="10">t = 12 cm</text>
+                </svg>`
+            },
+            {
+                id: 2,
+                question: "Sebuah limas segi empat beraturan memiliki rusuk alas $12\\text{ cm}$ dan tinggi segitiga sisi tegak sebesar $10\\text{ cm}$. Berapakah luas permukaan total limas tersebut?",
+                hint: "Luas permukaan limas segi empat beraturan terdiri dari: $\\text{Luas Alas} + 4 \\times \\text{Luas Segitiga Sisi Tegak}$.",
+                explanation: "Luas alas $= s^2 = 12 \\times 12 = 144\\text{ cm}^2$.<br>Luas satu segitiga sisi tegak $= \\frac{1}{2} \\times a \\times t_{segitiga} = \\frac{1}{2} \\times 12 \\times 10 = 60\\text{ cm}^2$.<br>Total Luas Permukaan $= 144 + 4(60) = 144 + 240 = 384\\text{ cm}^2$.",
+                options: [{text:"240 cm²", isCorrect:false}, {text:"384 cm²", isCorrect:true}, {text:"484 cm²", isCorrect:false}, {text:"544 cm²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 140 L100 115 L160 140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <path d="M40 140 L100 160 L100 40 Z" fill="#22d3ee" fill-opacity="0.6" stroke="#0891b2" stroke-width="1.5"/>
+                    <path d="M100 160 L160 140 L100 40 Z" fill="#06b6d4" fill-opacity="0.7" stroke="#0891b2" stroke-width="1.5"/>
+                    <!-- Slope height indicator -->
+                    <line x1="100" y1="40" x2="130" y2="150" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2,2"/>
+                    <circle cx="130" cy="150" r="2.5" fill="#ef4444"/>
+                    <!-- Labels -->
+                    <text x="60" y="160" fill="#0e7490" font-weight="900" font-size="10">12 cm</text>
+                    <text x="125" y="90" fill="#b91c1c" font-weight="900" font-size="10">t_tegak = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 3,
+                question: "Sebuah limas segitiga siku-siku memiliki sisi-sisi alas sepanjang $6\\text{ cm}$, $8\\text{ cm}$, dan $10\\text{ cm}$. Jika tinggi limas tersebut adalah $15\\text{ cm}$, tentukan volumenya!",
+                hint: "Alas segitiga siku-siku menggunakan dua sisi terpendek ($6$ dan $8$) sebagai alas dan tinggi segitiga. Volume $= \\frac{1}{3} \\times \\text{Luas Alas} \\times \\text{Tinggi Limas}$.",
+                explanation: "Luas Alas Segitiga $= \\frac{1}{2} \\times 6 \\times 8 = 24\\text{ cm}^2$.<br>Volume Limas $= \\frac{1}{3} \\times 24 \\times 15 = 120\\text{ cm}^3$.",
+                options: [{text:"120 cm³", isCorrect:true}, {text:"240 cm³", isCorrect:false}, {text:"360 cm³", isCorrect:false}, {text:"720 cm³", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 140 L100 120 L150 145" fill="none" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1.5"/>
+                    <!-- Transparent faces to see inside -->
+                    <path d="M40 140 L100 160 L100 40 Z" fill="#fbbf24" fill-opacity="0.5" stroke="#b45309" stroke-width="1.5"/>
+                    <path d="M100 160 L150 145 L100 40 Z" fill="#f59e0b" fill-opacity="0.6" stroke="#b45309" stroke-width="1.5"/>
+                    <!-- Base outlines -->
+                    <path d="M40 140 L100 160 L150 145" fill="none" stroke="#b45309" stroke-width="2"/>
+                    <text x="50" y="155" fill="#b45309" font-weight="900" font-size="10">6 cm</text>
+                    <text x="120" y="158" fill="#b45309" font-weight="900" font-size="10">8 cm</text>
+                    <text x="105" y="80" fill="#b45309" font-weight="900" font-size="10">t = 15 cm</text>
+                </svg>`
+            },
+            {
+                id: 4,
+                question: "Alas sebuah limas adalah persegi dengan panjang sisi $18\\text{ cm}$. Jika volume limas adalah $1.296\\text{ cm}^3$, berapakah tinggi limas tersebut?",
+                hint: "Gunakan rumus volume $V = \\frac{1}{3} \\times s^2 \\times t$. Substitusi nilai $V$ dan $s$ untuk mencari $t$.",
+                explanation: "Volume $1296 = \\frac{1}{3} \\times 18^2 \\times t$<br>$1296 = \\frac{1}{3} \\times 324 \\times t$<br>$1296 = 108 \\times t$<br>$t = \\frac{1296}{108} = 12\\text{ cm}$.",
+                options: [{text:"10 cm", isCorrect:false}, {text:"12 cm", isCorrect:true}, {text:"15 cm", isCorrect:false}, {text:"18 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 140 L100 115 L160 140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <path d="M40 140 L100 160 L100 40 Z" fill="#ec4899" fill-opacity="0.4" stroke="#be185d" stroke-width="1.5"/>
+                    <path d="M100 160 L160 140 L100 40 Z" fill="#db2777" fill-opacity="0.6" stroke="#be185d" stroke-width="1.5"/>
+                    <line x1="100" y1="115" x2="100" y2="40" stroke="#be185d" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="60" y="160" fill="#be185d" font-weight="900" font-size="10">s = 18 cm</text>
+                    <text x="105" y="75" fill="#be185d" font-weight="900" font-size="10">t = ?</text>
+                </svg>`
+            },
+            {
+                id: 5,
+                question: "Sebuah limas segi empat beraturan memiliki volume $48\\text{ cm}^3$ dan tinggi $9\\text{ cm}$. Berapakah panjang sisi alas persegi limas tersebut?",
+                hint: "$V = \\frac{1}{3} \\times s^2 \\times t$. Cari $s^2$ terlebih dahulu, lalu lakukan akar kuadrat.",
+                explanation: "Volume $48 = \\frac{1}{3} \\times s^2 \\times 9$<br>$48 = 3s^2 \\implies s^2 = 16$<br>$s = \\sqrt{16} = 4\\text{ cm}$.",
+                options: [{text:"4 cm", isCorrect:true}, {text:"6 cm", isCorrect:false}, {text:"8 cm", isCorrect:false}, {text:"16 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M50 140 L100 120 L150 140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <path d="M50 140 L100 160 L100 50 Z" fill="#14b8a6" fill-opacity="0.4" stroke="#0d9488" stroke-width="1.5"/>
+                    <path d="M100 160 L150 140 L100 50 Z" fill="#0d9488" fill-opacity="0.6" stroke="#0d9488" stroke-width="1.5"/>
+                    <text x="65" y="160" fill="#0f766e" font-weight="900" font-size="10">s = ?</text>
+                    <text x="105" y="90" fill="#0f766e" font-weight="900" font-size="10">t = 9 cm</text>
+                </svg>`
+            },
+            {
+                id: 6,
+                question: "Tentukan banyaknya jumlah sisi, rusuk, dan titik sudut pada sebuah limas segi delapan!",
+                hint: "Untuk limas segi-$n$: Sisi $= n+1$, Rusuk $= 2n$, Titik Sudut $= n+1$.",
+                explanation: "Pada limas segi delapan ($n=8$):<br>Sisi $= 8+1 = 9$.<br>Rusuk $= 2 \\times 8 = 16$.<br>Titik Sudut $= 8+1 = 9$.",
+                options: [{text:"9 Sisi, 16 Rusuk, 9 Sudut", isCorrect:true}, {text:"8 Sisi, 16 Rusuk, 8 Sudut", isCorrect:false}, {text:"9 Sisi, 12 Rusuk, 9 Sudut", isCorrect:false}, {text:"10 Sisi, 18 Rusuk, 10 Sudut", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="pyr8-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#a78bfa"/>
+                            <stop offset="100%" stop-color="#6d28d9"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Base Octagon points approximate -->
+                    <path d="M40 140 L60 120 L100 115 L140 120 L160 140 L140 160 L100 165 L60 160 Z" fill="none" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <!-- Pyramids front edges -->
+                    <path d="M40 140 L60 160 L100 165 L140 160 L160 140 L100 40 Z" fill="url(#pyr8-grad)" fill-opacity="0.4" stroke="#4c1d95" stroke-width="1.5"/>
+                    <line x1="60" y1="160" x2="100" y2="40" stroke="#4c1d95" stroke-width="1.5"/>
+                    <line x1="100" y1="165" x2="100" y2="40" stroke="#4c1d95" stroke-width="2"/>
+                    <line x1="140" y1="160" x2="100" y2="40" stroke="#4c1d95" stroke-width="1.5"/>
+                    <text x="50" y="185" fill="#4c1d95" font-weight="900" font-size="11">Limas Segi Delapan</text>
+                </svg>`
+            },
+            {
+                id: 7,
+                question: "Sebuah monumen berbentuk limas persegi memiliki sisi alas $6\\text{ meter}$ dan tinggi $4\\text{ meter}$. Jika seluruh permukaan selimut luarnya (sisi tegak) akan dicat, tentukan total luas bidang yang dicat tersebut!",
+                hint: "Bidang yang dicat hanya selimut luar (4 segitiga). Cari tinggi segitiga ($t_{segitiga}$) menggunakan Pythagoras antara setengah sisi alas ($3\\text{ m}$) dan tinggi limas ($4\\text{ m}$).",
+                explanation: "Setengah sisi alas $= 3\\text{ m}$. Tinggi limas $= 4\\text{ m}$.<br>Tinggi segitiga tegak $= \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ m}$.<br>Luas 4 segitiga selimut $= 4 \\times \\left( \\frac{1}{2} \\times 6 \\times 5 \\right) = 4 \\times 15 = 60\\text{ m}^2$.",
+                options: [{text:"48 m²", isCorrect:false}, {text:"60 m²", isCorrect:true}, {text:"96 m²", isCorrect:false}, {text:"120 m²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 140 L100 115 L160 140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <path d="M40 140 L100 160 L100 40 Z" fill="#fb7185" fill-opacity="0.5" stroke="#e11d48" stroke-width="1.5"/>
+                    <path d="M100 160 L160 140 L100 40 Z" fill="#f43f5e" fill-opacity="0.6" stroke="#e11d48" stroke-width="1.5"/>
+                    <line x1="100" y1="115" x2="100" y2="40" stroke="#9f1239" stroke-width="2" stroke-dasharray="3,3"/>
+                    <text x="60" y="155" fill="#9f1239" font-weight="900" font-size="10">s = 6 m</text>
+                    <text x="105" y="85" fill="#9f1239" font-weight="900" font-size="10">t = 4 m</text>
+                </svg>`
+            },
+
+            // --- KERUCUT (Q8-Q14) ---
+            {
+                id: 8,
+                question: "Sebuah kerucut memiliki jari-jari alas $7\\text{ cm}$ dan tinggi $24\\text{ cm}$. Berapakah panjang garis pelukis ($s$) kerucut tersebut?",
+                hint: "Hubungan $r$, $t$, dan $s$ adalah rumus Pythagoras: $s^2 = r^2 + t^2$.",
+                explanation: "$s = \\sqrt{r^2 + t^2} = \\sqrt{7^2 + 24^2} = \\sqrt{49 + 576} = \\sqrt{625} = 25\\text{ cm}$.",
+                options: [{text:"25 cm", isCorrect:true}, {text:"26 cm", isCorrect:false}, {text:"30 cm", isCorrect:false}, {text:"31 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="cone-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#34d399"/>
+                            <stop offset="100%" stop-color="#059669"/>
+                        </linearGradient>
+                    </defs>
+                    <ellipse cx="100" cy="150" rx="50" ry="18" fill="url(#cone-grad)" fill-opacity="0.3" stroke="#047857" stroke-width="1.5"/>
+                    <path d="M50 150 L100 50 L150 150" fill="none" stroke="#047857" stroke-width="2.5"/>
+                    <line x1="100" y1="150" x2="100" y2="50" stroke="#047857" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="100" y1="150" x2="150" y2="150" stroke="#047857" stroke-width="2"/>
+                    <circle cx="100" cy="150" r="2.5" fill="#047857"/>
+                    <text x="110" y="145" fill="#047857" font-weight="900" font-size="10">r = 7 cm</text>
+                    <text x="70" y="100" fill="#047857" font-weight="900" font-size="10">t = 24 cm</text>
+                    <text x="135" y="95" fill="#b91c1c" font-weight="900" font-size="11">s = ?</text>
+                </svg>`
+            },
+            {
+                id: 9,
+                question: "Berapakah volume kerucut yang memiliki jari-jari alas $10\\text{ cm}$ dan tinggi $18\\text{ cm}$? (Gunakan $\\pi = 3,14$)",
+                hint: "Volume kerucut diperoleh dari: $V = \\frac{1}{3} \\pi r^2 t$.",
+                explanation: "$V = \\frac{1}{3} \\times 3,14 \\times 10^2 \\times 18$<br>$V = 3,14 \\times 100 \\times 6 = 314 \\times 6 = 1.884\\text{ cm}^3$.",
+                options: [{text:"5.652 cm³", isCorrect:false}, {text:"1.884 cm³", isCorrect:true}, {text:"942 cm³", isCorrect:false}, {text:"628 cm³", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <ellipse cx="100" cy="150" rx="50" ry="18" fill="#38bdf8" fill-opacity="0.3" stroke="#0284c7" stroke-width="1.5"/>
+                    <path d="M50 150 L100 50 L150 150" fill="none" stroke="#0284c7" stroke-width="2"/>
+                    <line x1="100" y1="150" x2="100" y2="50" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <text x="105" y="105" fill="#0284c7" font-weight="900" font-size="10">t = 18 cm</text>
+                    <text x="100" y="165" fill="#0284c7" font-weight="900" font-size="10">r = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 10,
+                question: "Sebuah kerucut memiliki jari-jari $6\\text{ cm}$ dan garis pelukis $10\\text{ cm}$. Hitunglah luas permukaan total kerucut tersebut! (Gunakan $\\pi = 3,14$)",
+                hint: "Luas permukaan total kerucut: $L = \\pi r(r + s)$.",
+                explanation: "$L = 3,14 \\times 6 \\times (6 + 10)$<br>$L = 18,84 \\times 16 = 301,44\\text{ cm}^2$.",
+                options: [{text:"113,04 cm²", isCorrect:false}, {text:"188,40 cm²", isCorrect:false}, {text:"301,44 cm²", isCorrect:true}, {text:"376,80 cm²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <ellipse cx="100" cy="150" rx="50" ry="18" fill="#a78bfa" fill-opacity="0.3" stroke="#7c3aed" stroke-width="1.5"/>
+                    <path d="M50 150 L100 50 L150 150" fill="none" stroke="#7c3aed" stroke-width="2"/>
+                    <line x1="100" y1="150" x2="150" y2="150" stroke="#7c3aed" stroke-width="1.5"/>
+                    <text x="105" y="145" fill="#7c3aed" font-weight="900" font-size="10">r = 6 cm</text>
+                    <text x="130" y="100" fill="#7c3aed" font-weight="900" font-size="10">s = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 11,
+                question: "Kubah sebuah bangunan berbentuk setengah bola berdiameter $14\\text{ m}$. Jika permukaan luar kubah akan dilapisi membran anti-air, tentukan luas membran yang dibutuhkan! ($\\pi = \\frac{22}{7}$)",
+                hint: "Diameter $14\\text{ m} \\implies r = 7\\text{ m}$. Luas permukaan setengah bola adalah $2 \\pi r^2$.",
+                explanation: "Luas setengah bola $= 2 \\pi r^2 = 2 \\times \\frac{22}{7} \\times 7 \\times 7 = 2 \\times 22 \\times 7 = 308\\text{ m}^2$.",
+                options: [{text:"154 m²", isCorrect:false}, {text:"308 m²", isCorrect:true}, {text:"616 m²", isCorrect:false}, {text:"1.232 m²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 120 A 60 60 0 0 1 160 120 Z" fill="#f43f5e" fill-opacity="0.5" stroke="#be185d" stroke-width="2.5"/>
+                    <ellipse cx="100" cy="120" rx="60" ry="18" fill="none" stroke="#be185d" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="40" y1="120" x2="160" y2="120" stroke="#be185d" stroke-width="1.5"/>
+                    <circle cx="100" cy="120" r="2.5" fill="#be185d"/>
+                    <text x="80" y="135" fill="#9f1239" font-weight="900" font-size="10">d = 14 m</text>
+                </svg>`
+            },
+            {
+                id: 12,
+                question: "Sebuah wadah berbentuk belahan bola (setengah bola terbuka) memiliki jari-jari $21\\text{ cm}$. Berapakah kapasitas volume maksimum air yang dapat ditampung wadah tersebut? ($\\pi = \\frac{22}{7}$)",
+                hint: "Volume setengah bola: $V = \\frac{2}{3} \\pi r^3$.",
+                explanation: "$V = \\frac{2}{3} \\times \\frac{22}{7} \\times 21 \\times 21 \\times 21$<br>$V = 2 \\times 22 \\times 21 \\times 21 = 44 \\times 441 = 19.404\\text{ cm}^3$.",
+                options: [{text:"9.702 cm³", isCorrect:false}, {text:"19.404 cm³", isCorrect:true}, {text:"38.808 cm³", isCorrect:false}, {text:"5.808 cm³", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <path d="M40 100 A 60 60 0 0 0 160 100" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+                    <path d="M40 100 A 60 60 0 0 0 160 100 Z" fill="#38bdf8" fill-opacity="0.4" stroke="#0284c7" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="100" rx="60" ry="18" fill="#bae6fd" fill-opacity="0.5" stroke="#0284c7" stroke-width="2"/>
+                    <line x1="100" y1="100" x2="160" y2="100" stroke="#0284c7" stroke-width="1.5"/>
+                    <text x="105" y="95" fill="#0369a1" font-weight="900" font-size="10">r = 21 cm</text>
+                </svg>`
+            },
+            {
+                id: 13,
+                question: "Sebuah kerucut memiliki volume $314\\text{ cm}^3$ dan jari-jari alas $10\\text{ cm}$. Hitunglah tinggi kerucut tersebut! ($\\pi = 3,14$)",
+                hint: "$V = \\frac{1}{3} \\pi r^2 t$. Substitusi $V = 314$, $\\pi = 3,14$, dan $r = 10$ untuk mencari $t$.",
+                explanation: "$314 = \\frac{1}{3} \\times 3,14 \\times 10^2 \\times t$<br>$314 = \\frac{1}{3} \\times 314 \\times t \\implies 1 = \\frac{1}{3} t \\implies t = 3\\text{ cm}$.",
+                options: [{text:"3 cm", isCorrect:true}, {text:"5 cm", isCorrect:false}, {text:"9 cm", isCorrect:false}, {text:"10 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <ellipse cx="100" cy="150" rx="50" ry="18" fill="#f472b6" fill-opacity="0.3" stroke="#db2777" stroke-width="1.5"/>
+                    <path d="M50 150 L100 50 L150 150" fill="none" stroke="#db2777" stroke-width="2"/>
+                    <line x1="100" y1="150" x2="100" y2="50" stroke="#db2777" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <text x="105" y="100" fill="#9d174d" font-weight="900" font-size="10">t = ?</text>
+                    <text x="100" y="165" fill="#9d174d" font-weight="900" font-size="10">r = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 14,
+                question: "Sebuah kap lampu hias berbentuk kerucut terpancung dengan jari-jari alas bawah $10\\text{ cm}$, jari-jari atas $5\\text{ cm}$, dan tinggi $12\\text{ cm}$. Jika panjang garis pelukis bagian terpancung tersebut adalah $13\\text{ cm}$, hitunglah luas bahan kain yang dibutuhkan untuk membuat selimut kap lampu tersebut! (Gunakan $\\pi = 3,14$)",
+                hint: "Rumus luas selimut kerucut terpancung: $L = \\pi s (r_1 + r_2)$.",
+                explanation: "$L = 3,14 \\times 13 \\times (10 + 5)$<br>$L = 3,14 \\times 13 \\times 15 = 3,14 \\times 195 = 612,3\\text{ cm}^2$.",
+                options: [{text:"408,2 cm²", isCorrect:false}, {text:"612,3 cm²", isCorrect:true}, {text:"816,4 cm²", isCorrect:false}, {text:"1.224,6 cm²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <ellipse cx="100" cy="150" rx="50" ry="15" fill="#fbbf24" fill-opacity="0.3" stroke="#d97706" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="80" rx="25" ry="8" fill="#fbbf24" fill-opacity="0.5" stroke="#d97706" stroke-width="1.5"/>
+                    <line x1="50" y1="150" x2="75" y2="80" stroke="#d97706" stroke-width="2"/>
+                    <line x1="150" y1="150" x2="125" y2="80" stroke="#d97706" stroke-width="2"/>
+                    <text x="140" y="120" fill="#b45309" font-weight="900" font-size="10">s = 13 cm</text>
+                    <text x="100" y="163" fill="#b45309" font-weight="900" font-size="9">r2 = 10 cm</text>
+                    <text x="100" y="72" fill="#b45309" font-weight="900" font-size="9">r1 = 5 cm</text>
+                </svg>`
+            },
+
+            // --- BOLA (Q15-Q20) ---
+            {
+                id: 15,
+                question: "Sebuah bola sepak memiliki panjang jari-jari $10\\text{ cm}$. Tentukan luas permukaan kulit bola tersebut! (Gunakan $\\pi = 3,14$)",
+                hint: "Luas permukaan bola dicari dengan rumus: $L = 4 \\pi r^2$.",
+                explanation: "$L = 4 \\times 3,14 \\times 10^2 = 4 \\times 3,14 \\times 100 = 4 \\times 314 = 1.256\\text{ cm}^2$.",
+                options: [{text:"314 cm²", isCorrect:false}, {text:"628 cm²", isCorrect:false}, {text:"1.256 cm²", isCorrect:true}, {text:"5.024 cm²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <defs>
+                        <radialGradient id="ball-shading" cx="40%" cy="40%" r="60%">
+                            <stop offset="0%" stop-color="#fb7185"/>
+                            <stop offset="70%" stop-color="#e11d48"/>
+                            <stop offset="100%" stop-color="#880808"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="60" fill="url(#ball-shading)" stroke="#9f1239" stroke-width="2"/>
+                    <ellipse cx="100" cy="100" rx="60" ry="18" fill="none" stroke="#fecdd3" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.8"/>
+                    <line x1="100" y1="100" x2="160" y2="100" stroke="#fff" stroke-width="2"/>
+                    <circle cx="100" cy="100" r="3" fill="#fff"/>
+                    <text x="110" y="92" fill="#fff" font-weight="900" font-size="10">r = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 16,
+                question: "Berapakah volume bola gas raksasa yang memiliki diameter $42\\text{ m}$? ($\\pi = \\frac{22}{7}$)",
+                hint: "Diameter $42\\text{ m} \\implies r = 21\\text{ m}$. Rumus volume bola adalah $V = \\frac{4}{3} \\pi r^3$.",
+                explanation: "$V = \\frac{4}{3} \\times \\frac{22}{7} \\times 21^3$<br>$V = \\frac{4}{3} \\times \\frac{22}{7} \\times 21 \\times 21 \\times 21$<br>$V = 4 \\times 22 \\times 21 \\times 21 = 88 \\times 441 = 38.808\\text{ m}^3$.",
+                options: [{text:"19.404 m³", isCorrect:false}, {text:"38.808 m³", isCorrect:true}, {text:"116.424 m³", isCorrect:false}, {text:"155.232 m³", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <defs>
+                        <radialGradient id="gas-shading" cx="35%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="60%" stop-color="#0284c7"/>
+                            <stop offset="100%" stop-color="#1e3a8a"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="60" fill="url(#gas-shading)" stroke="#1e3a8a" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="100" rx="60" ry="18" fill="none" stroke="#bae6fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="40" y1="100" x2="160" y2="100" stroke="#fff" stroke-width="2"/>
+                    <text x="80" y="118" fill="#fff" font-weight="900" font-size="10">d = 42 m</text>
+                </svg>`
+            },
+            {
+                id: 17,
+                question: "Sebuah kubah masjid berbentuk setengah bola padat (pejal) dengan jari-jari $10\\text{ cm}$. Hitunglah luas permukaan total setengah bola padat tersebut! (Gunakan $\\pi = 3,14$)",
+                hint: "Luas permukaan setengah bola padat mencakup luas selimut ($2\\pi r^2$) ditambah luas lingkaran penampang alas ($\\pi r^2$), sehingga rumusnya menjadi $3 \\pi r^2$.",
+                explanation: "$L = 3 \\pi r^2 = 3 \\times 3,14 \\times 10^2 = 3 \\times 314 = 942\\text{ cm}^2$.",
+                options: [{text:"628 cm²", isCorrect:false}, {text:"942 cm²", isCorrect:true}, {text:"1.256 cm²", isCorrect:false}, {text:"1.570 cm²", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <!-- Shaded solid hemisphere -->
+                    <path d="M40 120 A 60 60 0 0 1 160 120 Z" fill="#10b981" fill-opacity="0.6" stroke="#047857" stroke-width="2"/>
+                    <ellipse cx="100" cy="120" rx="60" ry="18" fill="#a7f3d0" stroke="#047857" stroke-width="2"/>
+                    <line x1="100" y1="120" x2="160" y2="120" stroke="#047857" stroke-width="1.5"/>
+                    <text x="110" y="115" fill="#047857" font-weight="900" font-size="10">r = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: 18,
+                question: "Jika luas permukaan sebuah bola adalah $616\\text{ cm}^2$, tentukan panjang jari-jari bola tersebut! ($\\pi = \\frac{22}{7}$)",
+                hint: "Luas Bola $L = 4 \\pi r^2$. Substitusi nilai $L = 616$ untuk mencari $r$.",
+                explanation: "$616 = 4 \\times \\frac{22}{7} \\times r^2$<br>$616 = \\frac{88}{7} r^2$<br>$r^2 = 616 \\times \\frac{7}{88} = 7 \\times 7 = 49$<br>$r = \\sqrt{49} = 7\\text{ cm}$.",
+                options: [{text:"3,5 cm", isCorrect:false}, {text:"7 cm", isCorrect:true}, {text:"14 cm", isCorrect:false}, {text:"21 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <circle cx="100" cy="100" r="55" fill="#f59e0b" fill-opacity="0.4" stroke="#d97706" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="100" rx="55" ry="15" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="100" y1="100" x2="155" y2="100" stroke="#d97706" stroke-width="2"/>
+                    <circle cx="100" cy="100" r="2.5" fill="#d97706"/>
+                    <text x="110" y="92" fill="#b45309" font-weight="900" font-size="10">r = ?</text>
+                    <text x="50" y="170" fill="#b45309" font-weight="900" font-size="11">Luas = 616 cm²</text>
+                </svg>`
+            },
+            {
+                id: 19,
+                question: "Tiga buah bola logam kecil berdiameter $12\\text{ cm}$ dilebur untuk dibuat menjadi satu bola besar. Berapakah diameter bola baru yang terbentuk?",
+                hint: "Volume bola besar sama dengan $3 \\times$ volume bola kecil. Ingat diameter $12\\text{ cm} \\implies r = 6\\text{ cm}$.",
+                explanation: "Volume 3 bola kecil $= 3 \\times \\left(\\frac{4}{3} \\pi r_k^3\\right) = 4 \\pi (6^3) = 4 \\pi \\times 216 = 864\\pi$.<br>Volume bola baru $= \\frac{4}{3} \\pi r_b^3 = 864\\pi \\implies r_b^3 = 864 \\times \\frac{3}{4} = 648$.<br>$r_b = \\sqrt[3]{648} = 6\\sqrt[3]{3}\\text{ cm}$. Jari-jari bola besar $\\approx 8,65\\text{ cm}$, diameter $\\approx 17,3\\text{ cm}$.<br>Jika didekati secara intuitif rumus volume: $r_b = r_k \\times \\sqrt[3]{3} = 6 \\times 1,44 = 8,64\\text{ cm} \\implies d_b = 2 \\times 8,64 \\approx 17,3\\text{ cm}$.",
+                options: [{text:"12,0 cm", isCorrect:false}, {text:"17,3 cm", isCorrect:true}, {text:"24,0 cm", isCorrect:false}, {text:"36,0 cm", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <!-- Three small spheres -->
+                    <circle cx="50" cy="60" r="15" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+                    <circle cx="85" cy="60" r="15" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+                    <circle cx="120" cy="60" r="15" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+                    <text x="70" y="90" fill="#475569" font-weight="900" font-size="14">>→</text>
+                    <!-- One large sphere -->
+                    <circle cx="100" cy="135" r="28" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="135" rx="28" ry="8" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+                </svg>`
+            },
+            {
+                id: 20,
+                question: "Sebuah tabung memiliki jari-jari dan tinggi yang sama dengan jari-jari sebuah bola ($r$). Berapakah perbandingan volume bola tersebut dengan volume tabung?",
+                hint: "$V_{bola} = \\frac{4}{3} \\pi r^3$ dan $V_{tabung} = \\pi r^2 t$. Karena $t = r$, maka $V_{tabung} = \\pi r^3$. Bandingkan keduanya.",
+                explanation: "Volume Bola $= \\frac{4}{3}\\pi r^3$.<br>Volume Tabung $= \\pi r^2 (r) = \\pi r^3$.<br>Perbandingan: $\\frac{Volume\\ Bola}{Volume\\ Tabung} = \\frac{\\frac{4}{3}\\pi r^3}{\\pi r^3} = \\frac{4}{3} = 4 : 3$.",
+                options: [{text:"2 : 3", isCorrect:false}, {text:"3 : 4", isCorrect:false}, {text:"4 : 3", isCorrect:true}, {text:"1 : 3", isCorrect:false}],
+                svg: `
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                    <!-- Sphere inside Cylinder comparison -->
+                    <rect x="65" y="60" width="70" height="70" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <ellipse cx="100" cy="60" rx="35" ry="10" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <ellipse cx="100" cy="130" rx="35" ry="10" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <line x1="65" y1="60" x2="65" y2="130" stroke="#64748b" stroke-width="1.5"/>
+                    <line x1="135" y1="60" x2="135" y2="130" stroke="#64748b" stroke-width="1.5"/>
+                    <!-- Sphere -->
+                    <circle cx="100" cy="95" r="35" fill="#6366f1" fill-opacity="0.4" stroke="#4f46e5" stroke-width="2"/>
+                    <ellipse cx="100" cy="95" rx="35" ry="10" fill="none" stroke="#a5b4fc" stroke-width="1" stroke-dasharray="2,2"/>
+                </svg>`
+            }
+        ];
+
+        // --- Core App Logic ---
+        let currentIdx = 0;
+        let userAnswers = Array(20).fill(null); // stores index of chosen options or null if not answered
+
+        const elements = {
+            welcome: document.getElementById('welcome-screen'),
+            quiz: document.getElementById('quiz-screen'),
+            result: document.getElementById('result-screen'),
+            review: document.getElementById('review-screen'),
+            progressText: document.getElementById('progress-text'),
+            progressBar: document.getElementById('progress-bar'),
+            navDots: document.getElementById('nav-dots-container'),
+            svg: document.getElementById('svg-container'),
+            question: document.getElementById('question-text'),
+            options: document.getElementById('options-container'),
+            explanation: document.getElementById('explanation-panel'),
+            explanationText: document.getElementById('explanation-text'),
+            explanationTitle: document.getElementById('explanation-title'),
+            explanationIcon: document.getElementById('explanation-icon'),
+            prevBtn: document.getElementById('prev-btn'),
+            nextBtn: document.getElementById('next-btn'),
+            submitQuizBtn: document.getElementById('submit-quiz-btn'),
+            hintModal: document.getElementById('hint-modal'),
+            hintText: document.getElementById('hint-modal-text'),
+            scoreVal: document.getElementById('score-val')
+        };
+
+        // Initialize App
+        function initApp() {
+            createNavigationGrid();
+            document.getElementById('start-btn').onclick = startQuiz;
+            document.getElementById('hint-btn').onclick = showHint;
+            document.getElementById('close-hint-btn').onclick = () => elements.hintModal.classList.add('hidden');
+            elements.prevBtn.onclick = prevQuestion;
+            elements.nextBtn.onclick = nextQuestion;
+            elements.submitQuizBtn.onclick = evaluateAndFinish;
+            document.getElementById('restart-btn').onclick = () => location.reload();
+            document.getElementById('review-btn').onclick = showReviewScreen;
+            document.getElementById('back-to-results-btn').onclick = () => {
+                elements.review.classList.add('hidden');
+                elements.result.classList.remove('hidden');
+            };
+        }
+
+        function startQuiz() {
+            elements.welcome.classList.add('hidden');
+            elements.quiz.classList.remove('hidden');
+            loadQuestion(0);
+        }
+
+        // Render the navigation number grid
+        function createNavigationGrid() {
+            elements.navDots.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const btn = document.createElement('button');
+                btn.id = `nav-btn-${i}`;
+                btn.className = "w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all border shadow-sm ";
+                btn.innerText = i + 1;
+                btn.title = `Lompat ke Soal ${i+1}`;
+                
+                // Color states for uncompleted
+                btn.className += "bg-white text-slate-600 border-slate-200 hover:bg-indigo-50 hover:text-indigo-600";
+                
+                btn.onclick = () => {
+                    if (elements.quiz.classList.contains('hidden')) return;
+                    loadQuestion(i);
+                };
+                elements.navDots.appendChild(btn);
+            }
+        }
+
+        // Load targeted question
+        function loadQuestion(index) {
+            currentIdx = index;
+            const q = questions[currentIdx];
+
+            // Update Progress Header
+            elements.progressText.innerText = `Soal ${currentIdx + 1} dari 20`;
+            elements.progressBar.style.width = `${((currentIdx + 1) / 20) * 100}%`;
+
+            // Active Class styling for Nav Grid
+            for (let i = 0; i < 20; i++) {
+                const navBtn = document.getElementById(`nav-btn-${i}`);
+                // reset basic styling but preserve state
+                navBtn.classList.remove('ring-4', 'ring-indigo-300', 'scale-110', 'border-indigo-600');
+                
+                if (userAnswers[i] !== null) {
+                    // answered
+                    navBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+                    navBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+                } else {
+                    // unanswered
+                    navBtn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                    navBtn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+                }
+            }
+
+            // Highlight current active index
+            const activeBtn = document.getElementById(`nav-btn-${currentIdx}`);
+            activeBtn.classList.add('ring-4', 'ring-indigo-300', 'scale-110', 'border-indigo-600');
+
+            // Render SVGs and Questions
+            elements.svg.innerHTML = q.svg;
+            elements.question.innerHTML = q.question;
+            
+            // Render Options
+            elements.options.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border-2 font-bold text-slate-700 transition-all flex justify-between items-center group text-sm md:text-base ";
+                
+                // Check if user has already answered this question
+                if (userAnswers[currentIdx] !== null) {
+                    // Question has been answered
+                    const chosenIdx = userAnswers[currentIdx];
+                    
+                    if (idx === q.options.findIndex(o => o.isCorrect)) {
+                        // Mark correct answer Green
+                        btn.className += "border-emerald-500 bg-emerald-50 text-emerald-800";
+                        btn.innerHTML = `<span>${String.fromCharCode(65+idx)}. ${opt.text}</span><div class="w-5 h-5 rounded-full bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center text-white text-xs">✓</div>`;
+                    } else if (idx === chosenIdx) {
+                        // Mark wrong chosen answer Red
+                        btn.className += "border-rose-500 bg-rose-50 text-rose-800";
+                        btn.innerHTML = `<span>${String.fromCharCode(65+idx)}. ${opt.text}</span><div class="w-5 h-5 rounded-full bg-rose-500 border-2 border-rose-500 flex items-center justify-center text-white text-xs">✕</div>`;
+                    } else {
+                        // Regular neutral answered options
+                        btn.className += "border-slate-100 bg-white opacity-60";
+                        btn.innerHTML = `<span>${String.fromCharCode(65+idx)}. ${opt.text}</span><div class="w-5 h-5 rounded-full border-2 border-slate-200"></div>`;
+                    }
+                } else {
+                    // Unanswered state (Active interaction possible)
+                    btn.className += "border-slate-100 bg-white hover:border-indigo-200 hover:bg-indigo-50/20";
+                    btn.innerHTML = `<span>${String.fromCharCode(65+idx)}. ${opt.text}</span><div class="w-5 h-5 rounded-full border-2 border-slate-200 group-hover:border-indigo-400"></div>`;
+                    btn.onclick = () => selectAnswer(idx);
+                }
+                
+                elements.options.appendChild(btn);
+            });
+
+            // Handle bottom explanation display
+            if (userAnswers[currentIdx] !== null) {
+                const chosenIdx = userAnswers[currentIdx];
+                const isCorrect = q.options[chosenIdx].isCorrect;
+                
+                elements.explanation.classList.remove('hidden');
+                if (isCorrect) {
+                    elements.explanation.className = "p-5 rounded-[1.5rem] border-2 border-emerald-100 bg-emerald-50/50 text-emerald-950 block";
+                    elements.explanationIcon.className = "p-1.5 rounded-lg text-white shadow-sm mt-0.5 bg-emerald-500 flex items-center justify-center w-6 h-6 text-xs";
+                    elements.explanationIcon.innerHTML = "✓";
+                    elements.explanationTitle.innerText = "Benar!";
+                } else {
+                    elements.explanation.className = "p-5 rounded-[1.5rem] border-2 border-rose-100 bg-rose-50/50 text-rose-950 block";
+                    elements.explanationIcon.className = "p-1.5 rounded-lg text-white shadow-sm mt-0.5 bg-rose-500 flex items-center justify-center w-6 h-6 text-xs";
+                    elements.explanationIcon.innerHTML = "✕";
+                    elements.explanationTitle.innerText = "Kurang Tepat";
+                }
+                elements.explanationText.innerHTML = q.explanation;
+            } else {
+                elements.explanation.classList.add('hidden');
+            }
+
+            // Manage navigation buttons visibility
+            if (currentIdx === 0) {
+                elements.prevBtn.classList.add('invisible');
+            } else {
+                elements.prevBtn.classList.remove('invisible');
+            }
+
+            // Check if all answered to display global Submit button
+            const totalAnswered = userAnswers.filter(ans => ans !== null).length;
+            if (totalAnswered === 20 || currentIdx === 19) {
+                elements.submitQuizBtn.classList.remove('hidden');
+                elements.nextBtn.classList.add('hidden');
+            } else {
+                elements.submitQuizBtn.classList.add('hidden');
+                elements.nextBtn.classList.remove('hidden');
+            }
+
+            typeset();
+        }
+
+        // Process answer selection
+        function selectAnswer(optIdx) {
+            if (userAnswers[currentIdx] !== null) return; // Prevent double submits
+
+            userAnswers[currentIdx] = optIdx;
+            
+            // Dynamically recalculate live score
+            let currentScore = 0;
+            userAnswers.forEach((ansIdx, qIdx) => {
+                if (ansIdx !== null && questions[qIdx].options[ansIdx].isCorrect) {
+                    currentScore++;
+                }
+            });
+            elements.scoreVal.innerText = currentScore;
+
+            // Reload the current question view to trigger evaluation colors
+            loadQuestion(currentIdx);
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                loadQuestion(currentIdx - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < 19) {
+                loadQuestion(currentIdx + 1);
+            }
+        }
+
+        function showHint() {
+            elements.hintText.innerHTML = questions[currentIdx].hint;
+            elements.hintModal.classList.remove('hidden');
+            typeset();
+        }
+
+        // Process final calculations and present screen
+        function evaluateAndFinish() {
+            const unansweredCount = userAnswers.filter(ans => ans === null).length;
+            
+            if (unansweredCount > 0) {
+                // Warn user before finishing if there are skipped numbers
+                const confirmFinish = confirm(`Terdapat ${unansweredCount} soal yang belum Anda jawab. Apakah Anda yakin ingin mengirim kuis dan melihat hasil akhir?`);
+                if (!confirmFinish) return;
+            }
+
+            let finalScore = 0;
+            userAnswers.forEach((ansIdx, qIdx) => {
+                if (ansIdx !== null && questions[qIdx].options[ansIdx].isCorrect) {
+                    finalScore++;
+                }
+            });
+
+            elements.quiz.classList.add('hidden');
+            elements.result.classList.remove('hidden');
+            
+            document.getElementById('correct-count').innerText = finalScore;
+            document.getElementById('score-percentage').innerText = Math.round((finalScore / 20) * 100) + "%";
+        }
+
+        // Show detailed final review screen
+        function showReviewScreen() {
+            elements.result.classList.add('hidden');
+            elements.review.classList.remove('hidden');
+            
+            const list = document.getElementById('review-list');
+            list.innerHTML = '';
+            
+            questions.forEach((q, i) => {
+                const chosenIdx = userAnswers[i];
+                const isCorrect = chosenIdx !== null && q.options[chosenIdx].isCorrect;
+                
+                const card = document.createElement('div');
+                card.className = `p-5 md:p-6 rounded-3xl border-2 transition-all duration-200 ${isCorrect ? 'border-emerald-100 bg-emerald-50/20' : 'border-rose-100 bg-rose-50/20'}`;
+                
+                const userAnswerText = chosenIdx !== null ? q.options[chosenIdx].text : '<span class="text-slate-400 italic font-normal">Tidak Dijawab (Dilewati)</span>';
+                const correctAnswerText = q.options.find(o => o.isCorrect).text;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-black uppercase tracking-wider text-slate-400">Soal ${i+1}</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full font-extrabold ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                            ${isCorrect ? 'BENAR' : 'SALAH / DILEWATI'}
+                        </span>
+                    </div>
+                    <div class="text-slate-800 font-bold mb-4 text-sm md:text-base">${q.question}</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <div class="p-3.5 bg-white/70 rounded-xl border border-slate-100 text-xs md:text-sm">
+                            <span class="block text-[10px] text-slate-400 font-black uppercase mb-1">Jawaban Anda</span>
+                            <span class="${isCorrect ? 'text-emerald-700 font-extrabold' : 'text-rose-700 font-extrabold'}">${userAnswerText}</span>
+                        </div>
+                        <div class="p-3.5 bg-white/70 rounded-xl border border-slate-100 text-xs md:text-sm">
+                            <span class="block text-[10px] text-slate-400 font-black uppercase mb-1">Jawaban Benar</span>
+                            <span class="text-emerald-700 font-extrabold">${correctAnswerText}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-white/90 rounded-2xl text-xs md:text-sm leading-relaxed border border-slate-100 shadow-sm">
+                        <strong class="text-indigo-800 font-bold block mb-1">Pembahasan Lengkap:</strong>
+                        <div>${q.explanation}</div>
+                    </div>
+                `;
+                
+                list.appendChild(card);
+            });
+            typeset();
+        }
+
+        // Run application
+        window.onload = () => {
+            initApp();
+            typeset();
+        }
+    </script>
+</body>
+</html>
