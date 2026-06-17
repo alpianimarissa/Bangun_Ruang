@@ -121,7 +121,7 @@
         </div>
         <div class="flex justify-between text-xs text-slate-600">
           <span>Tingkat Advance:</span>
-          <span class="font-bold class text-slate-800">12 Soal</span>
+          <span class="font-bold text-slate-800">12 Soal</span>
         </div>
       </div>
     </aside>
@@ -132,7 +132,7 @@
       <!-- Question Card Wrapper -->
       <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row min-h-[500px]">
         
-        <!-- Left half of Question Card: Interactive 3D SVG & Controls -->
+        <!-- Left half of Question Card: Schematic Visual Layout (Sliders Removed) -->
         <div class="w-full md:w-[45%] bg-slate-900 text-white p-6 flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
           <!-- Background glow effect -->
           <div class="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -149,24 +149,18 @@
           </div>
 
           <!-- Interactive SVG Frame -->
-          <div class="flex-1 flex flex-col items-center justify-center py-6 min-h-[250px] svg-container relative z-10">
+          <div class="flex-1 flex flex-col items-center justify-center py-6 min-h-[300px] svg-container relative z-10">
             <div id="svg-drawing-area" class="w-full flex justify-center items-center">
               <!-- Inline SVG is rendered here -->
             </div>
           </div>
 
-          <!-- Interactive Dimension Slider Controls -->
-          <div class="relative z-10 bg-slate-800/60 backdrop-blur-sm p-4 rounded-xl border border-slate-700/50">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                <i class="fa-solid fa-sliders text-indigo-400"></i> Simulasi Ukuran
-              </span>
-              <span id="interactive-status-text" class="text-xxs text-emerald-400 font-semibold bg-emerald-900/40 px-2 py-0.5 rounded-full border border-emerald-500/20">Interaktif</span>
-            </div>
-            
-            <div id="sliders-container" class="space-y-3">
-              <!-- Generated Dynamically by JS based on Shape Type -->
-            </div>
+          <!-- Schematic info card -->
+          <div class="relative z-10 bg-slate-800/40 p-4 rounded-xl border border-slate-700/30 text-center">
+            <span class="text-xs font-bold text-slate-400 flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-drafting-compass text-sky-400 animate-spin-slow"></i> Ilustrasi Skematis Bangun Ruang
+            </span>
+            <p class="text-[10px] text-slate-500 mt-1">Garis dimensi menunjukkan variabel parameter yang digunakan dalam soal.</p>
           </div>
         </div>
 
@@ -244,218 +238,218 @@
   <footer class="bg-slate-900 text-slate-400 text-center py-6 border-t border-slate-800 mt-12">
     <div class="max-w-7xl mx-auto px-4 text-xs font-medium">
       <p class="mb-1">&copy; 2026 GeoMaster 3D. Dibuat khusus untuk penguasaan visualisasi dan hitungan ruang secara mendalam.</p>
-      <p class="text-slate-600">Tekan tombol dimensi slider pada panel gambar untuk mengeksplorasi perubahan volume/luas secara dinamis.</p>
+      <p class="text-slate-600">Pilihan jawaban telah diacak secara sistematis untuk menjaga integritas pembelajaran mandiri.</p>
     </div>
   </footer>
 
   <!-- JavaScript Core -->
   <script>
-    // --- DATABASE SOAL (40 SOAL) ---
+    // --- DATABASE SOAL (40 SOAL - BARU) ---
     const questions = [
-      // KUBUS & BALOK (Muda - Soal Langsung)
+      // KUBUS & BALOK (Mudah)
       {
         id: 1,
         category: "KUBUS",
         difficulty: "Mudah",
         type: "kubus",
-        question: "Sebuah kubus memiliki panjang rusuk $s = 6$ cm. Berapakah volume dan luas permukaan kubus tersebut?",
+        question: "Sebuah kubus memiliki panjang rusuk $s = 8$ cm. Berapakah volume dan luas permukaan kubus tersebut?",
         options: [
-          "Volume = $216$ cm³ dan Luas Permukaan = $216$ cm²",
-          "Volume = $144$ cm³ dan Luas Permukaan = $216$ cm²",
-          "Volume = $216$ cm³ dan Luas Permukaan = $144$ cm²",
-          "Volume = $36$ cm³ dan Luas Permukaan = $216$ cm²"
+          "Volume = $512$ cm³ dan Luas Permukaan = $384$ cm²",
+          "Volume = $384$ cm³ dan Luas Permukaan = $512$ cm²",
+          "Volume = $512$ cm³ dan Luas Permukaan = $256$ cm²",
+          "Volume = $256$ cm³ dan Luas Permukaan = $384$ cm²"
         ],
         correctIndex: 0,
-        hint: "Volume kubus dirumuskan $V = s^3$ sedangkan luas permukaan $L = 6s^2$. Coba kuadratkan dan pangkatkan angka 6.",
-        explanation: "Volume kubus $V = s^3 = 6^3 = 216$ cm³.<br>Luas Permukaan $L = 6 \\times s^2 = 6 \\times 6^2 = 6 \\times 36 = 216$ cm².<br>Menariknya, pada kubus bersisi 6 cm, nilai numerik volume dan luas permukaannya sama persis!",
-        defaultParams: { s: 6 }
+        hint: "Volume kubus dirumuskan $V = s^3$ sedangkan luas permukaan $L = 6s^2$. Kuadratkan dan pangkatkan angka 8.",
+        explanation: "Volume kubus $V = s^3 = 8^3 = 512$ cm³.<br>Luas Permukaan $L = 6s^2 = 6 \\times 8^2 = 6 \\times 64 = 384$ cm².",
+        defaultParams: { s: 8 }
       },
       {
         id: 2,
         category: "BALOK",
         difficulty: "Mudah",
         type: "balok",
-        question: "Sebuah balok memiliki ukuran panjang $p = 10$ cm, lebar $l = 5$ cm, dan tinggi $t = 4$ cm. Berapakah volume dan luas permukaan balok tersebut?",
+        question: "Sebuah balok memiliki ukuran panjang $p = 12$ cm, lebar $l = 6$ cm, dan tinggi $t = 5$ cm. Berapakah volume dan luas permukaan balok tersebut?",
         options: [
-          "Volume = $200$ cm³ dan Luas Permukaan = $220$ cm²",
-          "Volume = $180$ cm³ dan Luas Permukaan = $190$ cm²",
-          "Volume = $200$ cm³ dan Luas Permukaan = $110$ cm²",
-          "Volume = $220$ cm³ dan Luas Permukaan = $200$ cm²"
+          "Volume = $360$ cm³ dan Luas Permukaan = $324$ cm²",
+          "Volume = $324$ cm³ dan Luas Permukaan = $360$ cm²",
+          "Volume = $360$ cm³ dan Luas Permukaan = $162$ cm²",
+          "Volume = $180$ cm³ dan Luas Permukaan = $324$ cm²"
         ],
         correctIndex: 0,
         hint: "Gunakan rumus Volume $V = p \\times l \\times t$ dan Luas Permukaan $L = 2(pl + pt + lt)$.",
-        explanation: "Volume $V = 10 \\times 5 \\times 4 = 200$ cm³.<br>Luas permukaan $L = 2(pl + pt + lt) = 2(10\\times5 + 10\\times4 + 5\\times4) = 2(50 + 40 + 20) = 2 \\times 110 = 220$ cm².",
-        defaultParams: { p: 10, l: 5, t: 4 }
+        explanation: "Volume $V = 12 \\times 6 \\times 5 = 360$ cm³.<br>Luas permukaan $L = 2(pl + pt + lt) = 2(12\\times6 + 12\\times5 + 6\\times5) = 2(72 + 60 + 30) = 2 \\times 162 = 324$ cm².",
+        defaultParams: { p: 12, l: 6, t: 5 }
       },
       {
         id: 3,
         category: "TABUNG",
         difficulty: "Mudah",
         type: "tabung",
-        question: "Sebuah tabung memiliki jari-jari alas $r = 7$ cm dan tinggi $t = 10$ cm. Berapakah volume tabung tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah tabung memiliki jari-jari alas $r = 14$ cm dan tinggi $t = 10$ cm. Berapakah volume tabung tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Volume = $1.540$ cm³",
-          "Volume = $770$ cm³",
+          "Volume = $6.160$ cm³",
           "Volume = $3.080$ cm³",
-          "Volume = $1.450$ cm³"
+          "Volume = $1.540$ cm³",
+          "Volume = $12.320$ cm³"
         ],
         correctIndex: 0,
         hint: "Rumus volume tabung adalah $V = \\pi r^2 t$. Substitusikan jari-jari dan tinggi ke rumus.",
-        explanation: "Volume $V = \\pi r^2 t = \\frac{22}{7} \\times 7 \\times 7 \\times 10 = 22 \\times 7 \\times 10 = 154 \\times 10 = 1.540$ cm³.",
-        defaultParams: { r: 7, t: 10 }
+        explanation: "Volume $V = \\pi r^2 t = \\frac{22}{7} \\times 14 \\times 14 \\times 10 = 22 \\times 28 \\times 10 = 616 \\times 10 = 6.160$ cm³.",
+        defaultParams: { r: 14, t: 10 }
       },
       {
         id: 4,
         category: "TABUNG",
         difficulty: "Mudah",
         type: "tabung",
-        question: "Hitunglah luas permukaan lengkap (dengan tutup) sebuah tabung yang memiliki jari-jari alas $r = 14$ cm dan tinggi $t = 15$ cm! (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Hitunglah luas permukaan lengkap (dengan tutup) sebuah tabung yang memiliki jari-jari alas $r = 7$ cm dan tinggi $t = 12$ cm! (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Luas Permukaan = $2.552$ cm²",
-          "Luas Permukaan = $1.320$ cm²",
-          "Luas Permukaan = $1.232$ cm²",
-          "Luas Permukaan = $3.784$ cm²"
+          "Luas Permukaan = $836$ cm²",
+          "Luas Permukaan = $418$ cm²",
+          "Luas Permukaan = $528$ cm²",
+          "Luas Permukaan = $1.056$ cm²"
         ],
         correctIndex: 0,
         hint: "Luas permukaan tabung lengkap adalah $L = 2\\pi r(r + t)$. Hitung terlebih dahulu jumlah $r + t$.",
-        explanation: "Luas permukaan $L = 2 \\pi r (r + t) = 2 \\times \\frac{22}{7} \\times 14 \\times (14 + 15) = 2\\times22\\times2 \\times 29 = 88 \\times 29 = 2.552$ cm².",
-        defaultParams: { r: 14, t: 15 }
+        explanation: "Luas permukaan $L = 2 \\pi r (r + t) = 2 \\times \\frac{22}{7} \\times 7 \\times (7 + 12) = 44 \\times 19 = 836$ cm².",
+        defaultParams: { r: 7, t: 12 }
       },
       {
         id: 5,
         category: "KERUCUT",
         difficulty: "Mudah",
         type: "kerucut",
-        question: "Sebuah kerucut memiliki jari-jari alas $r = 6$ cm, tinggi $t = 8$ cm, dan panjang garis pelukis $s = 10$ cm. Hitunglah volume dan luas permukaannya! (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah kerucut memiliki jari-jari alas $r = 5$ cm, tinggi $t = 12$ cm, dan panjang garis pelukis $s = 13$ cm. Hitunglah volume dan luas permukaannya! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume = $301,44$ cm³ dan Luas Permukaan = $301,44$ cm²",
-          "Volume = $100,48$ cm³ dan Luas Permukaan = $188,4$ cm²",
-          "Volume = $301,44$ cm³ dan Luas Permukaan = $188,4$ cm²",
-          "Volume = $904,32$ cm³ dan Luas Permukaan = $301,44$ cm²"
+          "Volume = $314$ cm³ dan Luas Permukaan = $282,6$ cm²",
+          "Volume = $282,6$ cm³ dan Luas Permukaan = $314$ cm²",
+          "Volume = $104,67$ cm³ dan Luas Permukaan = $204,1$ cm²",
+          "Volume = $314$ cm³ dan Luas Permukaan = $204,1$ cm²"
         ],
         correctIndex: 0,
         hint: "Volume kerucut $V = \\frac{1}{3} \\pi r^2 t$ dan Luas Permukaan $L = \\pi r (r + s)$.",
-        explanation: "Volume $V = \\frac{1}{3} \\times 3,14 \\times 6^2 \\times 8 = \\frac{1}{3} \\times 3,14 \\times 36 \\times 8 = 12 \\times 3,14 \\times 8 = 301,44$ cm³.<br>Luas permukaan $L = \\pi r(r + s) = 3,14 \\times 6 \\times (6 + 10) = 18,84 \\times 16 = 301,44$ cm².<br>Kedua nilai bernilai numerik sama secara kebetulan!",
-        defaultParams: { r: 6, t: 8, s: 10 }
+        explanation: "Volume $V = \\frac{1}{3} \\times 3,14 \\times 5^2 \\times 12 = 4 \\times 3,14 \\times 25 = 314$ cm³.<br>Luas permukaan $L = \\pi r(r + s) = 3,14 \\times 5 \\times (5 + 13) = 15,7 \\times 18 = 282,6$ cm².",
+        defaultParams: { r: 5, t: 12, s: 13 }
       },
       {
         id: 6,
         category: "BOLA",
         difficulty: "Mudah",
         type: "bola",
-        question: "Sebuah bola memiliki jari-jari $r = 21$ cm. Berapakah volume bola tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah bola memiliki jari-jari $r = 10,5$ cm. Berapakah volume bola tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Volume = $38.808$ cm³",
-          "Volume = $19.404$ cm³",
-          "Volume = $5.544$ cm³",
-          "Volume = $12.936$ cm³"
+          "Volume = $4.851$ cm³",
+          "Volume = $2.425,5$ cm³",
+          "Volume = $1.386$ cm³",
+          "Volume = $9.702$ cm³"
         ],
         correctIndex: 0,
-        hint: "Rumus volume bola adalah $V = \\frac{4}{3} \\pi r^3$. Pastikan membagi sisa pembagian jari-jari dengan benar.",
-        explanation: "Volume $V = \\frac{4}{3} \\pi r^3 = \\frac{4}{3} \\times \\frac{22}{7} \\times 21 \\times 21 \\times 21 = 4 \\times 22 \\times (21/21) \\times 21 \\times 21 = 88 \\times 441 = 38.808$ cm³.",
-        defaultParams: { r: 21 }
+        hint: "Rumus volume bola adalah $V = \\frac{4}{3} \\pi r^3$. Tips: ubah $10,5$ menjadi pecahan $\\frac{21}{2}$ untuk mempermudah eliminasi pecahan.",
+        explanation: "Volume $V = \\frac{4}{3} \\pi r^3 = \\frac{4}{3} \\times \\frac{22}{7} \\times \\frac{21}{2} \\times \\frac{21}{2} \\times \\frac{21}{2} = 11 \\times 21 \\times 21 = 4.851$ cm³.",
+        defaultParams: { r: 10.5 }
       },
       {
         id: 7,
         category: "BOLA",
         difficulty: "Mudah",
         type: "bola",
-        question: "Tentukan luas permukaan bola dengan jari-jari $r = 10$ cm! (Gunakan $\\pi = 3,14$)",
+        question: "Tentukan luas permukaan bola dengan jari-jari $r = 20$ cm! (Gunakan $\\pi = 3,14$)",
         options: [
+          "Luas Permukaan = $5.024$ cm²",
           "Luas Permukaan = $1.256$ cm²",
-          "Luas Permukaan = $314$ cm²",
-          "Luas Permukaan = $628$ cm²",
-          "Luas Permukaan = $4.186,67$ cm²"
+          "Luas Permukaan = $2.512$ cm²",
+          "Luas Permukaan = $16.746,67$ cm²"
         ],
         correctIndex: 0,
-        hint: "Rumus luas permukaan bola adalah $L = 4 \\pi r^2$. Kalikan konstanta 4 dengan luas lingkaran berjejari 10.",
-        explanation: "Luas Permukaan $L = 4 \\pi r^2 = 4 \\times 3,14 \\times 10 \\times 10 = 4 \\times 314 = 1.256$ cm².",
-        defaultParams: { r: 10 }
+        hint: "Rumus luas permukaan bola adalah $L = 4 \\pi r^2$. Kalikan konstanta 4 dengan luas lingkaran berjejari 20.",
+        explanation: "Luas Permukaan $L = 4 \\pi r^2 = 4 \\times 3,14 \\times 20 \\times 20 = 4 \\times 3,14 \\times 400 = 5.024$ cm².",
+        defaultParams: { r: 20 }
       },
       {
         id: 8,
         category: "LIMAS SEGIEMPAT",
         difficulty: "Mudah",
         type: "limas",
-        question: "Sebuah limas segiempat memiliki alas berbentuk persegi berukuran $10 \\times 10$ cm. Tinggi limas tersebut adalah $12$ cm, dan tinggi masing-masing segitiga selimutnya adalah $13$ cm. Hitung volume dan luas permukaannya!",
+        question: "Sebuah limas segiempat memiliki alas berbentuk persegi berukuran $12 \\times 12$ cm. Tinggi limas tersebut adalah $8$ cm, dan tinggi masing-masing segitiga selimutnya adalah $10$ cm. Hitung volume dan luas permukaannya!",
         options: [
-          "Volume = $400$ cm³ dan Luas Permukaan = $360$ cm²",
-          "Volume = $1.200$ cm³ dan Luas Permukaan = $360$ cm²",
-          "Volume = $400$ cm³ dan Luas Permukaan = $260$ cm²",
-          "Volume = $400$ cm³ dan Luas Permukaan = $620$ cm²"
+          "Volume = $384$ cm³ dan Luas Permukaan = $384$ cm²",
+          "Volume = $1.152$ cm³ dan Luas Permukaan = $384$ cm²",
+          "Volume = $384$ cm³ dan Luas Permukaan = $240$ cm²",
+          "Volume = $480$ cm³ dan Luas Permukaan = $480$ cm²"
         ],
         correctIndex: 0,
         hint: "Volume limas $V = \\frac{1}{3} \\times L_{alas} \\times t_{limas}$ dan Luas Permukaan $L = L_{alas} + 4 \\times L_{segitiga}$.",
-        explanation: "Volume $V = \\frac{1}{3} \\times (10\\times10) \\times 12 = 100 \\times 4 = 400$ cm³.<br>Luas permukaan $L = L_{alas} + 4 \\times (\\frac{1}{2} \\times alas_{segitiga} \\times t_{segitiga}) = 100 + 4 \\times (\\frac{1}{2} \\times 10 \\times 13) = 100 + 4 \\times 65 = 100 + 260 = 360$ cm².",
-        defaultParams: { s: 10, t: 12, s_height: 13 }
+        explanation: "Volume $V = \\frac{1}{3} \\times (12\\times12) \\times 8 = 48 \\times 8 = 384$ cm³.<br>Luas permukaan $L = L_{alas} + 4 \\times (\\frac{1}{2} \\times alas_{segitiga} \\times t_{segitiga}) = 144 + 4 \\times (\\frac{1}{2} \\times 12 \\times 10) = 144 + 240 = 384$ cm².",
+        defaultParams: { s: 12, t: 8, s_height: 10 }
       },
       {
         id: 9,
         category: "PRISMA SEGITIGA",
         difficulty: "Mudah",
         type: "prisma",
-        question: "Sebuah prisma segitiga siku-siku memiliki sisi-sisi alas sepanjang $3$ cm, $4$ cm, dan $5$ cm. Tinggi prisma tersebut adalah $10$ cm. Berapakah volume dan luas permukaan prisma?",
+        question: "Sebuah prisma segitiga siku-siku memiliki sisi-sisi alas sepanjang $6$ cm, $8$ cm, dan $10$ cm. Tinggi prisma tersebut adalah $15$ cm. Berapakah volume dan luas permukaan prisma?",
         options: [
-          "Volume = $60$ cm³ dan Luas Permukaan = $132$ cm²",
-          "Volume = $120$ cm³ dan Luas Permukaan = $132$ cm²",
-          "Volume = $60$ cm³ dan Luas Permukaan = $120$ cm²",
-          "Volume = $60$ cm³ dan Luas Permukaan = $126$ cm²"
+          "Volume = $360$ cm³ dan Luas Permukaan = $408$ cm²",
+          "Volume = $720$ cm³ dan Luas Permukaan = $408$ cm²",
+          "Volume = $360$ cm³ dan Luas Permukaan = $360$ cm²",
+          "Volume = $480$ cm³ dan Luas Permukaan = $456$ cm²"
         ],
         correctIndex: 0,
-        hint: "Volume $V = L_{alas} \\times t$. Luas permukaan $L = 2 \\times L_{alas} + Kel_{alas} \\times t$. Sisi penyiku segitiga alas adalah 3 cm dan 4 cm.",
-        explanation: "Luas Alas Segitiga siku-siku $= \\frac{1}{2} \\times 3 \\times 4 = 6$ cm².<br>Keliling Alas $= 3 + 4 + 5 = 12$ cm.<br>Volume $V = L_{alas} \\times t = 6 \\times 10 = 60$ cm³.<br>Luas permukaan $L = 2 \\times L_{alas} + Kel_{alas} \\times t = 2 \\times 6 + 12 \\times 10 = 12 + 120 = 132$ cm².",
-        defaultParams: { a: 3, b: 4, c: 5, t: 10 }
+        hint: "Sisi penyiku alas adalah 6 cm dan 8 cm (hipotenusa 10 cm). Volume $V = L_{alas} \\times t$. Luas permukaan $L = 2 \\times L_{alas} + (Kel_{alas} \\times t)$.",
+        explanation: "Luas Alas $= \\frac{1}{2} \\times 6 \\times 8 = 24$ cm².<br>Keliling Alas $= 6 + 8 + 10 = 24$ cm.<br>Volume $V = L_{alas} \\times t = 24 \\times 15 = 360$ cm³.<br>Luas permukaan $L = 2 \\times 24 + 24 \\times 15 = 48 + 360 = 408$ cm².",
+        defaultParams: { a: 6, b: 8, c: 10, t: 15 }
       },
       {
         id: 10,
         category: "KUBUS",
         difficulty: "Mudah",
         type: "kubus",
-        question: "Jika volume sebuah kubus adalah $343$ cm³, tentukanlah luas permukaan kubus tersebut!",
+        question: "Jika volume sebuah kubus adalah $512$ cm³, tentukanlah luas permukaan kubus tersebut!",
         options: [
-          "Luas Permukaan = $294$ cm²",
-          "Luas Permukaan = $343$ cm²",
-          "Luas Permukaan = $196$ cm²",
-          "Luas Permukaan = $49$ cm²"
+          "Luas Permukaan = $384$ cm²",
+          "Luas Permukaan = $512$ cm²",
+          "Luas Permukaan = $256$ cm²",
+          "Luas Permukaan = $96$ cm²"
         ],
         correctIndex: 0,
-        hint: "Cari panjang sisi $s$ dengan menarik akar pangkat tiga dari volume $\\sqrt[3]{343}$, kemudian gunakan rumus $6s^2$.",
-        explanation: "Karena $V = s^3 = 343$, maka $s = \\sqrt[3]{343} = 7$ cm.<br>Luas Permukaan $L = 6s^2 = 6 \\times 7^2 = 6 \\times 49 = 294$ cm².",
-        defaultParams: { s: 7 }
+        hint: "Cari panjang sisi $s$ dengan menarik akar pangkat tiga dari volume $\\sqrt[3]{512}$, kemudian gunakan rumus $6s^2$.",
+        explanation: "Karena $V = s^3 = 512$, maka $s = \\sqrt[3]{512} = 8$ cm.<br>Luas Permukaan $L = 6s^2 = 6 \\times 8^2 = 6 \\times 64 = 384$ cm².",
+        defaultParams: { s: 8 }
       },
       {
         id: 11,
         category: "BALOK",
         difficulty: "Mudah",
         type: "balok",
-        question: "Perbandingan panjang, lebar, dan tinggi sebuah balok adalah $4 : 3 : 2$. Jika volume balok tersebut adalah $192$ cm³, tentukanlah luas permukaannya!",
+        question: "Perbandingan panjang, lebar, dan tinggi sebuah balok adalah $5 : 4 : 3$. Jika volume balok tersebut adalah $480$ cm³, tentukanlah luas permukaannya!",
         options: [
-          "Luas Permukaan = $208$ cm²",
-          "Luas Permukaan = $104$ cm²",
-          "Luas Permukaan = $96$ cm²",
-          "Luas Permukaan = $416$ cm²"
+          "Luas Permukaan = $376$ cm²",
+          "Luas Permukaan = $188$ cm²",
+          "Luas Permukaan = $120$ cm²",
+          "Luas Permukaan = $752$ cm²"
         ],
         correctIndex: 0,
-        hint: "Misalkan dimensi balok $4x, 3x,$ dan $2x$. Hitung volume dalam bentuk variabel $x$, lalu carilah nilai $x$.",
-        explanation: "Misalkan $p=4x$, $l=3x$, $t=2x$.<br>$V = p \\times l \\times t = 4x \\times 3x \\times 2x = 24x^3$.<br>Diketahui $V = 192$, maka $24x^3 = 192 \\implies x^3 = 8 \\implies x = 2$.<br>Sehingga $p = 4(2) = 8$ cm, $l = 3(2) = 6$ cm, dan $t = 2(2) = 4$ cm.<br>Luas Permukaan $L = 2(8\\times6 + 8\\times4 + 6\\times4) = 2(48 + 32 + 24) = 2 \\times 104 = 208$ cm².",
-        defaultParams: { p: 8, l: 6, t: 4 }
+        hint: "Misalkan dimensi balok $5x, 4x,$ dan $3x$. Gunakan volume untuk mencari nilai $x$.",
+        explanation: "Volume $V = 5x \\times 4x \\times 3x = 60x^3 = 480 \\implies x^3 = 8 \\implies x = 2$.<br>Sehingga $p = 10$ cm, $l = 8$ cm, dan $t = 6$ cm.<br>Luas Permukaan $L = 2(10\\times8 + 10\\times6 + 8\\times6) = 2(80 + 60 + 48) = 2 \\times 188 = 376$ cm².",
+        defaultParams: { p: 10, l: 8, t: 6 }
       },
       {
         id: 12,
         category: "TABUNG",
         difficulty: "Mudah",
         type: "tabung",
-        question: "Sebuah tabung memiliki volume $1.540$ cm³ dan jari-jari alas $r = 7$ cm. Berapakah tinggi tabung tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah tabung memiliki volume $4.620$ cm³ dan jari-jari alas $r = 7$ cm. Berapakah tinggi tabung tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Tinggi = $10$ cm",
+          "Tinggi = $30$ cm",
           "Tinggi = $15$ cm",
-          "Tinggi = $5$ cm",
-          "Tinggi = $20$ cm"
+          "Tinggi = $20$ cm",
+          "Tinggi = $10$ cm"
         ],
         correctIndex: 0,
-        hint: "Gunakan rumus volume tabung $V = \\pi r^2 t$. Bagi nilai volume dengan luas alas lingkaran.",
-        explanation: "Volume $V = \\pi r^2 t \\implies 1540 = \\frac{22}{7} \\times 7 \\times 7 \\times t \\implies 1540 = 154 \\times t$.<br>Sehingga $t = 1540 / 154 = 10$ cm.",
-        defaultParams: { r: 7, t: 10 }
+        hint: "Gunakan rumus volume tabung $V = \\pi r^2 t$. Bagi nilai volume dengan luas alas lingkaran ($\\pi r^2$).",
+        explanation: "Volume $V = \\pi r^2 t \\implies 4.620 = \\frac{22}{7} \\times 7 \\times 7 \\times t \\implies 4.620 = 154 \\times t$.<br>Sehingga $t = 4.620 / 154 = 30$ cm.",
+        defaultParams: { r: 7, t: 30 }
       },
       // PENERAPAN PRAKTIS / WORD PROBLEMS (Sedang)
       {
@@ -463,186 +457,186 @@
         category: "KERUCUT",
         difficulty: "Sedang",
         type: "kerucut",
-        question: "Sebuah wadah berbentuk kerucut berisi air dengan volume $314$ cm³. Jika jari-jari atas kerucut adalah $5$ cm, berapakah tinggi air tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah wadah berbentuk kerucut berisi air dengan volume $628$ cm³. Jika jari-jari atas kerucut adalah $10$ cm, berapakah tinggi air tersebut? (Gunakan $\\pi = 3,14$)",
         options: [
+          "Tinggi = $6$ cm",
           "Tinggi = $12$ cm",
-          "Tinggi = $10$ cm",
-          "Tinggi = $15$ cm",
+          "Tinggi = $18$ cm",
           "Tinggi = $8$ cm"
         ],
         correctIndex: 0,
         hint: "Gunakan rumus volume kerucut $V = \\frac{1}{3} \\pi r^2 t$ lalu cari variabel $t$.",
-        explanation: "Volume $V = \\frac{1}{3} \\pi r^2 t \\implies 314 = \\frac{1}{3} \\times 3,14 \\times 5^2 \\times t$.<br>$314 = \\frac{1}{3} \\times 3,14 \\times 25 \\times t \\implies 314 = \\frac{78,5}{3} \\times t$.<br>$t = \\frac{314 \\times 3}{78,5} = 4 \\times 3 = 12$ cm.",
-        defaultParams: { r: 5, t: 12, s: 13 }
+        explanation: "Volume $V = \\frac{1}{3} \\pi r^2 t \\implies 628 = \\frac{1}{3} \\times 3,14 \\times 10^2 \\times t$.<br>$628 = \\frac{314}{3} \\times t \\implies t = \\frac{628 \\times 3}{314} = 6$ cm.",
+        defaultParams: { r: 10, t: 6, s: 11.6 }
       },
       {
         id: 14,
         category: "BOLA",
         difficulty: "Sedang",
         type: "bola",
-        question: "Sebuah bola basket yang bulat sempurna memiliki volume sebesar $38.808$ cm³. Tentukan panjang diameter bola basket tersebut! (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah bola pejal mainan anak-anak memiliki volume sebesar $113,04$ cm³. Tentukan panjang diameter bola tersebut! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Diameter = $42$ cm",
-          "Diameter = $21$ cm",
-          "Diameter = $14$ cm",
-          "Diameter = $28$ cm"
+          "Diameter = $6$ cm",
+          "Diameter = $3$ cm",
+          "Diameter = $12$ cm",
+          "Diameter = $8$ cm"
         ],
         correctIndex: 0,
         hint: "Gunakan rumus volume bola $V = \\frac{4}{3} \\pi r^3$ untuk mencari jari-jari $r$ terlebih dahulu, lalu kalikan dua untuk mencari diameter.",
-        explanation: "Volume $V = \\frac{4}{3} \\pi r^3 \\implies 38808 = \\frac{4}{3} \\times \\frac{22}{7} \\times r^3 \\implies 38808 = \\frac{88}{21} \\times r^3$.<br>$r^3 = \\frac{38808 \\times 21}{88} = 441 \\times 21 = 9261$.<br>$r = \\sqrt[3]{9261} = 21$ cm.<br>Diameter $d = 2 \\times r = 2 \\times 21 = 42$ cm.",
-        defaultParams: { r: 21 }
+        explanation: "Volume $V = \\frac{4}{3} \\pi r^3 \\implies 113,04 = \\frac{4}{3} \\times 3,14 \\times r^3 \\implies 113,04 = 4,1867 \\times r^3$.<br>$r^3 = \\frac{113,04 \\times 3}{4 \\times 3,14} = 27 \\implies r = 3$ cm.<br>Diameter $d = 2 \\times r = 2 \\times 3 = 6$ cm.",
+        defaultParams: { r: 3 }
       },
       {
         id: 15,
         category: "GABUNGAN",
         difficulty: "Sedang",
         type: "gabungan_kubus_balok",
-        question: "Sebuah miniatur mainan terdiri dari kubus bersisi $5$ cm yang ditumpuk di atas sebuah balok dengan ukuran $10 \\times 8 \\times 5$ cm. Berapakah volume gabungan dari mainan tersebut?",
+        question: "Sebuah miniatur mainan terdiri dari kubus bersisi $4$ cm yang ditumpuk di atas sebuah balok dengan ukuran $12 \\times 6 \\times 4$ cm. Berapakah volume gabungan dari mainan tersebut?",
         options: [
-          "Volume Gabungan = $525$ cm³",
-          "Volume Gabungan = $400$ cm³",
-          "Volume Gabungan = $125$ cm³",
-          "Volume Gabungan = $625$ cm³"
+          "Volume Gabungan = $352$ cm³",
+          "Volume Gabungan = $288$ cm³",
+          "Volume Gabungan = $64$ cm³",
+          "Volume Gabungan = $416$ cm³"
         ],
         correctIndex: 0,
-        hint: "Hitung volume masing-masing bangun ruang secara terpisah lalu jumlahkan hasilnya.",
-        explanation: "Volume Kubus $= s^3 = 5^3 = 125$ cm³.<br>Volume Balok $= p \\times l \\times t = 10 \\times 8 \\times 5 = 400$ cm³.<br>Volume Total $= 125 + 400 = 525$ cm³.",
-        defaultParams: { s: 5, p: 10, l: 8, t: 5 }
+        hint: "Hitung volume masing-masing bangun secara terpisah lalu jumlahkan hasilnya.",
+        explanation: "Volume Kubus $= s^3 = 4^3 = 64$ cm³.<br>Volume Balok $= p \\times l \\times t = 12 \\times 6 \\times 4 = 288$ cm³.<br>Volume Total $= 64 + 288 = 352$ cm³.",
+        defaultParams: { s: 4, p: 12, l: 6, t: 4 }
       },
       {
         id: 16,
         category: "GABUNGAN",
         difficulty: "Sedang",
         type: "gabungan_kapsul",
-        question: "Sebuah kapsul obat berbentuk tabung dengan ujung belahan setengah bola di salah satu ujungnya (kapsul asimetris unik). Jika jari-jari bola dan tabung adalah $3$ mm dan panjang silinder tabung adalah $10$ mm, berapakah volume total kapsul tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah kapsul obat berbentuk tabung dengan belahan setengah bola di salah satu ujungnya. Jika jari-jari bola dan tabung adalah $6$ mm dan panjang silinder tabung adalah $15$ mm, berapakah volume total kapsul tersebut? (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume Total = $339,12$ mm³",
-          "Volume Total = $282,6$ mm³",
-          "Volume Total = $56,52$ mm³",
-          "Volume Total = $395,64$ mm³"
+          "Volume Total = $2.147,76$ mm³",
+          "Volume Total = $1.695,6$ mm³",
+          "Volume Total = $452,16$ mm³",
+          "Volume Total = $2.599,92$ mm³"
         ],
         correctIndex: 0,
         hint: "Volume kapsul ini terdiri dari Volume Tabung + Volume 1 Setengah Bola. Cari masing-masing lalu jumlahkan.",
-        explanation: "Volume Tabung $= \\pi r^2 t = 3,14 \\times 3^2 \\times 10 = 3,14 \\times 9 \\times 10 = 282,6$ mm³.<br>Volume Setengah Bola $= \\frac{2}{3} \\pi r^3 = \\frac{2}{3} \\times 3,14 \\times 3^3 = 2 \\times 3,14 \\times 9 = 56,52$ mm³.<br>Volume Total $= 282,6 + 56,52 = 339,12$ mm³.",
-        defaultParams: { r: 3, t: 10 }
+        explanation: "Volume Tabung $= \\pi r^2 t = 3,14 \\times 6^2 \\times 15 = 1.695,6$ mm³.<br>Volume Setengah Bola $= \\frac{2}{3} \\pi r^3 = \\frac{2}{3} \\times 3,14 \\times 6^3 = 452,16$ mm³.<br>Volume Total $= 1.695,6 + 452,16 = 2.147,76$ mm³.",
+        defaultParams: { r: 6, t: 15 }
       },
       {
         id: 17,
         category: "GABUNGAN",
         difficulty: "Sedang",
         type: "gabungan_tenda",
-        question: "Sebuah posko darurat berbentuk gabungan tabung dan atap berupa kerucut di atasnya. Jika diameter posko $6$ meter (jari-jari $r=3$ m), tinggi dinding tabung $3$ meter, dan tinggi atap kerucutnya $4$ meter, hitung volume udara yang ada di dalam posko tersebut! (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah posko darurat berbentuk gabungan tabung dan atap berupa kerucut di atasnya. Jika diameter posko $12$ meter (jari-jari $r=6$ m), tinggi dinding tabung $4$ meter, dan tinggi atap kerucutnya $3$ meter, hitung volume udara yang ada di dalam posko tersebut! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume = $122,46$ m³",
-          "Volume = $84,78$ m³",
-          "Volume = $37,68$ m³",
-          "Volume = $160,14$ m³"
+          "Volume = $565,2$ m³",
+          "Volume = $452,16$ m³",
+          "Volume = $113,04$ m³",
+          "Volume = $678,24$ m³"
         ],
         correctIndex: 0,
-        hint: "Volume total = Volume Tabung + Volume Kerucut. Gunakan jari-jari alas $3$ m untuk kedua bangun.",
-        explanation: "Volume Tabung $= \\pi r^2 t_1 = 3,14 \\times 3^2 \\times 3 = 3,14 \\times 9 \\times 3 = 84,78$ m³.<br>Volume Kerucut $= \\frac{1}{3} \\pi r^2 t_2 = \\frac{1}{3} \\times 3,14 \\times 3^2 \\times 4 = 3,14 \\times 3 \\times 4 = 37,68$ m³.<br>Volume Total $= 84,78 + 37,68 = 122,46$ m³.",
-        defaultParams: { r: 3, t_cyl: 3, t_cone: 4 }
+        hint: "Volume total = Volume Tabung + Volume Kerucut. Gunakan jari-jari alas $6$ m untuk kedua bangun.",
+        explanation: "Volume Tabung $= \\pi r^2 t_1 = 3,14 \\times 6^2 \\times 4 = 452,16$ m³.<br>Volume Kerucut $= \\frac{1}{3} \\pi r^2 t_2 = \\frac{1}{3} \\times 3,14 \\times 6^2 \\times 3 = 113,04$ m³.<br>Volume Total $= 452,16 + 113,04 = 565,2$ m³.",
+        defaultParams: { r: 6, t_cyl: 4, t_cone: 3 }
       },
       {
         id: 18,
         category: "KERUCUT",
         difficulty: "Sedang",
         type: "potongan_kerucut",
-        question: "Sebuah kap lampu memiliki bentuk kerucut terpancung dengan diameter atas $12$ cm ($r_1=6$ cm), diameter bawah $24$ cm ($r_2=12$ cm), dan tinggi $8$ cm. Berapakah volume ruang di dalam kap lampu tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah wadah kap lampu memiliki bentuk kerucut terpancung dengan diameter atas $8$ cm ($r_1=4$ cm), diameter bawah $16$ cm ($r_2=8$ cm), dan tinggi $6$ cm. Berapakah volume wadah tersebut? (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume = $2.110,08$ cm³",
-          "Volume = $1.808,64$ cm³",
           "Volume = $703,36$ cm³",
-          "Volume = $3.617,28$ cm³"
+          "Volume = $351,68$ cm³",
+          "Volume = $1.055,04$ cm³",
+          "Volume = $628$ cm³"
         ],
         correctIndex: 0,
         hint: "Rumus volume kerucut terpancung adalah $V = \\frac{1}{3} \\pi t (r_1^2 + r_2^2 + r_1 r_2)$.",
-        explanation: "Substitusikan nilai ke rumus kerucut terpancung:<br>$V = \\frac{1}{3} \\times 3,14 \\times 8 \\times (6^2 + 12^2 + 6\\times12)$<br>$V = \\frac{25,12}{3} \\times (36 + 144 + 72) = \\frac{25,12}{3} \\times 252 = 25,12 \\times 84 = 2.110,08$ cm³.",
-        defaultParams: { r_small: 6, r_large: 12, t: 8 }
+        explanation: "Substitusikan nilai ke rumus:<br>$V = \\frac{1}{3} \\times 3,14 \\times 6 \\times (4^2 + 8^2 + 4\\times8) = 6,28 \\times (16 + 64 + 32) = 6,28 \\times 112 = 703,36$ cm³.",
+        defaultParams: { r_small: 4, r_large: 8, t: 6 }
       },
       {
         id: 19,
         category: "BALOK",
         difficulty: "Sedang",
         type: "balok",
-        question: "Sebuah bak mandi berbentuk balok dengan panjang $1,2$ m, lebar $0,8$ m, dan tinggi $0,6$ m. Jika bak tersebut diisi air sebanyak $\\frac{3}{4}$ bagian dari kapasitas totalnya, berapa literkah volume air di dalam bak mandi tersebut? (Catatan: $1$ m³ = $1.000$ liter)",
+        question: "Sebuah bak mandi berbentuk balok dengan panjang $1,5$ m, lebar $1,0$ m, dan tinggi $0,8$ m. Jika bak tersebut diisi air sebanyak $\\frac{2}{3}$ bagian dari kapasitas totalnya, berapa literkah volume air di dalam bak mandi tersebut? (Catatan: $1$ m³ = $1.000$ liter)",
         options: [
-          "Volume air = $432$ liter",
-          "Volume air = $576$ liter",
-          "Volume air = $144$ liter",
-          "Volume air = $512$ liter"
+          "Volume air = $800$ liter",
+          "Volume air = $1.200$ liter",
+          "Volume air = $400$ liter",
+          "Volume air = $600$ liter"
         ],
         correctIndex: 0,
-        hint: "Hitung volume balok dalam satuan m³, kalikan dengan $\\frac{3}{4}$, lalu ubah satuan m³ ke liter dengan mengalikan $1.000$.",
-        explanation: "Volume Total Balok $= p \\times l \\times t = 1,2 \\times 0,8 \\times 0,6 = 0,576$ m³.<br>Volume Air $= \\frac{3}{4} \\times 0,576 = 0,432$ m³.<br>Ubah ke liter: $0,432 \\times 1000 = 432$ liter.",
-        defaultParams: { p: 12, l: 8, t: 6 } // scaled for visuals
+        hint: "Hitung volume balok dalam m³, kalikan dengan $\\frac{2}{3}$, lalu ubah ke satuan liter ($1$ m³ $= 1000$ liter).",
+        explanation: "Volume Total Balok $= p \\times l \\times t = 1,5 \\times 1,0 \\times 0,8 = 1,2$ m³.<br>Volume Air $= \\frac{2}{3} \\times 1,2 = 0,8$ m³.<br>Ubah ke liter: $0,8 \\times 1000 = 800$ liter.",
+        defaultParams: { p: 15, l: 10, t: 8 }
       },
       {
         id: 20,
         category: "TABUNG",
         difficulty: "Sedang",
         type: "tabung",
-        question: "Sebuah tangki bahan bakar berbentuk tabung memiliki jari-jari alas $1$ meter dan tinggi $3$ meter. Jika tangki tersebut diisi bahan bakar menggunakan selang berkecepatan alir $157$ liter per menit, berapakah waktu yang dibutuhkan agar tangki terisi penuh dari keadaan kosong? (Gunakan $\\pi = 3,14$; $1$ m³ = $1.000$ liter)",
+        question: "Sebuah tangki air berbentuk tabung memiliki jari-jari alas $2$ meter dan tinggi $3$ meter. Jika tangki tersebut diisi menggunakan pipa air berkecepatan alir $314$ liter per menit, berapakah waktu (dalam menit) yang dibutuhkan agar tangki terisi penuh? (Gunakan $\\pi = 3,14$ dan $1$ m³ = $1.000$ liter)",
         options: [
+          "Waktu = $120$ menit",
           "Waktu = $60$ menit",
           "Waktu = $40$ menit",
-          "Waktu = $20$ menit",
-          "Waktu = $80$ menit"
+          "Waktu = $180$ menit"
         ],
         correctIndex: 0,
-        hint: "Hitung volume tangki dalam liter terlebih dahulu, kemudian bagi volume tersebut dengan laju debit selang.",
-        explanation: "Volume tangki $= \\pi r^2 t = 3,14 \\times 1^2 \\times 3 = 9,42$ m³.<br>Ubah ke liter: $9,42 \\times 1000 = 9.420$ liter.<br>Waktu yang dibutuhkan $= \\frac{9420}{157} = 60$ menit.",
-        defaultParams: { r: 5, t: 15 } // scaled for visualization
+        hint: "Hitung volume tabung dalam liter, lalu bagi dengan kecepatan alir pipa air.",
+        explanation: "Volume tangki $= \\pi r^2 t = 3,14 \\times 2^2 \\times 3 = 37,68$ m³.<br>Ubah ke liter: $37,68 \\times 1000 = 37.680$ liter.<br>Waktu yang dibutuhkan $= \\frac{37680}{314} = 120$ menit.",
+        defaultParams: { r: 10, t: 15 }
       },
       {
         id: 21,
         category: "LIMAS SEGIEMPAT",
         difficulty: "Sedang",
         type: "limas",
-        question: "Atap bangunan berbentuk limas persegi dengan ukuran alas $8 \\times 8$ meter dan tinggi puncak limas $3$ meter. Atap tersebut akan ditutupi genteng. Jika setiap $1$ meter persegi permukaan atap membutuhkan $25$ buah genteng, tentukan total genteng yang harus dibeli!",
+        question: "Sebuah atap bangunan berbentuk limas persegi dengan ukuran alas $12 \\times 12$ meter dan tinggi puncak limas $8$ meter (tinggi segitiga selimut $= 10$ meter). Jika setiap $1$ meter persegi permukaan atap membutuhkan $20$ buah genteng, tentukan total genteng yang harus dibeli!",
         options: [
-          "Total genteng = $2.000$ buah",
-          "Total genteng = $1.600$ buah",
-          "Total genteng = $1.250$ buah",
-          "Total genteng = $2.500$ buah"
+          "Total genteng = $4.800$ buah",
+          "Total genteng = $2.400$ buah",
+          "Total genteng = $7.680$ buah",
+          "Total genteng = $3.840$ buah"
         ],
         correctIndex: 0,
-        hint: "Anda hanya perlu mencari luas selimut limas (4 buah segitiga). Cari dulu tinggi segitiga selimut memakai rumus Phytagoras antara tinggi limas dan setengah rusuk alas.",
-        explanation: "Setengah rusuk alas $= 8 / 2 = 4$ m.<br>Tinggi segitiga selimut $= \\sqrt{t^2 + 4^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5$ meter.<br>Luas 4 segitiga selimut $= 4 \\times (\\frac{1}{2} \\times alas \\times tinggi) = 4 \\times (\\frac{1}{2} \\times 8 \\times 5) = 4 \\times 20 = 80$ m².<br>Total genteng yang dibutuhkan $= 80 \\times 25 = 2.000$ buah.",
-        defaultParams: { s: 8, t: 3, s_height: 5 }
+        hint: "Hanya luas selimut limas (4 buah segitiga) yang ditutupi genteng. Cari luas selimutnya lalu kalikan dengan kebutuhan genteng per m².",
+        explanation: "Luas 4 segitiga selimut $= 4 \\times (\\frac{1}{2} \\times alas \\times tinggi_{selimut}) = 4 \\times (\\frac{1}{2} \\times 12 \\times 10) = 240$ m².<br>Total genteng $= 240 \\times 20 = 4.800$ buah.",
+        defaultParams: { s: 12, t: 8, s_height: 10 }
       },
       {
         id: 22,
         category: "BOLA",
         difficulty: "Sedang",
         type: "bola",
-        question: "Sebuah kubah masjid berbentuk setengah bola dengan diameter luar $14$ meter. Permukaan luar kubah tersebut akan dicat dengan biaya cat Rp 50.000 per meter persegi. Berapakah estimasi biaya total untuk mengecat kubah tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah kubah gedung berbentuk setengah bola dengan diameter luar $28$ meter. Permukaan luar kubah tersebut akan dicat dengan biaya cat Rp 40.000 per meter persegi. Berapakah estimasi biaya total mengecat kubah tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Biaya = Rp 15.400.000",
-          "Biaya = Rp 30.800.000",
-          "Biaya = Rp 7.700.000",
-          "Biaya = Rp 10.200.000"
+          "Biaya = Rp 49.280.000",
+          "Biaya = Rp 98.560.000",
+          "Biaya = Rp 24.640.000",
+          "Biaya = Rp 15.400.000"
         ],
         correctIndex: 0,
-        hint: "Luas permukaan setengah bola terbuka (tanpa alas) adalah $2 \\pi r^2$. Hitung luasnya dalam m² lalu kalikan tarif cat.",
-        explanation: "Jari-jari kubah $r = 14 / 2 = 7$ meter.<br>Luas setengah permukaan bola $= 2 \\pi r^2 = 2 \\times \\frac{22}{7} \\times 7 \\times 7 = 308$ m².<br>Biaya total $= 308 \\times \\text{Rp 50.000} = \\text{Rp 15.400.000}.",
-        defaultParams: { r: 14 } // Scaled
+        hint: "Luas permukaan setengah bola terbuka (tanpa alas) adalah $2 \\pi r^2$. Gunakan jari-jari $r=14$ m.",
+        explanation: "Jari-jari $r = 28 / 2 = 14$ meter.<br>Luas setengah bola $= 2 \\pi r^2 = 2 \\times \\frac{22}{7} \\times 14 \\times 14 = 1.232$ m².<br>Biaya total $= 1.232 \\times \\text{Rp 40.000} = \\text{Rp 49.280.000}.",
+        defaultParams: { r: 14 }
       },
       {
         id: 23,
         category: "GABUNGAN",
         difficulty: "Sedang",
         type: "tabung",
-        question: "Sebuah bola besi dimasukkan tepat ke dalam sebuah tabung sehingga sisi bola menyentuh alas, tutup, dan dinding tabung secara sempurna. Berapakah perbandingan antara volume bola dengan volume tabung tersebut?",
+        question: "Sebuah bola pejal dimasukkan tepat ke dalam sebuah tabung sehingga bola menyinggung sisi alas, sisi atas, dan seluruh selimut tabung dengan sempurna. Berapakah perbandingan antara luas permukaan bola dengan luas permukaan total tabung?",
         options: [
           "$2 : 3$",
-          "$3 : 4$",
           "$1 : 2$",
+          "$3 : 4$",
           "$4 : 5$"
         ],
         correctIndex: 0,
-        hint: "Karena bola menyinggung seluruh bagian dalam tabung, tinggi tabung $t_{tabung} = 2r$ (diameter bola) dan jari-jari keduanya sama. Bandingkan kedua rumus volumenya.",
-        explanation: "Volume Bola $= \\frac{4}{3} \\pi r^3$.<br>Volume Tabung $= \\pi r^2 t = \\pi r^2 (2r) = 2 \\pi r^3$.<br>Perbandingan Volume Bola : Volume Tabung $= \\frac{4}{3} \\pi r^3 : 2 \\pi r^3 = \\frac{4}{3} : 2 = 4 : 6 = 2 : 3$.",
+        hint: "Karena bola menyinggung seluruh bagian dalam tabung, tinggi tabung $t = 2r$ (diameter bola). Nyatakan kedua luas permukaan dalam variabel $r$ dan bandingkan.",
+        explanation: "Luas Permukaan Bola $= 4 \\pi r^2$.<br>Luas Permukaan Tabung $= 2 \\pi r (r + t) = 2 \\pi r (r + 2r) = 6 \\pi r^2$.<br>Perbandingan Luas Bola : Luas Tabung $= 4 \\pi r^2 : 6 \\pi r^2 = 4 : 6 = 2 : 3$.",
         defaultParams: { r: 8, t: 16 }
       },
       {
@@ -650,85 +644,85 @@
         category: "GABUNGAN",
         difficulty: "Sedang",
         type: "gabungan_tenda",
-        question: "Sebuah es krim cone terdiri atas kerucut wafer berisi penuh es krim dengan jari-jari lingkaran atas $3$ cm dan tinggi cone $10$ cm. Di atas cone diletakkan satu bola es krim setengah lingkaran (setengah bola) dengan jari-jari sama. Berapa total volume es krim seluruhnya? (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah es krim cone terdiri atas kerucut wafer berisi penuh es krim dengan jari-jari lingkaran atas $6$ cm dan tinggi cone $15$ cm. Di atas cone diletakkan satu bola es krim berbentuk setengah bola dengan jari-jari sama ($6$ cm). Berapa total volume es krim seluruhnya? (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume total = $150,72$ cm³",
-          "Volume total = $113,04$ cm³",
-          "Volume total = $94,2$ cm³",
-          "Volume total = $188,4$ cm³"
+          "Volume total = $1.017,36$ cm³",
+          "Volume total = $565,2$ cm³",
+          "Volume total = $452,16$ cm³",
+          "Volume total = $1.469,52$ cm³"
         ],
         correctIndex: 0,
         hint: "Total volume = Volume Kerucut + Volume Setengah Bola. Gunakan rumus masing-masing.",
-        explanation: "Volume Kerucut $= \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\times 3,14 \\times 3^2 \\times 10 = 3,14 \\times 3 \\times 10 = 94,2$ cm³.<br>Volume Setengah Bola $= \\frac{2}{3} \\pi r^3 = \\frac{2}{3} \\times 3,14 \\times 3^3 = 2 \\times 3,14 \\times 9 = 56,52$ cm³.<br>Volume total $= 94,2 + 56,52 = 150,72$ cm³.",
-        defaultParams: { r: 3, t_cyl: 10, t_cone: 3 } // visually represented as combination
+        explanation: "Volume Kerucut $= \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\times 3,14 \\times 6^2 \\times 15 = 565,2$ cm³.<br>Volume Setengah Bola $= \\frac{2}{3} \\pi r^3 = \\frac{2}{3} \\times 3,14 \\times 6^3 = 452,16$ cm³.<br>Volume total $= 565,2 + 452,16 = 1.017,36$ cm³.",
+        defaultParams: { r: 6, t_cyl: 15, t_cone: 6 }
       },
       {
         id: 25,
         category: "TABUNG",
         difficulty: "Sedang",
         type: "tabung",
-        question: "Sebuah pipa besi berongga memiliki panjang $2$ meter ($200$ cm), diameter luar $14$ cm ($r_{luar} = 7$ cm) dan tebal dinding pipa $1$ cm (berarti $r_{dalam} = 6$ cm). Hitunglah volume besi padat pembentuk pipa tersebut! (Gunakan $\\pi = \\frac{22}{7}$)",
+        question: "Sebuah pipa besi berongga memiliki panjang $100$ cm, diameter luar $20$ cm ($r_{luar} = 10$ cm), dan tebal besi pipa sebesar $2$ cm (sehingga $r_{dalam} = 8$ cm). Hitunglah volume besi padat pembentuk pipa tersebut! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume besi = $8.171,43$ cm³",
-          "Volume besi = $30.800$ cm³",
-          "Volume besi = $22.628,57$ cm³",
-          "Volume besi = $12.540$ cm³"
+          "Volume besi = $11.304$ cm³",
+          "Volume besi = $31.400$ cm³",
+          "Volume besi = $20.096$ cm³",
+          "Volume besi = $5.652$ cm³"
         ],
         correctIndex: 0,
-        hint: "Volume besi padat pipa berongga didapatkan dari: $V = \\pi (r_{luar}^2 - r_{dalam}^2) \\times t$.",
-        explanation: "Jari-jari luar $R = 7$ cm, jari-jari dalam $r = 7 - 1 = 6$ cm.<br>Tinggi pipa $h = 2$ m $= 200$ cm.<br>Volume Besi $= \\pi (R^2 - r^2) h = \\frac{22}{7} \\times (7^2 - 6^2) \\times 200 = \\frac{22}{7} \\times (49 - 36) \\times 200 = \\frac{22}{7} \\times 13 \\times 200 \\approx 8.171,43$ cm³.",
-        defaultParams: { r: 7, t: 20 }
+        hint: "Volume besi padat didapatkan dari selisih luas lingkaran luar dan dalam dikalikan panjang pipa: $V = \\pi (r_{luar}^2 - r_{dalam}^2) \\times t$.",
+        explanation: "Jari-jari luar $R = 10$ cm, jari-jari dalam $r = 10 - 2 = 8$ cm.<br>Volume Besi $= 3,14 \\times (10^2 - 8^2) \\times 100 = 3,14 \\times (100 - 64) \\times 100 = 314 \\times 36 = 11.304$ cm³.",
+        defaultParams: { r: 10, t: 20 }
       },
       {
         id: 26,
         category: "LIMAS SEGIEMPAT",
         difficulty: "Sedang",
         type: "limas",
-        question: "Piramida Louvre di Paris berbentuk limas segiempat beraturan dengan panjang rusuk alas persegi sepanjang $35$ meter dan tinggi piramida $21$ meter. Berapakah perkiraan kapasitas volume udara di dalam piramida tersebut?",
+        question: "Sebuah bangunan berbentuk limas segiempat beraturan dengan panjang rusuk alas persegi sepanjang $30$ meter dan tinggi bangunan $15$ meter. Berapakah kapasitas volume udara di dalam bangunan tersebut?",
         options: [
-          "Volume = $8.575$ m³",
-          "Volume = $25.725$ m³",
-          "Volume = $12.862,5$ m³",
-          "Volume = $17.150$ m³"
+          "Volume = $4.500$ m³",
+          "Volume = $13.500$ m³",
+          "Volume = $2.250$ m³",
+          "Volume = $9.000$ m³"
         ],
         correctIndex: 0,
-        hint: "Gunakan rumus Volume limas $V = \\frac{1}{3} \\times L_{alas} \\times t$ dengan sisi alas $35$ m.",
-        explanation: "Volume Limas $= \\frac{1}{3} \\times (35 \\times 35) \\times 21 = (35 \\times 35) \\times 7 = 1225 \\times 7 = 8.575$ m³.",
-        defaultParams: { s: 15, t: 9, s_height: 12 } // Visual scaling
+        hint: "Gunakan rumus Volume limas $V = \\frac{1}{3} \\times L_{alas} \\times t$ dengan sisi alas persegi $30$ m.",
+        explanation: "Volume Limas $= \\frac{1}{3} \\times (30 \\times 30) \\times 15 = 900 \\times 5 = 4.500$ m³.",
+        defaultParams: { s: 15, t: 9, s_height: 12 }
       },
       {
         id: 27,
         category: "TABUNG",
         difficulty: "Sedang",
         type: "tabung",
-        question: "Ke dalam wadah gelas berbentuk tabung berdiameter $20$ cm ($r = 10$ cm) yang berisi sebagian air, dimasukkan sebanyak $10$ buah kelereng logam bola pejal dengan diameter masing-masing kelereng adalah $2$ cm ($r_{kelereng} = 1$ cm). Tentukan tinggi kenaikan air di dalam wadah tabung setelah kelereng tersebut tenggelam sepenuhnya!",
+        question: "Ke dalam wadah gelas berbentuk tabung dengan diameter $12$ cm ($r = 6$ cm) yang berisi air, dimasukkan sebanyak $18$ buah kelereng logam bola pejal berdiameter $2$ cm ($r_{kelereng} = 1$ cm). Tentukan tinggi kenaikan air di dalam wadah tabung setelah seluruh kelereng tenggelam sepenuhnya!",
         options: [
-          "Kenaikan tinggi air = $0,133$ cm",
+          "Kenaikan tinggi air = $0,67$ cm",
+          "Kenaikan tinggi air = $1,33$ cm",
           "Kenaikan tinggi air = $0,5$ cm",
-          "Kenaikan tinggi air = $0,25$ cm",
-          "Kenaikan tinggi air = $1,33$ cm"
+          "Kenaikan tinggi air = $0,33$ cm"
         ],
         correctIndex: 0,
-        hint: "Pertambahan volume air wadah tabung sama dengan volume 10 kelereng. Gunakan persamaan $\\pi R^2 \\Delta t = 10 \\times \\frac{4}{3} \\pi r^3$.",
-        explanation: "Volume 10 Kelereng $= 10 \\times \\frac{4}{3} \\pi r^3 = 10 \\times \\frac{4}{3} \\times \\pi \\times 1^3 = \\frac{40}{3} \\pi$ cm³.<br>Kenaikan air di tabung: $V_{naik} = \\pi R^2 \\Delta t \\implies \\frac{40}{3} \\pi = \\pi \\times 10^2 \\times \\Delta t$.<br>Coret $\\pi$ pada kedua ruas: $\\frac{40}{3} = 100 \\Delta t \\implies \\Delta t = \\frac{40}{300} = \\frac{4}{30} \\approx 0,133$ cm.",
-        defaultParams: { r: 10, t: 15 }
+        hint: "Pertambahan volume air tabung sama dengan volume total 18 kelereng. Gunakan persamaan $\\pi R^2 \\Delta t = 18 \\times \\frac{4}{3} \\pi r^3$.",
+        explanation: "Volume 18 Kelereng $= 18 \\times \\frac{4}{3} \\pi r^3 = 24 \\pi$ cm³.<br>Kenaikan air: $\\pi \\times R^2 \\times \\Delta t = 24 \\pi \\implies \\pi \\times 6^2 \\times \\Delta t = 24 \\pi \\implies 36 \\Delta t = 24 \\implies \\Delta t = \\frac{24}{36} \\approx 0,67$ cm.",
+        defaultParams: { r: 6, t: 15 }
       },
       {
         id: 28,
         category: "PRISMA SEGITIGA",
         difficulty: "Sedang",
         type: "prisma",
-        question: "Sebuah tenda perkemahan berbentuk prisma segitiga dengan panjang tenda $4$ m, lebar alas tenda $3$ m, dan tinggi segitiga pintu masuk alas $2$ m. Sisi miring atap tenda diukur bernilai $2,5$ m. Berapa luas total bahan terpal kain yang dibutuhkan untuk membuat tenda utuh (termasuk alas bawah)?",
+        question: "Sebuah tenda berbentuk prisma segitiga dengan panjang tenda $5$ m, lebar alas tenda $6$ m, dan tinggi segitiga atap bagian depan $4$ m. Panjang sisi miring atap tenda adalah $5$ m. Berapa luas total bahan terpal kain yang dibutuhkan untuk membuat tenda utuh (termasuk alas bawah)?",
         options: [
-          "Luas kain terpal = $38$ m²",
-          "Luas kain terpal = $32$ m²",
-          "Luas kain terpal = $26$ m²",
-          "Luas kain terpal = $44$ m²"
+          "Luas kain terpal = $104$ m²",
+          "Luas kain terpal = $80$ m²",
+          "Luas kain terpal = $128$ m²",
+          "Luas kain terpal = $92$ m²"
         ],
         correctIndex: 0,
-        hint: "Luas permukaan prisma segitiga $= 2 \\times L_{alas} + (s_1 + s_2 + s_3) \\times t_{prisma}$. Di sini sisi-sisi segitiga alas adalah $3$ m, $2,5$ m, dan $2,5$ m.",
-        explanation: "Luas Alas Segitiga $= \\frac{1}{2} \\times alas \\times tinggi = \\frac{1}{2} \\times 3 \\times 2 = 3$ m².<br>Keliling Alas Segitiga $= 3 + 2,5 + 2,5 = 8$ m.<br>Luas Selubung (sisi-sisi tegak & alas) $= Kel_{alas} \\times t_{prisma} = 8 \\times 4 = 32$ m².<br>Luas Permukaan Total $= 2 \\times 3 + 32 = 6 + 32 = 38$ m².",
-        defaultParams: { a: 3, b: 2.5, c: 2.5, t: 10 }
+        hint: "Luas permukaan prisma segitiga $= 2 \\times L_{alas} + (Kel_{alas} \\times t_{prisma})$. Sisi segitiga alas adalah $6$ m, $5$ m, dan $5$ m.",
+        explanation: "Luas Alas Segitiga $= \\frac{1}{2} \\times 6 \\times 4 = 12$ m².<br>Keliling Alas Segitiga $= 6 + 5 + 5 = 16$ m.<br>Luas Permukaan Total $= 2 \\times L_{alas} + (Kel_{alas} \\times panjang_{tenda}) = 2 \\times 12 + 16 \\times 5 = 24 + 80 = 104$ m².",
+        defaultParams: { a: 6, b: 5, c: 5, t: 10 }
       },
       // ADVANCED / COMBINED / TRICKY PROBLEMS (Tinggi)
       {
@@ -736,50 +730,50 @@
         category: "BALOK",
         difficulty: "Sedang",
         type: "balok",
-        question: "Sebuah balok kayu berukuran besar $12 \\times 9 \\times 6$ cm akan dipotong menjadi kubus-kubus kecil berukuran rusuk $s = 3$ cm. Berapakah banyak maksimal kubus kecil utuh yang dapat diperoleh dari balok tersebut?",
+        question: "Sebuah balok kayu berukuran $15 \\times 10 \\times 8$ cm akan dipotong menjadi kubus-kubus kecil berukuran rusuk $s = 2$ cm. Berapakah banyak maksimal kubus kecil utuh yang dapat diperoleh dari balok tersebut?",
         options: [
-          "Banyak kubus = $24$ buah",
-          "Banyak kubus = $16$ buah",
-          "Banyak kubus = $18$ buah",
-          "Banyak kubus = $32$ buah"
+          "Banyak kubus = $140$ buah",
+          "Banyak kubus = $187$ buah",
+          "Banyak kubus = $150$ buah",
+          "Banyak kubus = $120$ buah"
         ],
         correctIndex: 0,
-        hint: "Hitung berapa banyak potongan yang dapat dilakukan di sepanjang arah panjang, lebar, dan tinggi balok.",
-        explanation: "Jumlah potongan pada arah panjang $= 12 / 3 = 4$ bagian.<br>Arah lebar $= 9 / 3 = 3$ bagian.<br>Arah tinggi $= 6 / 3 = 2$ bagian.<br>Total kubus kecil $= 4 \\times 3 \\times 2 = 24$ buah.",
-        defaultParams: { p: 12, l: 9, t: 6 }
+        hint: "Kunci: hitung berapa banyak potongan utuh yang dapat diperoleh di masing-masing arah panjang, lebar, dan tinggi (tidak boleh digabung atau dilelehkan ulang).",
+        explanation: "Arah panjang $= 15 / 2 = 7$ bagian utuh.<br>Arah lebar $= 10 / 2 = 5$ bagian utuh.<br>Arah tinggi $= 8 / 2 = 4$ bagian utuh.<br>Banyak kubus maksimal $= 7 \\times 5 \\times 4 = 140$ buah.",
+        defaultParams: { p: 15, l: 10, t: 8 }
       },
       {
         id: 30,
         category: "KERUCUT",
         difficulty: "Tinggi",
         type: "kerucut",
-        question: "Sebuah kerucut memiliki rasio perbandingan panjang jari-jari dan tinggi sebesar $r : t = 3 : 4$. Jika luas permukaannya adalah $96\\pi$ cm², tentukan volume kerucut tersebut!",
+        question: "Sebuah kerucut memiliki rasio perbandingan panjang jari-jari dan tinggi sebesar $r : t = 5 : 12$. Jika luas permukaannya adalah $90\\pi$ cm², tentukan volume kerucut tersebut!",
         options: [
-          "Volume = $96\\pi$ cm³",
+          "Volume = $100\\pi$ cm³",
           "Volume = $120\\pi$ cm³",
-          "Volume = $144\\pi$ cm³",
-          "Volume = $72\\pi$ cm³"
+          "Volume = $150\\pi$ cm³",
+          "Volume = $200\\pi$ cm³"
         ],
         correctIndex: 0,
-        hint: "Dengan rasionya $r=3x$ dan $t=4x$, maka panjang garis pelukis $s=5x$ menggunakan Phytagoras. Masukkan ke rumus luas $L = \\pi r (r + s)$ untuk menemukan $x$.",
-        explanation: "Misal $r=3x, t=4x \\implies s = \\sqrt{(3x)^2 + (4x)^2} = 5x$.<br>Luas $L = \\pi r (r + s) \\implies 96\\pi = \\pi (3x) (3x + 5x) \\implies 96 = 3x (8x) \\implies 24x^2 = 96$.<br>$x^2 = 4 \\implies x = 2$.<br>Maka $r = 6$ cm dan $t = 8$ cm.<br>Volume $V = \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\pi (6^2) (8) = \\frac{1}{3} \\pi (36) (8) = 12 \\times 8 \\times \\pi = 96\\pi$ cm³.",
-        defaultParams: { r: 6, t: 8, s: 10 }
+        hint: "Dengan perbandingan $r=5x, t=12x$, dapatkan garis pelukis $s=13x$. Masukkan ke rumus luas $L = \\pi r(r + s)$ untuk mencari $x$.",
+        explanation: "Dari perbandingan, $s = \\sqrt{(5x)^2 + (12x)^2} = 13x$.<br>Luas $L = \\pi r (r + s) \\implies 90\\pi = \\pi (5x)(5x + 13x) \\implies 90 = 90x^2 \\implies x = 1$.<br>Diperoleh $r = 5$ cm dan $t = 12$ cm.<br>Volume $V = \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\pi (5^2) (12) = 100\\pi$ cm³.",
+        defaultParams: { r: 5, t: 12, s: 13 }
       },
       {
         id: 31,
         category: "GABUNGAN",
         difficulty: "Tinggi",
         type: "tabung",
-        question: "Wadah berbentuk belahan setengah bola terisi penuh oleh zat cair. Zat cair tersebut dituangkan seluruhnya ke dalam wadah tabung tegak yang memiliki panjang jari-jari alas sama dengan jari-jari setengah bola tersebut. Berapakah perbandingan tinggi zat cair di dalam tabung terhadap jari-jari tabung?",
+        question: "Sebuah wadah berbentuk belahan setengah bola terisi penuh oleh zat cair. Zat cair tersebut dituangkan seluruhnya ke dalam wadah tabung tegak yang memiliki panjang jari-jari alas sama dengan jari-jari setengah bola tersebut. Berapakah perbandingan antara jari-jari tabung terhadap tinggi zat cair di dalam tabung?",
         options: [
+          "$3 : 2$",
           "$2 : 3$",
-          "$1 : 3$",
           "$1 : 2$",
           "$1 : 1$"
         ],
         correctIndex: 0,
-        hint: "Volume setengah bola ditransfer ke volume tabung setinggi $h$. Tulis persamaan $\\frac{2}{3} \\pi r^3 = \\pi r^2 h$. Sederhanakan nilai $\\pi$ dan $r^2$.",
-        explanation: "Volume setengah bola $= \\frac{2}{3} \\pi r^3$.<br>Volume air di tabung $= \\pi r^2 h$.<br>Karena volumenya sama: $\\frac{2}{3} \\pi r^3 = \\pi r^2 h$.<br>Bagi kedua ruas dengan $\\pi r^2$: $\\frac{2}{3} r = h \\implies \\frac{h}{r} = \\frac{2}{3}$.<br>Sehingga perbandingan tinggi air dengan jari-jari tabung adalah $2 : 3$.",
+        hint: "Volume setengah bola ditransfer ke volume tabung setinggi $h$. Tulis persamaan $\\frac{2}{3} \\pi r^3 = \\pi r^2 h$, kemudian cari rasio $r : h$.",
+        explanation: "Volume setengah bola $= \\frac{2}{3} \\pi r^3$.<br>Volume air di tabung $= \\pi r^2 h$.<br>Persamaan: $\\frac{2}{3} \\pi r^3 = \\pi r^2 h \\implies \\frac{2}{3} r = h \\implies \\frac{r}{h} = \\frac{3}{2}$.<br>Sehingga perbandingan jari-jari tabung terhadap tinggi air adalah $3 : 2$.",
         defaultParams: { r: 9, t: 12 }
       },
       {
@@ -787,50 +781,50 @@
         category: "GABUNGAN",
         difficulty: "Tinggi",
         type: "gabungan_kubus_balok",
-        question: "Wadah akuarium berbentuk balok dengan panjang $50$ cm, lebar $40$ cm, dan tinggi $30$ cm diisi air hingga ketinggian $20$ cm. Kemudian, sebuah kubus logam pejal dengan panjang rusuk $20$ cm dimasukkan ke dalam akuarium dan tenggelam ke dasar. Berapa cm tinggi permukaan air akuarium sekarang?",
+        question: "Wadah akuarium berbentuk balok dengan panjang alas $50$ cm, lebar $40$ cm, dan tinggi $30$ cm diisi air dengan ketinggian $15$ cm. Kemudian, dimasukkan sebanyak $4$ buah kubus logam pejal identik berusuk $10$ cm ke dasar wadah akuarium. Berapakah cm tinggi air akuarium sekarang?",
         options: [
-          "Tinggi air sekarang = $24$ cm",
-          "Tinggi air sekarang = $22$ cm",
-          "Tinggi air sekarang = $25$ cm",
-          "Tinggi air sekarang = $28$ cm"
+          "Tinggi air sekarang = $17$ cm",
+          "Tinggi air sekarang = $16$ cm",
+          "Tinggi air sekarang = $19$ cm",
+          "Tinggi air sekarang = $18$ cm"
         ],
         correctIndex: 0,
-        hint: "Volume air awal ditambah volume kubus akan menghasilkan volume air total baru. Luas penampang wadah penampung tetap $50 \\times 40$ cm².",
-        explanation: "Volume air mula-mula $= 50 \\times 40 \\times 20 = 40.000$ cm³.<br>Volume kubus logam $= 20^3 = 8.000$ cm³.<br>Volume gabungan air + kubus $= 40.000 + 8.000 = 48.000$ cm³.<br>Tinggi air baru $h_{baru} = \\frac{Volume_{gab}}{Panjang \\times Lebar} = \\frac{48.000}{50 \\times 40} = \\frac{48.000}{2000} = 24$ cm.",
-        defaultParams: { s: 20, p: 50, l: 40, t: 30 }
+        hint: "Kenaikan volume air dipengaruhi oleh total volume 4 kubus logam. Cari dulu volume total 4 kubus lalu hitung kenaikan tinggi air $\\Delta h = \\frac{V_{logam}}{L_{alas}}$.",
+        explanation: "Volume total 4 kubus logam $= 4 \\times 10^3 = 4.000$ cm³.<br>Luas alas akuarium $= 50 \\times 40 = 2.000$ cm².<br>Kenaikan air $\\Delta h = \\frac{4000}{2000} = 2$ cm.<br>Tinggi air baru $= 15 + 2 = 17$ cm.",
+        defaultParams: { s: 10, p: 50, l: 40, t: 30 }
       },
       {
         id: 33,
         category: "PRISMA SEGITIGA",
         difficulty: "Tinggi",
         type: "prisma",
-        question: "Sebuah prisma tegak memiliki alas berbentuk belah ketupat dengan panjang diagonal-diagonalnya masing-masing adalah $12$ cm dan $16$ cm. Jika tinggi prisma tersebut adalah $20$ cm, hitunglah luas permukaan lengkap prisma tersebut!",
+        question: "Sebuah prisma tegak memiliki alas berbentuk belah ketupat dengan panjang diagonal-diagonalnya masing-masing adalah $10$ cm dan $24$ cm. Jika tinggi prisma tersebut adalah $15$ cm, hitunglah luas permukaan lengkap prisma tersebut!",
         options: [
-          "Luas Permukaan = $992$ cm²",
-          "Luas Permukaan = $800$ cm²",
-          "Luas Permukaan = $1.184$ cm²",
-          "Luas Permukaan = $960$ cm²"
+          "Luas Permukaan = $1.020$ cm²",
+          "Luas Permukaan = $780$ cm²",
+          "Luas Permukaan = $540$ cm²",
+          "Luas Permukaan = $1.140$ cm²"
         ],
         correctIndex: 0,
-        hint: "Cari panjang sisi luar belah ketupat menggunakan Phytagoras dengan membagi dua diagonal ($d_1/2 = 6$ cm, $d_2/2 = 8$ cm). Luas belah ketupat adalah $\\frac{1}{2} d_1 d_2$.",
-        explanation: "Setengah diagonal alas adalah $6$ cm dan $8$ cm.<br>Sisi belah ketupat $s = \\sqrt{6^2 + 8^2} = 10$ cm.<br>Keliling belah ketupat $= 4 \\times 10 = 40$ cm.<br>Luas Alas Belah Ketupat $= \\frac{1}{2} \\times 12 \\times 16 = 96$ cm².<br>Luas Permukaan Prisma $= 2 \\times L_{alas} + Kel_{alas} \\times t_{prisma} = 2 \\times 96 + 40 \\times 20 = 192 + 800 = 992$ cm².",
-        defaultParams: { a: 10, b: 10, c: 10, t: 20 } // representation for diamond prism
+        hint: "Gunakan teorema Pythagoras pada setengah diagonal ($5$ cm dan $12$ cm) untuk mencari sisi belah ketupat ($s$). Luas permukaan prisma $= 2 \\times L_{alas} + (Kel_{alas} \\times t_{prisma})$.",
+        explanation: "Sisi belah ketupat $s = \\sqrt{5^2 + 12^2} = 13$ cm.<br>Keliling alas $= 4 \\times 13 = 52$ cm.<br>Luas Alas $= \\frac{1}{2} \\times 10 \\times 24 = 120$ cm².<br>Luas Permukaan $= 2 \\times 120 + 52 \\times 15 = 240 + 780 = 1.020$ cm².",
+        defaultParams: { a: 13, b: 13, c: 13, t: 15 }
       },
       {
         id: 34,
         category: "GABUNGAN",
         difficulty: "Tinggi",
         type: "gabungan_kubus_balok",
-        question: "Sebuah kerucut tegak diletakkan di dalam sebuah kotak kubus berusuk $s$. Alas kerucut menyinggung alas kubus, dan puncak kerucut menyentuh sisi atas kubus dengan tepat. Tentukan persentase volume kubus yang berada di luar kerucut (tersisa)! (Asumsi $\\pi \\approx 3,14$)",
+        question: "Sebuah bola dimasukkan dengan tepat ke dalam sebuah kotak kubus berusuk $s$ sehingga bola tersebut menyinggung keenam sisi kubus secara sempurna. Tentukan persentase volume kubus yang berada di luar bola! (Gunakan $\\pi \\approx 3,14$)",
         options: [
-          "$73,8\\%$",
+          "$47,6\\%$",
+          "$52,4\\%$",
           "$26,2\\%$",
-          "$50,0\\%$",
-          "$64,5\\%$"
+          "$73,8\\%$"
         ],
         correctIndex: 0,
-        hint: "Karena kerucut menyinggung dinding alas kotak kubus, maka jari-jari kerucut $r = s / 2$ dan tinggi kerucut $t = s$. Nyatakan volume kerucut dalam variabel $s$.",
-        explanation: "Volume Kubus $= s^3$.<br>Volume Kerucut $= \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\pi \\left(\\frac{s}{2}\\right)^2 (s) = \\frac{\\pi}{12} s^3$.<br>Rasio Volume Kerucut / Kubus $= \\frac{\\pi}{12} \\approx \\frac{3,14159}{12} \\approx 26,18\\%$.<br>Persentase sisa volume di luar kerucut $= 100\\% - 26,18\\% \\approx 73,82\\%$.",
+        hint: "Karena bola menyinggung seluruh sisi kubus, jari-jari bola adalah $r = s / 2$. Bandingkan volume bola dengan volume kubus.",
+        explanation: "Volume Kubus $= s^3$.<br>Volume Bola $= \\frac{4}{3} \\pi \\left(\\frac{s}{2}\\right)^3 = \\frac{\\pi}{6} s^3 \\approx 0,5236 s^3$ atau $52,36\\%$.<br>Sisa volume di luar bola $= 100\\% - 52,36\\% = 47,64\\% \\approx 47,6\\%$.",
         defaultParams: { s: 10 }
       },
       {
@@ -838,102 +832,102 @@
         category: "TABUNG",
         difficulty: "Tinggi",
         type: "tabung",
-        question: "Terdapat wadah berbentuk tabung tanpa tutup dengan jari-jari alas $10$ cm dan tinggi $15$ cm. Bagian luar tabung tersebut (termasuk alas bawahnya) ingin dibungkus rapi dengan kertas kado berharga murah. Berapakah luas permukaan wadah tabung luar yang akan dibungkus tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Terdapat wadah berbentuk tabung tanpa tutup dengan jari-jari alas $5$ cm dan tinggi $20$ cm. Bagian luar tabung tersebut (termasuk alas bawahnya) ingin dilapisi kertas pembungkus secara rapi. Berapakah luas permukaan kertas minimal yang dibutuhkan? (Gunakan $\\pi = 3,14$)",
         options: [
-          "Luas Pembungkus = $1.256$ cm²",
-          "Luas Pembungkus = $1.570$ cm²",
-          "Luas Pembungkus = $942$ cm²",
-          "Luas Pembungkus = $1.099$ cm²"
+          "Luas Pembungkus = $706,5$ cm²",
+          "Luas Pembungkus = $628$ cm²",
+          "Luas Pembungkus = $785$ cm²",
+          "Luas Pembungkus = $1.413$ cm²"
         ],
         correctIndex: 0,
-        hint: "Wadah ini tidak memiliki tutup, maka luas permukaan yang dicari adalah Luas Alas + Luas Selimut Tabung $= \\pi r^2 + 2 \\pi r t$.",
-        explanation: "Luas Alas $= \\pi r^2 = 3,14 \\times 10^2 = 314$ cm².<br>Luas Selimut $= 2 \\pi r t = 2 \\times 3,14 \\times 10 \\times 15 = 942$ cm².<br>Luas total yang dilapisi $= Luas Alas + Luas Selimut = 314 + 942 = 1.256$ cm².",
-        defaultParams: { r: 10, t: 15 }
+        hint: "Ingat, tabung tanpa tutup. Maka luas permukaan yang dilapisi adalah Luas Alas + Luas Selimut Tabung $= \\pi r^2 + 2 \\pi r t$.",
+        explanation: "Luas Alas $= 3,14 \\times 5^2 = 78,5$ cm².<br>Luas Selimut $= 2 \\times 3,14 \\times 5 \\times 20 = 628$ cm².<br>Luas permukaan yang dilapisi $= 78,5 + 628 = 706,5$ cm².",
+        defaultParams: { r: 5, t: 20 }
       },
       {
         id: 36,
         category: "BOLA",
         difficulty: "Tinggi",
         type: "bola",
-        question: "Sebuah bola tenis memiliki diameter $6,6$ cm ($r = 3,3$ cm). Pabrik pembuat bola ingin melapisi permukaan luar sebanyak $12$ buah bola tenis (1 lusin) dengan lapisan serat kain khusus felt yang mahal. Berapa cm² luas minimal lembaran serat kain felt yang dibutuhkan? (Gunakan $\\pi = 3,14$)",
+        question: "Pabrik tenis ingin memproduksi $6$ buah bola tenis berdiameter $7$ cm ($r=3,5$ cm). Bagian permukaan luar seluruh bola tersebut dilapisi felt. Berapa cm² luas felt minimal yang dibutuhkan untuk membungkus seluruh bola tersebut? (Gunakan $\\pi = \\frac{22}{7}$)",
         options: [
-          "Luas felt = $1.641,66$ cm²",
-          "Luas felt = $136,8$ cm²",
-          "Luas felt = $2.458,22$ cm²",
-          "Luas felt = $4.924,98$ cm²"
+          "Luas felt = $924$ cm²",
+          "Luas felt = $154$ cm²",
+          "Luas felt = $1.848$ cm²",
+          "Luas felt = $308$ cm²"
         ],
         correctIndex: 0,
-        hint: "Gunakan luas permukaan bola $L = 4 \\pi r^2$ untuk satu bola, lalu kalikan hasilnya dengan 12.",
-        explanation: "Luas 1 bola tenis $= 4 \\pi r^2 = 4 \\times 3,14 \\times (3,3)^2 = 12,56 \\times 10,89 = 136,803$ cm².<br>Luas untuk 12 bola $= 12 \\times 136,803 \\approx 1.641,66$ cm².",
-        defaultParams: { r: 3.3 }
+        hint: "Hitung luas permukaan bola $L = 4 \\pi r^2$ untuk satu bola, lalu kalikan hasilnya dengan 6.",
+        explanation: "Luas 1 bola tenis $= 4 \\times \\frac{22}{7} \\times 3,5 \\times 3,5 = 154$ cm².<br>Luas felt untuk 6 bola $= 6 \\times 154 = 924$ cm².",
+        defaultParams: { r: 3.5 }
       },
       {
         id: 37,
         category: "KERUCUT",
         difficulty: "Tinggi",
         type: "kerucut",
-        question: "Tumpukan pasir di tepi jalan membentuk sebuah kerucut sempurna dengan diameter alas $6$ meter ($r=3$ m) dan tinggi tumpukan $2$ meter. Jika $1$ m³ pasir memiliki berat $1,5$ ton, berapakah estimasi berat total tumpukan pasir tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Tumpukan pasir berbentuk kerucut sempurna memiliki diameter alas $12$ meter ($r=6$ m) dan tinggi tumpukan $3$ meter. Jika berat $1$ m³ pasir adalah $1,6$ ton, berapakah perkiraan berat total tumpukan pasir tersebut? (Gunakan $\\pi = 3,14$)",
         options: [
-          "Berat total = $28,26$ ton",
-          "Berat total = $18,84$ ton",
-          "Berat total = $56,52$ ton",
-          "Berat total = $37,68$ ton"
+          "Berat total = $180,86$ ton",
+          "Berat total = $113,04$ ton",
+          "Berat total = $282,6$ ton",
+          "Berat total = $90,43$ ton"
         ],
         correctIndex: 0,
-        hint: "Cari volume pasir dengan rumus $V = \\frac{1}{3} \\pi r^2 t$, kemudian kalikan hasil volume tersebut dengan nilai massa jenis konversi beratnya (1,5).",
-        explanation: "Volume kerucut pasir $= \\frac{1}{3} \\pi r^2 t = \\frac{1}{3} \\times 3,14 \\times 3^2 \\times 2 = 3,14 \\times 3 \\times 2 = 18,84$ m³.<br>Berat total pasir $= 18,84 \\times 1,5 = 28,26$ ton.",
-        defaultParams: { r: 3, t: 2, s: 3.6 }
+        hint: "Hitung volume kerucut pasir terlebih dahulu dengan rumus $V = \\frac{1}{3} \\pi r^2 t$, lalu kalikan volume dengan kepadatan massa (1,6).",
+        explanation: "Volume kerucut pasir $= \\frac{1}{3} \\times 3,14 \\times 6^2 \\times 3 = 113,04$ m³.<br>Berat total $= 113,04 \\times 1,6 = 180,864$ ton.",
+        defaultParams: { r: 6, t: 3, s: 6.7 }
       },
       {
         id: 38,
         category: "PRISMA SEGITIGA",
         difficulty: "Tinggi",
         type: "prisma",
-        question: "Sebuah limas segitiga beraturan (tetrahedron) memiliki semua rusuk sepanjang $6$ cm. Hitunglah volume bangun tetrahedron tersebut! (Petunjuk: Volume tetrahedron berusuk $s$ dirumuskan oleh rumus cepat: $V = \\frac{s^3 \\sqrt{2}}{12}$)",
+        question: "Sebuah limas segitiga beraturan (tetrahedron) memiliki panjang semua rusuknya $12$ cm. Hitunglah volume bangun ruang tetrahedron tersebut! (Gunakan rumus cepat: $V = \\frac{s^3 \\sqrt{2}}{12}$)",
         options: [
-          "Volume = $18\\sqrt{2}$ cm³",
-          "Volume = $36\\sqrt{2}$ cm³",
-          "Volume = $18\\sqrt{3}$ cm³",
-          "Volume = $12\\sqrt{2}$ cm³"
+          "Volume = $144\\sqrt{2}$ cm³",
+          "Volume = $72\\sqrt{2}$ cm³",
+          "Volume = $144\\sqrt{3}$ cm³",
+          "Volume = $288\\sqrt{2}$ cm³"
         ],
         correctIndex: 0,
-        hint: "Gunakan rumus cepat $V = \\frac{s^3 \\sqrt{2}}{12}$ dengan memasukkan nilai rusuk $s = 6$ cm.",
-        explanation: "Substitusikan $s = 6$ ke rumus:<br>$V = \\frac{6^3 \\sqrt{2}}{12} = \\frac{216 \\sqrt{2}}{12} = 18\\sqrt{2}$ cm³.",
-        defaultParams: { a: 6, b: 6, c: 6, t: 5 } // Tetrahedron representation
+        hint: "Substitusikan nilai rusuk $s = 12$ ke dalam rumus cepat volume tetrahedron yang diberikan.",
+        explanation: "Volume $V = \\frac{s^3 \\sqrt{2}}{12} = \\frac{12^3 \\sqrt{2}}{12} = \\frac{1728 \\sqrt{2}}{12} = 144\\sqrt{2}$ cm³.",
+        defaultParams: { a: 12, b: 12, c: 12, t: 10 }
       },
       {
         id: 39,
         category: "TABUNG",
         difficulty: "Tinggi",
         type: "tabung",
-        question: "Sebuah cincin kawin emas berbentuk tabung berongga (pipa sangat pendek) dengan tebal dinding cincin sebesar $2$ mm ($0,2$ cm), diameter luar cincin $20$ mm ($r_{luar} = 1,0$ cm), dan lebar cincin (tinggi cincin) sebesar $5$ mm ($0,5$ cm). Berapakah volume emas pembentuk cincin tersebut? (Gunakan $\\pi = 3,14$)",
+        question: "Sebuah cincin logam berbentuk silinder berongga memiliki diameter luar $22$ mm ($r_{luar} = 1,1$ cm), tebal logam cincin $1$ mm ($0,1$ cm, sehingga $r_{dalam} = 1,0$ cm), dan lebar cincin (tinggi silinder) $10$ mm ($1,0$ cm). Tentukan volume logam pembentuk cincin tersebut! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Volume emas = $0,5652$ cm³",
-          "Volume emas = $1,57$ cm³",
-          "Volume emas = $1,1304$ cm³",
-          "Volume emas = $0,2826$ cm³"
+          "Volume logam = $0,6594$ cm³",
+          "Volume logam = $1,1304$ cm³",
+          "Volume logam = $0,3297$ cm³",
+          "Volume logam = $1,57$ cm³"
         ],
         correctIndex: 0,
-        hint: "Ubah semua dimensi ke dalam cm terlebih dahulu. Tebal = $0,2$ cm, $r_{luar} = 1,0$ cm, maka $r_{dalam} = 0,8$ cm. Tinggi $t = 0,5$ cm. Volume $= \\pi (R^2 - r^2) t$.",
-        explanation: "Volume Cincin $= \\pi (R_{luar}^2 - R_{dalam}^2) \\times t$<br>Dimana $R_{luar} = 1,0$ cm, $R_{dalam} = 1,0 - 0,2 = 0,8$ cm. Tinggi $t = 0,5$ cm.<br>Volume $= 3,14 \\times (1,0^2 - 0,8^2) \\times 0,5 = 3,14 \\times (1 - 0,64) \\times 0,5 = 3,14 \\times 0,36 \\times 0,5 = 3,14 \\times 0,18 = 0,5652$ cm³.",
-        defaultParams: { r: 10, t: 5 }
+        hint: "Cincin logam ini berbentuk silinder luar dikurangi silinder dalam: $V = \\pi (R_{luar}^2 - R_{dalam}^2) \\times t$. Pastikan semua satuan dalam cm.",
+        explanation: "Panjang $R_{luar} = 1,1$ cm dan $R_{dalam} = 1,0$ cm. Tinggi $t = 1,0$ cm.<br>Volume $= 3,14 \\times (1,1^2 - 1,0^2) \\times 1,0 = 3,14 \\times (1,21 - 1,00) \\times 1,0 = 3,14 \\times 0,21 = 0,6594$ cm³.",
+        defaultParams: { r: 11, t: 10 }
       },
       {
         id: 40,
         category: "GABUNGAN",
         difficulty: "Tinggi",
         type: "gabungan_tenda",
-        question: "Dua buah kerucut identik disatukan alasnya berhimpit membentuk bangun 'bikerucut'. Jari-jari lingkaran alas gabungan tersebut adalah $r = 5$ cm. Kerucut bagian atas memiliki tinggi $12$ cm, sedangkan kerucut bagian bawah memiliki tinggi $5$ cm. Hitunglah luas permukaan luar seluruh dari bikerucut tersebut! (Gunakan $\\pi = 3,14$)",
+        question: "Dua buah kerucut identik disatukan alasnya (berhimpit di dalam). Jari-jari lingkaran alas gabungan tersebut adalah $r = 8$ cm. Kerucut atas memiliki tinggi $15$ cm (garis pelukis $= 17$ cm), sedangkan kerucut bawah memiliki tinggi $6$ cm (garis pelukis $= 10$ cm). Hitunglah luas permukaan luar gabungan tersebut! (Gunakan $\\pi = 3,14$)",
         options: [
-          "Luas Permukaan = $314$ cm²",
-          "Luas Permukaan = $282,6$ cm²",
-          "Luas Permukaan = $125,6$ cm²",
-          "Luas Permukaan = $471$ cm²"
+          "Luas Permukaan = $678,24$ cm²",
+          "Luas Permukaan = $339,12$ cm²",
+          "Luas Permukaan = $502,4$ cm²",
+          "Luas Permukaan = $879,2$ cm²"
         ],
         correctIndex: 0,
-        hint: "Luas permukaan luar bikerucut terdiri atas Luas Selimut Atas (kerucut 1) + Luas Selimut Bawah (kerucut 2). Bagian alas lingkaran berhimpit di dalam tidak ikut dihitung luas permukaannya.",
-        explanation: "Kerucut Atas: $r = 5$ cm, $t = 12$ cm $\\implies s_{atas} = \\sqrt{5^2 + 12^2} = 13$ cm.<br>Luas Selimut Atas $= \\pi r s_{atas} = 3,14 \\times 5 \\times 13 = 204,1$ cm².<br>Kerucut Bawah: $r = 5$ cm, $t = 5$ cm $\\implies s_{bawah} = \\sqrt{5^2 + 5^2} = 5\\sqrt{2} \\approx 7,07$ cm.<br>Luas Selimut Bawah $= \\pi r s_{bawah} = 3,14 \\times 5 \\times 7,07 = 109,9$ cm².<br>Luas Permukaan Luar Gabungan $= 204,1 + 109,9 = 314$ cm².",
-        defaultParams: { r: 5, t_cyl: 5, t_cone: 12 } // representation
+        hint: "Luas permukaan luar 'bikerucut' ini terdiri dari Luas Selimut Atas + Luas Selimut Bawah. Bagian alas lingkaran di bagian tengah tertutup dan tidak dihitung.",
+        explanation: "Luas Selimut Atas $= \\pi r s_1 = 3,14 \\times 8 \\times 17 = 427,04$ cm².<br>Luas Selimut Bawah $= \\pi r s_2 = 3,14 \\times 8 \\times 10 = 251,2$ cm².<br>Luas Permukaan Total $= 427,04 + 251,2 = 678,24$ cm².",
+        defaultParams: { r: 8, t_cyl: 6, t_cone: 15 }
       }
     ];
 
@@ -941,9 +935,6 @@
     let currentIdx = 0;
     let userAnswers = Array(40).fill(null); // stores index of selected answer option
     let questionStates = Array(40).fill("unanswered"); // 'unanswered', 'selected', 'correct', 'incorrect'
-    
-    // Sliders state (for customized scales in active question)
-    let sliderValues = {};
 
     // --- DOM ELEMENTS ---
     const gridEl = document.getElementById("question-tabs-grid");
@@ -953,7 +944,6 @@
     const qTextEl = document.getElementById("question-text");
     const hintBoxEl = document.getElementById("hint-box");
     const optionsContainer = document.getElementById("options-container");
-    const slidersContainer = document.getElementById("sliders-container");
     const svgDrawingArea = document.getElementById("svg-drawing-area");
     
     const btnPrev = document.getElementById("btn-prev");
@@ -968,13 +958,11 @@
     const progressBarInner = document.getElementById("progress-bar-inner");
     const progressPercentage = document.getElementById("progress-percentage");
 
-    // --- SHAPE RENDERERS (Interactive 3D Look via SVG) ---
-    // Includes dynamic rotation offsets based on user controls or default
+    // --- SHAPE RENDERERS (Clean schematic view with variable symbols, no cheating values) ---
     function generateSVGMarkup(type, params) {
       const p = { ...params };
-      const scale = 1.0;
       
-      // Indigo/Cyan Theme for 3D Shading
+      // Theme colors
       const strokeColor = "#38bdf8"; // cyan-400
       const strokeWidth = "2";
       
@@ -982,14 +970,12 @@
 
       switch (type) {
         case "kubus": {
-          const s = (p.s || 6) * 15; // scale factor
-          // Isometric projection
+          const s = 90; // Fixed schematic projection length
           const dx = s * Math.cos(Math.PI / 6);
           const dy = s * Math.sin(Math.PI / 6);
           
           const cx = 150, cy = 130;
           
-          // Vertices
           const p0 = [cx, cy]; // top-center
           const p1 = [cx + dx, cy - dy]; // top-right
           const p2 = [cx, cy - 2*dy]; // top-top
@@ -997,11 +983,10 @@
           const p4 = [cx, cy + s]; // bottom-center
           const p5 = [cx + dx, cy + s - dy]; // bottom-right
           const p6 = [cx - dx, cy + s - dy]; // bottom-left
-          const p7 = [cx, cy + s - 2*dy]; // bottom-back (dashed projection)
+          const p7 = [cx, cy + s - 2*dy]; // bottom-back
 
           svgContent = `
-            <g transform="translate(0,0)">
-              <!-- Gradients -->
+            <g>
               <defs>
                 <linearGradient id="top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#818cf8" />
@@ -1017,34 +1002,30 @@
                 </linearGradient>
               </defs>
               
-              <!-- Back edges (dashed/x-ray) -->
+              <!-- Back edges -->
               <line x1="${p3[0]}" y1="${p3[1]}" x2="${p7[0]}" y2="${p7[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p1[0]}" y1="${p1[1]}" x2="${p7[0]}" y2="${p7[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p4[0]}" y1="${p4[1]}" x2="${p7[0]}" y2="${p7[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               
               <!-- Faces -->
-              <!-- Top Face -->
               <polygon points="${p0[0]},${p0[1]} ${p1[0]},${p1[1]} ${p2[0]},${p2[1]} ${p3[0]},${p3[1]}" fill="url(#top-grad)" opacity="0.9" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Left Face -->
               <polygon points="${p0[0]},${p0[1]} ${p3[0]},${p3[1]} ${p6[0]},${p6[1]} ${p4[0]},${p4[1]}" fill="url(#left-grad)" opacity="0.85" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Right Face -->
               <polygon points="${p0[0]},${p0[1]} ${p1[0]},${p1[1]} ${p5[0]},${p5[1]} ${p4[0]},${p4[1]}" fill="url(#right-grad)" opacity="0.85" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Dimension markers (High contrast red/amber) -->
-              <path d="M ${p6[0] - 15} ${p6[1] - 5} L ${p4[0] - 15} ${p4[1] - 5}" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow)" />
-              <text x="${(p6[0]+p4[0])/2 - 25}" y="${(p6[1]+p4[1])/2 + 25}" fill="#fbbf24" font-weight="bold" font-size="12">s = ${p.s || 6} cm</text>
+              <!-- Clean variable-only dimension marker -->
+              <path d="M ${p6[0] - 15} ${p6[1] - 5} L ${p4[0] - 15} ${p4[1] - 5}" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow)" />
+              <text x="${(p6[0]+p4[0])/2 - 12}" y="${(p6[1]+p4[1])/2 + 25}" fill="#fbbf24" font-weight="extrabold" font-size="14">s</text>
             </g>
           `;
           break;
         }
         case "balok": {
-          const w = (p.p || 10) * 8;
-          const d = (p.l || 5) * 8;
-          const h = (p.t || 4) * 8;
+          const w = 110;
+          const d = 60;
+          const h = 70;
           
-          const cx = 150, cy = 150;
+          const cx = 140, cy = 160;
           
-          // projection
           const dx_w = w * Math.cos(Math.PI / 6);
           const dy_w = w * Math.sin(Math.PI / 6);
           const dx_d = d * Math.cos(5 * Math.PI / 6);
@@ -1083,34 +1064,31 @@
               <line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" />
               
               <!-- Draw Faces -->
-              <!-- Top -->
               <polygon points="${p4[0]},${p4[1]} ${p5[0]},${p5[1]} ${p6[0]},${p6[1]} ${p7[0]},${p7[1]}" fill="url(#top-grad-balok)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Front-Left -->
               <polygon points="${p0[0]},${p0[1]} ${p3[0]},${p3[1]} ${p7[0]},${p7[1]} ${p4[0]},${p4[1]}" fill="url(#front-grad-balok)" opacity="0.9" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Front-Right -->
               <polygon points="${p0[0]},${p0[1]} ${p1[0]},${p1[1]} ${p5[0]},${p5[1]} ${p4[0]},${p4[1]}" fill="url(#side-grad-balok)" opacity="0.95" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Dimensi labels -->
+              <!-- Clean variable-only dimension labels -->
               <!-- Panjang (p) -->
               <path d="M ${p0[0] + 5} ${p0[1] + 15} L ${p1[0] + 5} ${p1[1] + 15}" stroke="#f59e0b" stroke-width="1.5" />
-              <text x="${(p0[0]+p1[0])/2 + 10}" y="${(p0[1]+p1[1])/2 + 30}" fill="#fbbf24" font-weight="bold" font-size="11">p = ${p.p || 10} cm</text>
+              <text x="${(p0[0]+p1[0])/2 + 8}" y="${(p0[1]+p1[1])/2 + 30}" fill="#fbbf24" font-weight="extrabold" font-size="13">p</text>
               
               <!-- Lebar (l) -->
               <path d="M ${p3[0] - 15} ${p3[1] + 10} L ${p0[0] - 15} ${p0[1] + 10}" stroke="#f59e0b" stroke-width="1.5" />
-              <text x="${(p3[0]+p0[0])/2 - 50}" y="${(p3[1]+p0[1])/2 + 25}" fill="#fbbf24" font-weight="bold" font-size="11">l = ${p.l || 5} cm</text>
+              <text x="${(p3[0]+p0[0])/2 - 25}" y="${(p3[1]+p0[1])/2 + 25}" fill="#fbbf24" font-weight="extrabold" font-size="13">l</text>
               
               <!-- Tinggi (t) -->
               <path d="M ${p5[0] + 15} ${p5[1]} L ${p1[0] + 15} ${p1[1]}" stroke="#f59e0b" stroke-width="1.5" />
-              <text x="${p1[0] + 20}" y="${(p5[1]+p1[1])/2 + 4}" fill="#fbbf24" font-weight="bold" font-size="11">t = ${p.t || 4} cm</text>
+              <text x="${p1[0] + 25}" y="${(p5[1]+p1[1])/2 + 4}" fill="#fbbf24" font-weight="extrabold" font-size="13">t</text>
             </g>
           `;
           break;
         }
         case "tabung": {
-          const r = (p.r || 7) * 5.5;
-          const h = (p.t || 10) * 10;
-          const cx = 150, cy = 200;
-          const ry = r * 0.35; // perspective ellipse factor
+          const r = 55;
+          const h = 110;
+          const cx = 150, cy = 190;
+          const ry = r * 0.35;
 
           svgContent = `
             <g>
@@ -1136,25 +1114,25 @@
               <!-- Top Cap Ellipse -->
               <ellipse cx="${cx}" cy="${cy - h}" rx="${r}" ry="${ry}" fill="url(#top-ellipse)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
 
-              <!-- Dimension penanda -->
+              <!-- Clean variable-only labels -->
               <!-- Tinggi (t) -->
               <line x1="${cx - r - 20}" y1="${cy - h}" x2="${cx - r - 20}" y2="${cy}" stroke="#f59e0b" stroke-width="1.5" />
               <line x1="${cx - r - 25}" y1="${cy - h}" x2="${cx - r - 15}" y2="${cy - h}" stroke="#f59e0b" stroke-width="1.5" />
               <line x1="${cx - r - 25}" y1="${cy}" x2="${cx - r - 15}" y2="${cy}" stroke="#f59e0b" stroke-width="1.5" />
-              <text x="${cx - r - 65}" y="${cy - h/2 + 5}" fill="#fbbf24" font-weight="bold" font-size="11">t = ${p.t || 10} cm</text>
+              <text x="${cx - r - 40}" y="${cy - h/2 + 5}" fill="#fbbf24" font-weight="extrabold" font-size="13">t</text>
               
               <!-- Jari-jari (r) -->
               <line x1="${cx}" y1="${cy - h}" x2="${cx + r}" y2="${cy - h}" stroke="#f59e0b" stroke-width="2" />
               <circle cx="${cx}" cy="${cy - h}" r="3" fill="#fbbf24" />
-              <text x="${cx + r/3}" y="${cy - h - 8}" fill="#fbbf24" font-weight="bold" font-size="11">r = ${p.r || 7} cm</text>
+              <text x="${cx + r/2 - 4}" y="${cy - h - 8}" fill="#fbbf24" font-weight="extrabold" font-size="13">r</text>
             </g>
           `;
           break;
         }
         case "kerucut": {
-          const r = (p.r || 6) * 7.5;
-          const h = (p.t || 8) * 11;
-          const cx = 150, cy = 200;
+          const r = 55;
+          const h = 115;
+          const cx = 150, cy = 190;
           const ry = r * 0.35;
 
           svgContent = `
@@ -1177,24 +1155,24 @@
               <!-- Cone Body -->
               <path d="M ${cx - r} ${cy} L ${cx} ${cy - h} L ${cx + r} ${cy} A ${r} ${ry} 0 0 1 ${cx - r} ${cy}" fill="url(#cone-grad)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
 
-              <!-- Dimensions -->
+              <!-- Clean variable-only labels -->
               <!-- Tinggi (t) -->
-              <text x="${cx - 35}" y="${cy - h/2}" fill="#38bdf8" font-weight="bold" font-size="10">t = ${p.t || 8} cm</text>
+              <text x="${cx - 15}" y="${cy - h/2}" fill="#38bdf8" font-weight="extrabold" font-size="13">t</text>
               
               <!-- Jari-jari (r) -->
               <line x1="${cx}" y1="${cy}" x2="${cx + r}" y2="${cy}" stroke="#f59e0b" stroke-width="2" />
               <circle cx="${cx}" cy="${cy}" r="3" fill="#fbbf24" />
-              <text x="${cx + r/2 - 10}" y="${cy + 16}" fill="#fbbf24" font-weight="bold" font-size="11">r = ${p.r || 6} cm</text>
+              <text x="${cx + r/2 - 4}" y="${cy + 16}" fill="#fbbf24" font-weight="extrabold" font-size="13">r</text>
               
               <!-- Selimut (s) -->
-              <text x="${(cx + cx + r)/2 + 15}" y="${(cy + cy - h)/2}" fill="#fbbf24" font-weight="bold" font-size="11">s = ${p.s || 10} cm</text>
+              <text x="${(cx + cx + r)/2 + 10}" y="${(cy + cy - h)/2 - 5}" fill="#fbbf24" font-weight="extrabold" font-size="13">s</text>
             </g>
           `;
           break;
         }
         case "bola": {
-          const r = (p.r || 10) * 6.5;
-          const cx = 150, cy = 130;
+          const r = 75;
+          const cx = 150, cy = 125;
           const ry = r * 0.28;
 
           svgContent = `
@@ -1207,32 +1185,29 @@
                 </radialGradient>
               </defs>
               
-              <!-- Spherical shaded globe -->
               <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#sphere-grad)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Equator line (Front-solid, Back-dashed) -->
               <path d="M ${cx - r} ${cy} A ${r} ${ry} 0 0 0 ${cx + r} ${cy}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" fill="none" />
               <path d="M ${cx - r} ${cy} A ${r} ${ry} 0 0 1 ${cx + r} ${cy}" stroke="${strokeColor}" stroke-width="1.5" opacity="0.6" fill="none" />
               
-              <!-- Jari-jari penanda -->
+              <!-- Clean variable-only radius label -->
               <line x1="${cx}" y1="${cy}" x2="${cx + r}" y2="${cy}" stroke="#f59e0b" stroke-width="2.5" />
               <circle cx="${cx}" cy="${cy}" r="4" fill="#fbbf24" />
-              <text x="${cx + r/3}" y="${cy - 8}" fill="#fbbf24" font-weight="bold" font-size="11">r = ${p.r || 10} cm</text>
+              <text x="${cx + r/2 - 4}" y="${cy - 8}" fill="#fbbf24" font-weight="extrabold" font-size="14">r</text>
             </g>
           `;
           break;
         }
         case "limas": {
-          const s = (p.s || 10) * 11;
-          const h = (p.t || 12) * 10;
+          const s = 110;
+          const h = 110;
           const cx = 150, cy = 190;
           
-          // projection base points
-          const p0 = [cx - s/2, cy + s/4]; // front-left
-          const p1 = [cx + s/2, cy + s/4]; // front-right
-          const p2 = [cx + s/3, cy - s/4]; // back-right
-          const p3 = [cx - s/3, cy - s/4]; // back-left
-          const apex = [cx, cy - h]; // peak point
+          const p0 = [cx - s/2, cy + s/4]; 
+          const p1 = [cx + s/2, cy + s/4]; 
+          const p2 = [cx + s/3, cy - s/4]; 
+          const p3 = [cx - s/3, cy - s/4]; 
+          const apex = [cx, cy - h]; 
           
           svgContent = `
             <g>
@@ -1247,42 +1222,31 @@
                 </linearGradient>
               </defs>
 
-              <!-- Back edges -->
               <line x1="${p3[0]}" y1="${p3[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p3[0]}" y1="${p3[1]}" x2="${p0[0]}" y2="${p0[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p3[0]}" y1="${p3[1]}" x2="${apex[0]}" y2="${apex[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               
-              <!-- Inside height line from base center -->
               <line x1="${cx}" y1="${cy}" x2="${apex[0]}" y2="${apex[1]}" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" />
 
-              <!-- Front visible faces -->
-              <!-- Front-Left Face -->
               <polygon points="${p0[0]},${p0[1]} ${p1[0]},${p1[1]} ${apex[0]},${apex[1]}" fill="url(#limas-front)" opacity="0.9" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Front-Right Face -->
               <polygon points="${p1[0]},${p1[1]} ${p2[0]},${p2[1]} ${apex[0]},${apex[1]}" fill="url(#limas-side)" opacity="0.8" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
 
-              <!-- Labels -->
-              <!-- Rusuk alas (s) -->
-              <text x="${(p0[0]+p1[0])/2 - 10}" y="${p0[1] + 16}" fill="#fbbf24" font-weight="bold" font-size="11">s = ${p.s || 10} m</text>
-              
-              <!-- Tinggi (t) -->
-              <text x="${cx + 10}" y="${(cy+apex[1])/2}" fill="#38bdf8" font-weight="bold" font-size="11">t = ${p.t || 12} m</text>
+              <!-- Variable labels -->
+              <text x="${(p0[0]+p1[0])/2 - 5}" y="${p0[1] + 16}" fill="#fbbf24" font-weight="extrabold" font-size="13">s</text>
+              <text x="${cx + 8}" y="${(cy+apex[1])/2}" fill="#38bdf8" font-weight="extrabold" font-size="13">t</text>
             </g>
           `;
           break;
         }
         case "prisma": {
-          // Triangular prisma
-          const a = (p.a || 3) * 12;
-          const h = (p.t || 10) * 8;
+          const a = 60;
+          const h = 100;
           const cx = 130, cy = 200;
           
-          // vertices base triangle
           const p0 = [cx, cy];
           const p1 = [cx + a, cy - a*0.3];
           const p2 = [cx + a*0.4, cy - a*0.9];
           
-          // top base triangle vertices
           const p3 = [p0[0], p0[1] - h];
           const p4 = [p1[0], p1[1] - h];
           const p5 = [p2[0], p2[1] - h];
@@ -1300,29 +1264,23 @@
                 </linearGradient>
               </defs>
 
-              <!-- Inner back dashed lines -->
               <line x1="${p2[0]}" y1="${p2[1]}" x2="${p0[0]}" y2="${p0[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p2[0]}" y1="${p2[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
               <line x1="${p2[0]}" y1="${p2[1]}" x2="${p5[0]}" y2="${p5[1]}" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
 
-              <!-- Outer face polygons -->
-              <!-- Rectangular side Front-Left -->
               <polygon points="${p0[0]},${p0[1]} ${p1[0]},${p1[1]} ${p4[0]},${p4[1]} ${p3[0]},${p3[1]}" fill="url(#prisma-side1)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Top Cap Triangle -->
               <polygon points="${p3[0]},${p3[1]} ${p4[0]},${p4[1]} ${p5[0]},${p5[1]}" fill="url(#prisma-top)" opacity="0.9" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Bottom Front edge line highlight -->
               <line x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
 
-              <!-- Labels -->
-              <text x="${(p0[0]+p1[0])/2 - 5}" y="${p0[1] + 16}" fill="#fbbf24" font-weight="bold" font-size="11">alas</text>
-              <text x="${p4[0] + 15}" y="${(p4[1]+p1[1])/2}" fill="#fbbf24" font-weight="bold" font-size="11">t = ${p.t || 10} cm</text>
+              <!-- Clean Variable Label -->
+              <text x="${(p0[0]+p1[0])/2 - 12}" y="${p0[1] + 16}" fill="#fbbf24" font-weight="extrabold" font-size="12">alas</text>
+              <text x="${p4[0] + 15}" y="${(p4[1]+p1[1])/2}" fill="#fbbf24" font-weight="extrabold" font-size="13">t</text>
             </g>
           `;
           break;
         }
         case "gabungan_kubus_balok": {
-          // Compound geometry schematic representation
           svgContent = `
             <g>
               <defs>
@@ -1336,20 +1294,16 @@
                 </linearGradient>
               </defs>
               
-              <!-- Bottom Balok -->
               <rect x="70" y="140" width="160" height="70" rx="4" fill="url(#main-cube)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Top Kubus -->
               <rect x="110" y="70" width="80" height="70" rx="4" fill="url(#stacked-block)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Visual lines of compound 3D feel -->
               <line x1="110" y1="70" x2="130" y2="50" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               <line x1="190" y1="70" x2="210" y2="50" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               <line x1="130" y1="50" x2="210" y2="50" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               <line x1="210" y1="50" x2="210" y2="120" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <!-- Texts -->
-              <text x="140" y="105" fill="#ffffff" font-weight="bold" font-size="11">KUBUS</text>
-              <text x="130" y="180" fill="#ffffff" font-weight="bold" font-size="11">BALOK BAWAH</text>
+              <text x="128" y="105" fill="#ffffff" font-weight="extrabold" font-size="13">KUBUS</text>
+              <text x="105" y="180" fill="#ffffff" font-weight="extrabold" font-size="13">BALOK BAWAH</text>
             </g>
           `;
           break;
@@ -1368,14 +1322,12 @@
                   <stop offset="100%" stop-color="#0f172a" />
                 </radialGradient>
               </defs>
-              <!-- Cylinder -->
               <rect x="90" y="100" width="120" height="60" fill="url(#capsule-cyl)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Left sphere cap -->
               <path d="M 90 100 A 30 30 0 0 0 90 160 Z" fill="url(#sphere-half)" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               
-              <text x="130" y="135" fill="#ffffff" font-weight="bold" font-size="11">KAPSUL 3D</text>
+              <text x="110" y="135" fill="#ffffff" font-weight="extrabold" font-size="13">KAPSUL (3D)</text>
               <line x1="90" y1="180" x2="210" y2="180" stroke="#f59e0b" stroke-width="1.5" />
-              <text x="135" y="195" fill="#fbbf24" font-weight="bold" font-size="10">p_tabung</text>
+              <text x="135" y="196" fill="#fbbf24" font-weight="bold" font-size="12">t</text>
             </g>
           `;
           break;
@@ -1383,14 +1335,12 @@
         case "gabungan_tenda": {
           svgContent = `
             <g>
-              <!-- Cylinder base -->
               <path d="M 80 130 L 80 190 A 70 20 0 0 0 220 190 L 220 130 Z" fill="#312e81" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
-              <!-- Cone Top -->
               <path d="M 80 130 L 150 50 L 220 130 A 70 20 0 0 1 80 130" fill="#4f46e5" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               <ellipse cx="150" cy="130" rx="70" ry="20" fill="#4338ca" opacity="0.6" stroke="${strokeColor}" stroke-width="1" />
               
-              <text x="125" y="105" fill="#ffffff" font-weight="bold" font-size="11">KERUCUT ATAP</text>
-              <text x="125" y="165" fill="#ffffff" font-weight="bold" font-size="11">TABUNG DINDING</text>
+              <text x="105" y="105" fill="#ffffff" font-weight="extrabold" font-size="13">KERUCUT ATAP</text>
+              <text x="95" y="165" fill="#ffffff" font-weight="extrabold" font-size="13">TABUNG DINDING</text>
             </g>
           `;
           break;
@@ -1402,7 +1352,7 @@
               <ellipse cx="150" cy="90" rx="40" ry="10" fill="#818cf8" stroke="${strokeColor}" stroke-width="${strokeWidth}" />
               <path d="M 70 190 A 80 20 0 0 1 230 190" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" fill="none" />
               
-              <text x="130" y="145" fill="#ffffff" font-weight="bold" font-size="11">TERPANCUNG</text>
+              <text x="100" y="145" fill="#ffffff" font-weight="extrabold" font-size="13">TERPANCUNG</text>
             </g>
           `;
           break;
@@ -1411,7 +1361,6 @@
           svgContent = `<circle cx="150" cy="130" r="50" fill="#4f46e5" />`;
       }
 
-      // Add a standard marker arrow definition inside defs if not there
       const finalSvg = `
         <svg viewBox="0 0 300 250" class="w-full max-w-[280px] h-auto drop-shadow-2xl">
           <defs>
@@ -1424,49 +1373,6 @@
       `;
       return finalSvg;
     }
-
-    // --- RENDER DYNAMIC SLIDER CONTROLS FOR THE ACTIVE SHAPE ---
-    function populateSliders(q) {
-      slidersContainer.innerHTML = "";
-      sliderValues = { ...q.defaultParams };
-      
-      const keys = Object.keys(q.defaultParams);
-      keys.forEach(key => {
-        let min = 1, max = 20, step = 1;
-        let unit = "cm";
-        let labelName = key;
-        
-        if (key === 'p') { labelName = "Panjang (p)"; max = 24; }
-        else if (key === 'l') { labelName = "Lebar (l)"; max = 15; }
-        else if (key === 't' || key === 't_cyl') { labelName = "Tinggi (t)"; max = 25; }
-        else if (key === 'r') { labelName = "Jari-jari (r)"; max = 15; }
-        else if (key === 's') { labelName = "Sisi/Rusuk (s)"; max = 15; }
-        else if (key === 'a') { labelName = "Alas Segitiga"; max = 12; }
-        else if (key === 'b') { labelName = "Sisi Alas Samping"; max = 12; }
-        
-        const div = document.createElement("div");
-        div.className = "flex flex-col gap-1";
-        div.innerHTML = `
-          <div class="flex justify-between text-xs font-semibold text-slate-300">
-            <span>${labelName}</span>
-            <span class="text-indigo-400 font-bold mono"><span id="val-${key}">${sliderValues[key]}</span> ${unit}</span>
-          </div>
-          <input type="range" min="${min}" max="${max}" step="${step}" value="${sliderValues[key]}" 
-            class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
-            oninput="handleSliderChange('${key}', this.value)" />
-        `;
-        slidersContainer.appendChild(div);
-      });
-    }
-
-    window.handleSliderChange = function(key, val) {
-      sliderValues[key] = parseFloat(val);
-      document.getElementById(`val-${key}`).textContent = val;
-      
-      // Re-render SVG with updated params
-      const q = questions[currentIdx];
-      svgDrawingArea.innerHTML = generateSVGMarkup(q.type, sliderValues);
-    };
 
     // --- RENDER THE CURRENT QUESTION ---
     function renderQuestion() {
@@ -1530,9 +1436,8 @@
         optionsContainer.appendChild(btn);
       });
 
-      // SVG Illustration render
+      // SVG Schematic Illustration render (no numbers displayed on illustration)
       svgDrawingArea.innerHTML = generateSVGMarkup(q.type, q.defaultParams);
-      populateSliders(q);
       
       // Discussion/Pembahasan Visibility Check
       const state = questionStates[currentIdx];
@@ -1556,16 +1461,14 @@
       updateLeftGrid();
     }
 
-    // Helper to format simple math strings e.g. $s = 6$ or $V = s^3$ with neat styles
+    // Helper to format simple math strings
     function formatMathNotation(str) {
       if (!str) return "";
       let html = str;
       
-      // Simple regex replacer for inline formulas wrapped inside $$ or $
-      html = html.replace(/\$\$(.*?)\$\$/g, '<span class="mono font-semibold bg-slate-100 text-slate-800 px-1 py-0.5 rounded">$1</span>');
+      html = html.replace(/\$\.(.*?)\$\./g, '<span class="mono font-semibold bg-slate-100 text-slate-800 px-1 py-0.5 rounded">$1</span>');
       html = html.replace(/\$(.*?)\$/g, '<span class="mono font-medium text-indigo-600 bg-indigo-50/60 px-1 rounded">$1</span>');
       
-      // Pretty prints for squares, cubes, pi, fractional math, times, division
       html = html.replace(/\^3/g, '³');
       html = html.replace(/\^2/g, '²');
       html = html.replace(/\\times/g, ' × ');
@@ -1584,7 +1487,7 @@
       if (questionStates[currentIdx] === "correct" || questionStates[currentIdx] === "incorrect") return;
       
       userAnswers[currentIdx] = idx;
-      questionStates[currentIdx] = "selected"; // yellow state ("Belum Cek")
+      questionStates[currentIdx] = "selected"; // yellow state
       
       renderQuestion();
       updateLeftGrid();
@@ -1603,7 +1506,7 @@
         questionStates[currentIdx] = "incorrect";
       }
       
-      renderQuestion(); // Re-render triggers Pembahasan and locks options
+      renderQuestion(); 
       updateLeftGrid();
       updateGlobalStatus();
     };
@@ -1652,7 +1555,6 @@
         
         btn.textContent = i + 1;
         
-        // Base classes
         let bgClass = "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100";
         
         const state = questionStates[i];
@@ -1664,7 +1566,6 @@
           bgClass = "bg-rose-500 text-white border-rose-600 shadow-md shadow-rose-100";
         }
 
-        // Active highlighted outline
         let outlineClass = "";
         if (i === currentIdx) {
           outlineClass = " ring-4 ring-indigo-500/30 scale-105 border-indigo-500 z-10 font-black";
@@ -1697,14 +1598,36 @@
         currentIdx = 0;
         userAnswers = Array(40).fill(null);
         questionStates = Array(40).fill("unanswered");
+        
+        // Reshuffle questions again when fully resetting quiz
+        shuffleAllOptions();
+        
         renderQuestion();
         updateLeftGrid();
         updateGlobalStatus();
       }
     };
 
+    // --- DYNAMIC OPTION SHUFFLING ON INIT ---
+    // Randomizes options for every single question, finding and mapping correctIndex correctly
+    function shuffleAllOptions() {
+      questions.forEach(q => {
+        const correctText = q.options[q.correctIndex];
+        
+        // Fisher-Yates Shuffle
+        for (let i = q.options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+        }
+        
+        // Re-locate correct index post-shuffle
+        q.correctIndex = q.options.indexOf(correctText);
+      });
+    }
+
     // --- INITIALIZATION ON WINDOW LOAD ---
     window.onload = function() {
+      shuffleAllOptions(); // Dynamic shuffle of all options
       setupLeftGrid();
       renderQuestion();
       updateGlobalStatus();
