@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Detektif Volume - Kelas 9 SMP</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration for Perfect Non-Formula Rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAFBFD;
+        }
+        .heading-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .math-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .slide-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-bounce {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-bounce:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#FFFDF0] via-[#F3FBF7] to-[#EEF2FF] min-h-screen flex flex-col justify-between overflow-x-hidden select-none">
+
+    <!-- TOP HEADER -->
+    <header class="bg-white/95 backdrop-blur-md border-b-4 border-[#10B981] py-3.5 px-6 flex justify-between items-center sticky top-0 z-40 shadow-sm">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl animate-bounce">🕵️‍♂️</span>
+            <div>
+                <h1 class="heading-font text-xl md:text-2xl font-bold text-[#047857]">Detektif Volume</h1>
+                <p class="text-[10px] text-[#059669] font-black tracking-widest uppercase">Kurikulum Merdeka • Kelas 9 SMP</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <!-- XP Badge -->
+            <div class="bg-[#FFF4E0] border-2 border-[#FFAA00] rounded-full px-4 py-1.5 flex items-center gap-1.5 shadow-sm">
+                <span class="text-base">💎</span>
+                <span id="score-display" class="font-bold text-[#9E6200] text-xs md:text-sm">0 XP</span>
+            </div>
+            
+            <!-- Scratchpad Toggle -->
+            <button id="scratchpad-btn" onclick="toggleScratchpad()" class="bg-[#E0F7FA] hover:bg-[#B2EBF2] border-2 border-[#00ACC1] active:scale-95 transition text-[#00838F] font-bold rounded-full px-4 py-1.5 text-xs md:text-sm shadow-sm flex items-center gap-1">
+                ✏️ <span>Papan Cakar</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SCRATCHPAD DRAWING OVERLAY -->
+    <div id="scratchpad" class="hidden fixed inset-0 z-50 bg-white/95 flex flex-col p-4">
+        <div class="flex justify-between items-center mb-2 border-b-2 border-gray-100 pb-2">
+            <h3 class="heading-font text-lg font-bold text-[#00838F] flex items-center gap-2">
+                ✏️ Papan Cakar Aljabar & Sketsa Geometri
+            </h3>
+            <div class="flex items-center gap-2">
+                <button onclick="clearCanvas()" class="bg-red-50 hover:bg-red-100 text-red-600 font-bold px-3 py-1.5 rounded-xl text-xs">Bersihkan</button>
+                <button onclick="toggleScratchpad()" class="bg-[#00838F] hover:bg-[#006064] text-white font-bold px-4 py-1.5 rounded-xl text-xs">Kembali ke Slide</button>
+            </div>
+        </div>
+        <div class="flex-1 bg-amber-50/20 border-4 border-dashed border-[#00ACC1] rounded-2xl relative cursor-crosshair overflow-hidden">
+            <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        </div>
+        <p class="text-xs text-gray-400 mt-2 text-center">Gunakan jari atau mouse komputer untuk mencakar perhitungan rumus luas dan volume di sini!</p>
+    </div>
+
+    <!-- MAIN SLIDE CONTAINER -->
+    <main class="flex-1 flex items-center justify-center p-4 relative my-4">
+        <!-- Prev Arrow -->
+        <button id="prev-btn" onclick="changeSlide(-1)" class="absolute left-2 md:left-6 z-30 bg-white hover:bg-[#FFF4E0] text-[#FF8C00] border-4 border-[#FFE082] w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-md active:scale-90 transition">
+            ◀
+        </button>
+
+        <!-- Slide Body wrapper -->
+        <div id="slide-wrapper" class="w-full max-w-4xl bg-white rounded-3xl border-8 border-[#FFE082] shadow-xl overflow-hidden flex flex-col justify-between min-h-[520px] md:min-h-[580px] slide-transition">
+            <!-- Top Progress Bar -->
+            <div class="w-full bg-[#FFF9E6] h-3">
+                <div id="progress-bar" class="bg-[#FF8C00] h-full transition-all duration-300" style="width: 4%"></div>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <div id="slide-content" class="p-6 md:p-10 flex-1 flex flex-col justify-center overflow-y-auto max-h-[460px] md:max-h-[510px]">
+                <!-- Loaded dynamically by Javascript -->
+            </div>
+
+            <!-- Footer Status Badge -->
+            <div class="bg-[#FFFDF5] border-t-2 border-[#FFF2CC] px-6 py-3 flex justify-between items-center text-xs md:text-sm font-bold text-[#FF8C00]">
+                <span id="section-name">Misi Pembuka</span>
+                <span id="slide-index" class="bg-[#FF8C00] text-white px-3 py-1 rounded-full">Slide 1 / 25</span>
+            </div>
+        </div>
+
+        <!-- Next Arrow -->
+        <button id="next-btn" onclick="changeSlide(1)" class="absolute right-2 md:right-6 z-30 bg-white hover:bg-[#FFF4E0] text-[#FF8C00] border-4 border-[#FFE082] w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-md active:scale-90 transition">
+            ▶
+        </button>
+    </main>
+
+    <!-- FLOATING TOAST NOTIFICATION -->
+    <div id="toast" class="hidden fixed bottom-12 left-1/2 transform -translate-x-1/2 z-50 bg-[#10B981] text-white font-bold px-6 py-3 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
+        <span id="toast-icon">✨</span> <span id="toast-text">Luar biasa! Penyelesaianmu tepat!</span>
+    </div>
+
+    <!-- CONFETTI CELEBRATION CANVAS -->
+    <canvas id="confetti" class="fixed inset-0 pointer-none z-50 w-full h-full hidden"></canvas>
+
+    <!-- INLINE JAVASCRIPT & DATABASE SLIDES -->
+    <script>
+        // --- 1. WEB AUDIO API SYNTHESIZER ---
+        let audioCtx;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); 
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08); 
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.16); 
+                    osc.frequency.setValueAtTime(1046.50, ctx.currentTime + 0.24); 
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.45);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.45);
+                } else if (type === 'incorrect') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(140, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.35);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.35);
+                } else if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(380, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(280, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.08);
+                }
+            } catch (e) {
+                console.log("Audio synthesized successfully.");
+            }
+        }
+
+        // --- 2. THE 25 SLIDES DATABASE ---
+        const slides = [
+            // Slide 1: Welcome / Title
+            {
+                section: "Misi Pembuka",
+                title: "Asal-usul Sisi Lengkung Lancip & Bola",
+                subtitle: "Investigasi Geometri Interaktif 3D • Kurikulum Merdeka",
+                icon: "🔮",
+                render: () => `
+                    <div class="text-center">
+                        <div class="flex justify-center mb-4 gap-4">
+                            <!-- Gorgeous 3D-styled Cone SVG -->
+                            <svg class="w-28 h-28 text-[#8B5CF6] animate-pulse" viewBox="0 0 100 100" fill="none">
+                                <ellipse cx="50" cy="80" rx="30" ry="10" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2"/>
+                                <path d="M 20 80 L 50 15 L 80 80" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linejoin="round"/>
+                                <line x1="50" y1="15" x2="50" y2="80" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3 3"/>
+                                <line x1="50" y1="80" x2="80" y2="80" stroke="#3B82F6" stroke-width="2"/>
+                            </svg>
+                            <!-- Gorgeous 3D-styled Sphere SVG -->
+                            <svg class="w-28 h-28 text-[#10B981] animate-pulse" viewBox="0 0 100 100" fill="none">
+                                <circle cx="50" cy="50" r="35" fill="#D1FAE5" stroke="#059669" stroke-width="3"/>
+                                <ellipse cx="50" cy="50" rx="35" ry="10" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="3 3"/>
+                                <ellipse cx="50" cy="50" rx="10" ry="35" fill="none" stroke="#059669" stroke-width="1" stroke-dasharray="3 3"/>
+                            </svg>
+                        </div>
+                        <h2 class="heading-font text-3xl md:text-5xl font-extrabold text-[#1E3A8A] mb-2">Detektif Volume</h2>
+                        <p class="text-base md:text-lg text-indigo-700 font-bold mb-6">Membongkar Misteri Asal-usul Volume Kerucut & Bola</p>
+                        <div class="inline-block bg-[#F5F3FF] border-2 border-dashed border-[#A78BFA] rounded-2xl p-4 max-w-lg mx-auto">
+                            <p class="text-xs md:text-sm text-violet-900 font-semibold">"Halo Detektif Muda! Hari ini kita akan menggunakan simulasi visual 3D untuk mengupas dari mana datangnya rumus matematika Kerucut dan Bola!"</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 2: Target Belajar (Tujuan)
+            {
+                section: "Misi Pembuka",
+                title: "Tujuan & Target Pembelajaran",
+                subtitle: "Capaian Pembelajaran Matematika Fase D SMP Kelas 9",
+                icon: "🎯",
+                render: () => `
+                    <div class="max-w-2xl mx-auto text-left">
+                        <p class="text-sm text-gray-500 font-bold mb-4">Selesaikan misi ini untuk menguasai kompetensi tingkat tinggi:</p>
+                        <ul class="space-y-3 text-xs md:text-sm">
+                            <li class="bg-violet-50 border-l-8 border-[#8B5CF6] p-3 rounded-r-xl font-bold text-violet-950 flex items-center gap-3">
+                                <span class="text-lg">📐</span> Menemukan hubungan volume antara Limas Lingkaran (Kerucut) dengan Tabung.
+                            </li>
+                            <li class="bg-[#EFF6FF] border-l-8 border-[#3B82F6] p-3 rounded-r-xl font-bold text-blue-950 flex items-center gap-3">
+                                <span class="text-lg">🔮</span> Menjelaskan asal-usul rumus volume Bola melalui eksperimen penuangan air kerucut.
+                            </li>
+                            <li class="bg-[#F0FDF4] border-l-8 border-[#10B981] p-3 rounded-r-xl font-bold text-emerald-950 flex items-center gap-3">
+                                <span class="text-lg">🔥</span> Memecahkan soal perhitungan balik mencari jari-jari/tinggi, serta soal cerita kehidupan sehari-hari (HOTS).
+                            </li>
+                        </ul>
+                    </div>
+                `
+            },
+            // Slide 3: Peta Perjalanan
+            {
+                section: "Misi Pembuka",
+                title: "Peta Petualangan Belajar",
+                subtitle: "Alur Misi Pencarian Asal-usul Rumus",
+                icon: "🗺️",
+                render: () => `
+                    <div class="w-full">
+                        <p class="text-sm text-center text-gray-500 font-bold mb-6">4 Stasiun penting yang harus kamu tuntaskan:</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-[#FFF9DB] p-4 rounded-2xl border-2 border-[#F59E0B] text-center">
+                                <span class="text-3xl">🧩</span>
+                                <h4 class="font-bold text-[#78350F] text-xs mt-2">1. Warm-Up & Review</h4>
+                            </div>
+                            <div class="bg-[#EBF8FF] p-4 rounded-2xl border-2 border-[#3182CE] text-center">
+                                <span class="text-3xl">📐</span>
+                                <h4 class="font-bold text-[#2B6CB0] text-xs mt-2">2. Asal-Usul Kerucut</h4>
+                            </div>
+                            <div class="bg-[#E6FFFA] p-4 rounded-2xl border-2 border-[#319795] text-center">
+                                <span class="text-3xl">🔮</span>
+                                <h4 class="font-bold text-[#2C7A7B] text-xs mt-2">3. Penyelidikan Bola</h4>
+                            </div>
+                            <div class="bg-[#FFF5F5] p-4 rounded-2xl border-2 border-[#E53E3E] text-center">
+                                <span class="text-3xl">🏆</span>
+                                <h4 class="font-bold text-[#9B2C2C] text-xs mt-2">4. 8 Tantangan Kuis</h4>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 4: Warm-Up 1
+            {
+                section: "Warm-Up",
+                title: "Review: Dasar Tabung & Luas Lingkaran",
+                subtitle: "Fondasi penting sebelum masuk ke rumus lancip",
+                icon: "🧩",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Jika sebuah tabung memiliki <strong>luas alas $14 \\text{ cm}^2$</strong> dan <strong>tinggi $10 \\text{ cm}$</strong>. Berapakah volume tabung tersebut?</p>
+                        <div class="flex justify-center items-center gap-3 text-2xl md:text-3xl font-black mb-6">
+                            <span class="bg-amber-100 px-4 py-2 rounded-xl text-amber-700">$14 \\text{ cm}^2$</span>
+                            <span>×</span>
+                            <span class="bg-amber-100 px-4 py-2 rounded-xl text-amber-700">$10 \\text{ cm}$</span>
+                            <span>=</span>
+                            <span class="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-xl">?</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 max-w-md mx-auto">
+                            <button onclick="checkSlideAnswer(this, false, 'Salah. Ingat Rumus Volume Tabung = Luas Alas x Tinggi.', 5)" class="bg-[#F3F4F6] hover:bg-gray-100 p-3 rounded-xl border font-bold text-sm">24 cm³</button>
+                            <button onclick="checkSlideAnswer(this, true, 'Sangat Hebat! Volume Tabung = Luas Alas x Tinggi = 14 x 10 = 140 cm³.', 5)" class="bg-[#F3F4F6] hover:bg-gray-100 p-3 rounded-xl border font-bold text-sm">140 cm³</button>
+                            <button onclick="checkSlideAnswer(this, false, 'Masih salah.', 5)" class="bg-[#F3F4F6] hover:bg-gray-100 p-3 rounded-xl border font-bold text-sm">144 cm³</button>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 5: Warm-Up 2
+            {
+                section: "Warm-Up",
+                title: "Teka-teki Luas Selimut Tabung",
+                subtitle: "Mengingat jaring-jaring selimut tabung",
+                icon: "🧱",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div class="flex justify-center bg-violet-50 p-4 rounded-2xl border-2 border-violet-200">
+                            <!-- SVG Cylindrical net transformation -->
+                            <svg class="w-44 h-36" viewBox="0 0 100 80">
+                                <rect x="35" y="15" width="30" height="40" fill="#93C5FD" stroke="#2563EB" stroke-width="2" rx="3"/>
+                                <text x="43" y="38" fill="#1E40AF" font-family="'Fredoka'" font-size="10" font-weight="bold">Selimut</text>
+                                <path d="M 25 35 L 15 35" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+                                <path d="M 75 35 L 85 35" stroke="#475569" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-sm text-gray-600 font-semibold leading-relaxed">
+                                Selimut tabung jika digambar dan dibuka mendatar akan membentuk bangun datar apakah?
+                            </p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="checkSlideAnswer(this, true, 'Tepat sekali! Selimut tabung jika dibuka mendatar berbentuk persegi panjang.', 5)" class="bg-white hover:bg-gray-100 p-2.5 rounded-xl border text-xs font-bold">Persegi Panjang</button>
+                                <button onclick="checkSlideAnswer(this, false, 'Salah, coba bayangkan label botol minum dibuka.', 5)" class="bg-white hover:bg-gray-100 p-2.5 rounded-xl border text-xs font-bold">Lingkaran</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 6: Real-world Connection 1
+            {
+                section: "Koneksi Nyata",
+                title: "Kubah Istana Pasir & Es Krim Cone",
+                subtitle: "Ternyata bangun ruang lancip ada di mana-mana!",
+                icon: "🍦",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <p class="text-sm text-gray-600 leading-relaxed font-semibold">
+                                Ketika kamu bermain game 3D merancang istana pasir, atau saat sedang asyik memakan es krim, kamu sedang melihat <strong>Kerucut (Cone)</strong>.
+                                <br><br>
+                                Bentuk ini memiliki ujung lancip. Bagaimana cara pabrik es krim mengetahui volume es krim cokelat yang bisa muat di dalam cone tersebut? Mari kita cari tahu!
+                            </p>
+                        </div>
+                        <div class="bg-sky-50 p-4 rounded-2xl border-2 border-sky-100 text-center flex flex-col items-center">
+                            <span class="text-5xl block animate-bounce mb-2">🍦🏖️</span>
+                            <div class="text-xs font-mono font-bold bg-white p-2 rounded border border-sky-300">
+                                Desain Kerucut dalam Game & Sains
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 7: Real-world Connection 2
+            {
+                section: "Koneksi Nyata",
+                title: "Bola Sepak & Gelembung Air",
+                subtitle: "Sifat sempurna dari bangun ruang tanpa sudut",
+                icon: "⚽",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div class="order-2 md:order-1 flex justify-center bg-[#F0FDF4] p-4 rounded-2xl border-2 border-emerald-200">
+                            <!-- SVG 3D soccer ball -->
+                            <svg class="w-36 h-36" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="#E2E8F0" stroke="#334155" stroke-width="4"/>
+                                <polygon points="50,25 62,35 58,50 42,50 38,35" fill="#1E293B"/>
+                                <polygon points="50,75 38,65 42,50 58,50 62,65" fill="#1E293B"/>
+                                <line x1="50" y1="25" x2="50" y2="10" stroke="#334155" stroke-width="2"/>
+                                <line x1="38" y1="35" x2="15" y2="35" stroke="#334155" stroke-width="2"/>
+                                <line x1="62" y1="35" x2="85" y2="35" stroke="#334155" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="order-1 md:order-2">
+                            <p class="text-sm text-gray-600 leading-relaxed font-semibold">
+                                Bola sepak yang menggelinding indah memiliki volume ruang yang menampung udara di dalamnya. 
+                                <br><br>
+                                Bola adalah bentuk geometris paling efisien di alam semesta karena tidak memiliki sudut sama sekali. Bagaimana sejarah penemuan rumus volume bola? Kita selidiki setelah ini!
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 8: Konsep 1 (Asal Usul Rumus Limas dari Pembelahan Kubus)
+            {
+                section: "Asal-usul Limas",
+                title: "Konsep 1: Asal-usul Volume Limas Segi Empat",
+                subtitle: "Membagi kubus utuh menjadi 6 limas identik",
+                icon: "💎",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-4 items-center">
+                        <div class="flex justify-center bg-violet-50 p-4 rounded-2xl border-2 border-violet-200">
+                            <!-- SVG 3D Isometric transparent Cube showing 6 Pyramids meeting at center -->
+                            <svg class="w-44 h-44" viewBox="0 0 100 100">
+                                <!-- Base Grid lines for depth -->
+                                <polygon points="20,80 50,95 80,80 50,65" fill="#DDD6FE" fill-opacity="0.4" stroke="#7C3AED" stroke-width="1"/>
+                                <!-- Top side -->
+                                <polygon points="20,40 50,55 80,40 50,25" fill="none" stroke="#7C3AED" stroke-width="1" stroke-dasharray="2 2"/>
+                                <!-- Vertical outer lines -->
+                                <line x1="20" y1="80" x2="20" y2="40" stroke="#7C3AED" stroke-width="1"/>
+                                <line x1="50" y1="95" x2="50" y2="55" stroke="#7C3AED" stroke-width="1"/>
+                                <line x1="80" y1="80" x2="80" y2="40" stroke="#7C3AED" stroke-width="1"/>
+                                <line x1="50" y1="65" x2="50" y2="25" stroke="#7C3AED" stroke-width="1" stroke-dasharray="2 2"/>
+                                <!-- Center apex point -->
+                                <circle cx="50" cy="60" r="3" fill="#EF4444"/>
+                                <text x="54" y="61" fill="#EF4444" font-family="'JetBrains Mono'" font-size="6" font-weight="bold">Pusat</text>
+                                <!-- highlighted bottom pyramid with translucent shading -->
+                                <polygon points="20,80 50,95 50,60" fill="#FBBF24" fill-opacity="0.4" stroke="#D97706" stroke-width="1"/>
+                                <polygon points="50,95 80,80 50,60" fill="#FBBF24" fill-opacity="0.6" stroke="#D97706" stroke-width="1.5"/>
+                                <polygon points="80,80 50,65 50,60" fill="#FBBF24" fill-opacity="0.2" stroke="#D97706" stroke-width="1" stroke-dasharray="2 2"/>
+                                <polygon points="50,65 20,80 50,60" fill="#FBBF24" fill-opacity="0.3" stroke="#D97706" stroke-width="1" stroke-dasharray="2 2"/>
+                            </svg>
+                        </div>
+                        <div class="space-y-2 text-xs md:text-sm">
+                            <h4 class="font-bold text-slate-800">Pembuktian Pembelahan Kubus:</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Jika kita menarik garis diagonal dari 8 sudut kubus (dengan panjang sisi $a$) ke titik pusatnya, kita akan mendapatkan <strong>6 buah limas segi empat yang sama besar</strong>.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Tinggi tiap limas adalah setengah dari sisi kubus ($t = \\frac{a}{2} \\rightarrow a = 2t$).
+                            </p>
+                            <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-300 font-mono text-[11px] text-amber-900">
+                                $6 \\times V_{limas} = a^3$<br>
+                                $6 \\times V_{limas} = a^2 \\times a$<br>
+                                $6 \\times V_{limas} = \\text{Luas Alas} \\times (2t)$<br>
+                                $V_{limas} = \\frac{2}{6} \\times \\text{Luas Alas} \\times t$<br>
+                                $V_{limas} = \\frac{1}{3} \\times \\text{Luas Alas} \\times t$
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 9: Konsep 2 (Evolusi Limas Segi Banyak Menjadi Kerucut)
+            {
+                section: "Asal-usul Kerucut",
+                title: "Konsep 2: Hubungan Limas & Kerucut",
+                subtitle: "Transformasi alas segibanyak menuju lingkaran tak terhingga",
+                icon: "📐",
+                render: () => `
+                    <div class="space-y-4 max-w-2xl mx-auto text-xs md:text-sm">
+                        <p class="text-gray-600 leading-relaxed">
+                            Sebuah limas segitiga, segi empat, atau segi-n dapat diubah alasnya menjadi lingkaran. 
+                            Jika jumlah sisi pada alas segi banyak kita perbanyak terus menerus hingga **mendekati tak terhingga ($n \\rightarrow \\infty$)**, alas tersebut akan membulat sempurna menjadi lingkaran!
+                        </p>
+                        <div class="flex justify-center gap-6 my-4">
+                            <!-- 3D Pyramid to Cone evolution visual -->
+                            <div class="text-center">
+                                <svg class="w-16 h-16" viewBox="0 0 40 40">
+                                    <polygon points="20,5 10,32 30,32" fill="#E2E8F0" stroke="#475569" stroke-width="1"/>
+                                    <line x1="20" y1="5" x2="20" y2="30" stroke="#EF4444" stroke-width="0.8" stroke-dasharray="1 1"/>
+                                </svg>
+                                <span class="text-[10px] font-bold text-gray-500">Limas Segitiga</span>
+                            </div>
+                            <div class="text-center">
+                                <svg class="w-16 h-16" viewBox="0 0 40 40">
+                                    <polygon points="20,5 8,30 20,35 32,30" fill="#E2E8F0" stroke="#475569" stroke-width="1"/>
+                                    <line x1="20" y1="5" x2="20" y2="28" stroke="#EF4444" stroke-width="0.8" stroke-dasharray="1 1"/>
+                                </svg>
+                                <span class="text-[10px] font-bold text-gray-500">Limas Segi-4</span>
+                            </div>
+                            <div class="text-center">
+                                <svg class="w-16 h-16" viewBox="0 0 40 40">
+                                    <ellipse cx="20" cy="32" rx="10" ry="3" fill="#C084FC" fill-opacity="0.5" stroke="#7C3AED" stroke-width="1"/>
+                                    <line x1="10" y1="32" x2="20" y2="5" stroke="#7C3AED" stroke-width="1.2"/>
+                                    <line x1="30" y1="32" x2="20" y2="5" stroke="#7C3AED" stroke-width="1.2"/>
+                                    <line x1="20" y1="5" x2="20" y2="32" stroke="#EF4444" stroke-width="0.8" stroke-dasharray="1 1"/>
+                                </svg>
+                                <span class="text-[10px] font-bold text-purple-700">Kerucut (Alas $\\infty$)</span>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-slate-700">
+                            Karena kerucut merupakan limas dengan alas berupa lingkaran, maka volume kerucut tetap mewarisi rumus dasar limas:
+                        </p>
+                        <div class="bg-violet-50 border-2 border-violet-200 p-3.5 rounded-xl text-center font-mono">
+                            <span class="text-violet-800 font-extrabold">$V_{kerucut} = \\frac{1}{3} \\times \\text{Luas Alas} \\times t = \\frac{1}{3} \\pi r^2 t$</span>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 10: Konsep 3: Menemukan Rumus Volume Kerucut
+            {
+                section: "Materi Kerucut",
+                title: "Menurunkan Rumus Volume Kerucut",
+                subtitle: "Hubungan Volume Kerucut dengan Tabung",
+                icon: "📐",
+                render: () => `
+                    <div class="space-y-3 text-xs md:text-sm max-w-xl mx-auto text-left">
+                        <p class="text-gray-600 font-semibold">Karena kerucut adalah limas lingkaran, maka volumenya diturunkan dari rumus prisma/tabung:</p>
+                        <div class="bg-emerald-50 border-l-8 border-emerald-500 p-3.5 rounded-r-xl">
+                            Volume Kerucut adalah sepertiga dari Volume Tabung yang memiliki jari-jari ($r$) dan tinggi ($t$) yang sama!
+                            <p class="text-center font-bold text-emerald-800 text-base mt-2">$V = \\frac{1}{3} \\pi r^2 t$</p>
+                        </div>
+                        <p class="text-xs text-gray-400 italic text-center">"Mengapa harus sepertiga? Mari kita buktikan secara visual lewat penuangan air!"</p>
+                    </div>
+                `
+            },
+            // Slide 11: SIMULATOR PENUANGAN AIR INTERAKTIF 1
+            {
+                section: "Materi Kerucut",
+                title: "Simulator 1: Penuangan Air Kerucut ke Tabung",
+                subtitle: "Klik Tuang Air untuk membuktikan rasio 1/3 volume!",
+                icon: "⚙️",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-4 items-center">
+                        <div class="space-y-4 bg-gray-50 p-4 rounded-xl border">
+                            <p class="text-xs text-gray-500 font-bold">Tekan tombol di bawah untuk menuang air dari wadah kerucut ke tabung!</p>
+                            <div class="flex gap-2">
+                                <button onclick="pourWaterTabung()" id="pour-btn-1" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-4 py-2 rounded-xl transition">
+                                    💧 Tuangkan Air!
+                                </button>
+                                <button onclick="resetPourTabung()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs px-4 py-2 rounded-xl transition">
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="bg-white p-2.5 rounded border text-xs font-mono">
+                                <span class="font-bold text-gray-700">Catatan Pengukuran:</span><br>
+                                <span id="pour-status-1" class="text-blue-600 font-bold">Kerucut kosong. Klik 'Tuangkan!' untuk mengisi.</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <!-- Visual SVG with dynamic water level inside cylinder and cone -->
+                            <svg class="w-48 h-48 bg-white border rounded-xl" viewBox="0 0 120 100">
+                                <!-- Base Cylinder representing tabung -->
+                                <ellipse cx="30" cy="85" rx="15" ry="5" fill="none" stroke="#475569" stroke-width="2"/>
+                                <line x1="15" y1="25" x2="15" y2="85" stroke="#475569" stroke-width="2"/>
+                                <line x1="45" y1="25" x2="45" y2="85" stroke="#475569" stroke-width="2"/>
+                                <ellipse cx="30" cy="25" rx="15" ry="5" fill="none" stroke="#475569" stroke-width="2"/>
+                                
+                                <!-- Dynamic water level inside tabung -->
+                                <path id="water-tabung" d="M 15 85 L 45 85 Z" fill="#93C5FD" opacity="0.8"/>
+
+                                <!-- Cone representing kerucut -->
+                                <ellipse cx="85" cy="85" rx="15" ry="5" fill="none" stroke="#475569" stroke-width="2"/>
+                                <line x1="85" y1="25" x2="70" y2="85" stroke="#475569" stroke-width="2"/>
+                                <line x1="85" y1="25" x2="100" y2="85" stroke="#475569" stroke-width="2"/>
+                                <circle cx="85" cy="25" r="2" fill="#EF4444"/>
+
+                                <!-- Dynamic water inside cone -->
+                                <polygon id="water-cone" points="85,25 70,85 100,85" fill="#93C5FD" fill-opacity="0.8" style="display: none;"/>
+                            </svg>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 12: Analisis Pembuktian Kerucut
+            {
+                section: "Materi Kerucut",
+                title: "Bedah Analisis Kerucut ke Tabung",
+                subtitle: "Mengapa harus tepat tiga kali penuangan?",
+                icon: "🕵️‍♂️",
+                render: () => `
+                    <div class="space-y-3 text-xs md:text-sm max-w-xl mx-auto text-left">
+                        <p class="text-gray-600 font-semibold">Hasil pembuktian visual membuktikan:</p>
+                        <div class="bg-violet-50 p-4 rounded-xl border border-violet-200">
+                            Ketika kita menuangkan air dari wadah kerucut ke tabung yang memiliki <strong>jari-jari ($r$) dan tinggi ($t$) yang sama</strong>, kita membutuhkan <strong>tepat 3 kali pengisian penuh</strong> untuk membuat tabung penuh!
+                            <p class="text-center font-bold text-violet-800 text-sm mt-2">$3 \\times V_{kerucut} = V_{tabung}$</p>
+                            <p class="text-center font-bold text-violet-800 text-sm">$V_{kerucut} = \\frac{1}{3} V_{tabung} = \\frac{1}{3} \\pi r^2 t$</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 13: Hubungan Garis Pelukis (s)
+            {
+                section: "Materi Kerucut",
+                title: "Garis Pelukis & Rumus Selimut",
+                subtitle: "Menguraikan jaring-jaring sisi miring kerucut",
+                icon: "📐",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-4 items-center">
+                        <div class="flex justify-center bg-sky-50 p-3 rounded-2xl border">
+                            <svg class="w-36 h-36" viewBox="0 0 100 100">
+                                <ellipse cx="50" cy="80" rx="25" ry="8" fill="none" stroke="#475569" stroke-width="2"/>
+                                <line x1="50" y1="15" x2="25" y2="80" stroke="#475569" stroke-width="2"/>
+                                <line x1="50" y1="15" x2="75" y2="80" stroke="#475569" stroke-width="2"/>
+                                <line x1="50" y1="15" x2="50" y2="80" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2 2"/>
+                                <line x1="50" y1="80" x2="75" y2="80" stroke="#3B82F6" stroke-width="1.5"/>
+                                <!-- labels -->
+                                <text x="44" y="50" fill="#EF4444" font-size="8" font-weight="bold">t</text>
+                                <text x="60" y="76" fill="#3B82F6" font-size="8" font-weight="bold">r</text>
+                                <text x="64" y="46" fill="#047857" font-size="8" font-weight="bold">s</text>
+                            </svg>
+                        </div>
+                        <div class="space-y-2 text-xs md:text-sm">
+                            <h4 class="font-bold text-gray-700">Hubungan Segitiga Siku-siku:</h4>
+                            <p class="text-gray-600">Garis miring miring murni disebut <strong>Garis Pelukis ($s$)</strong>. Hubungan ketiganya mengikuti rumus Pythagoras:</p>
+                            <p class="font-mono bg-white p-2 rounded border font-bold text-emerald-700">$s = \\sqrt{r^2 + t^2}$</p>
+                            <p class="text-gray-600">Luas Selimut Kerucut dirumuskan oleh:</p>
+                            <p class="font-mono bg-white p-2 rounded border font-bold text-blue-700">$\\text{Luas Selimut} = \\pi r s$</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 14: Konsep Bola & Belahan Bola
+            {
+                section: "Materi Bola",
+                title: "Menjelajahi Geometri Bola",
+                subtitle: "Bangun ruang sisi lengkung sempurna",
+                icon: "🔮",
+                render: () => `
+                    <div class="space-y-4 max-w-2xl mx-auto text-xs md:text-sm">
+                        <p class="text-gray-600 leading-relaxed">
+                            Bola adalah kumpulan titik-titik dalam ruang tiga dimensi yang memiliki jarak sama (jari-jari $r$) terhadap satu titik pusat.
+                        </p>
+                        <div class="bg-emerald-50 border-2 border-emerald-200 p-4 rounded-xl text-center font-mono">
+                            <span class="text-emerald-800 font-extrabold">Luas Permukaan Bola = $4 \\times \\pi r^2$</span>
+                        </div>
+                        <p class="text-xs text-gray-500 text-center italic">"Bagaimana dengan volume air yang bisa ditampung oleh bola utuh? Mari kita lakukan uji penuangan kedua!"</p>
+                    </div>
+                `
+            },
+            // Slide 15: SIMULATOR PENUANGAN AIR INTERAKTIF 2
+            {
+                section: "Materi Bola",
+                title: "Simulator 2: Menghubungkan Bola dengan Kerucut",
+                subtitle: "Klik Tuang Air untuk mengisi belahan bola menggunakan wadah kerucut!",
+                icon: "⚙️",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-4 items-center">
+                        <div class="space-y-4 bg-gray-50 p-4 rounded-xl border">
+                            <p class="text-xs text-gray-500 font-bold">Tuang air dari kerucut (tinggi $t = r$) ke belahan bola bermulut lebar (jari-jari $r$).</p>
+                            <div class="flex gap-2">
+                                <button onclick="pourWaterBola()" id="pour-btn-2" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-4 py-2 rounded-xl transition">
+                                    💧 Tuangkan Air!
+                                </button>
+                                <button onclick="resetPourBola()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs px-4 py-2 rounded-xl transition">
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="bg-white p-2.5 rounded border text-xs font-mono">
+                                <span class="font-bold text-gray-700">Catatan Pengukuran:</span><br>
+                                <span id="pour-status-2" class="text-blue-600 font-bold">Belahan bola kosong. Klik 'Tuangkan!' untuk memulai.</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <!-- Visual SVG with dynamic water level inside hemisphere and cone -->
+                            <svg class="w-48 h-48 bg-white border rounded-xl" viewBox="0 0 120 100">
+                                <!-- Hemisphere representing belahan bola -->
+                                <path d="M 15 50 A 30 30 0 0 0 75 50 Z" fill="none" stroke="#475569" stroke-width="2"/>
+                                <ellipse cx="45" cy="50" rx="30" ry="8" fill="none" stroke="#475569" stroke-width="1.5"/>
+                                
+                                <!-- Dynamic water level inside hemisphere -->
+                                <path id="water-bola" d="M 15 50 Z" fill="#93C5FD" opacity="0.8"/>
+
+                                <!-- Cone representing kerucut -->
+                                <ellipse cx="95" cy="80" rx="15" ry="5" fill="none" stroke="#475569" stroke-width="1.5"/>
+                                <line x1="95" y1="35" x2="80" y2="80" stroke="#475569" stroke-width="1.5"/>
+                                <line x1="95" y1="35" x2="110" y2="80" stroke="#475569" stroke-width="1.5"/>
+
+                                <!-- Dynamic water inside cone -->
+                                <polygon id="water-cone-2" points="95,35 80,80 110,80" fill="#93C5FD" fill-opacity="0.8" style="display: none;"/>
+                            </svg>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 16: Penyelidikan Asal-usul Volume Bola
+            {
+                section: "Materi Bola",
+                title: "Bedah Eksplorasi Rumus Bola",
+                subtitle: "Menemukan konstanta pembagi 4/3",
+                icon: "🕵️‍♂️",
+                render: () => `
+                    <div class="space-y-3 text-xs md:text-sm max-w-xl mx-auto text-left">
+                        <p class="text-gray-600 font-semibold">Sistem penyelidikan membuktikan:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                            1. Kita membutuhkan tepat <strong>2 kali penuangan kerucut penuh</strong> untuk mengisi penuh <strong>Belahan Bola (Setengah Bola)</strong>.
+                            <p class="font-mono text-center font-bold text-blue-900 mt-2">Volume Setengah Bola = $2 \\times V_{kerucut} = 2 \\times (\\frac{1}{3} \\pi r^3) = \\frac{2}{3} \\pi r^3$</p>
+                            <br>
+                            2. Maka untuk <strong>Satu Bola Utuh</strong>, kita mengalikannya dengan 2:
+                            <p class="font-mono text-center font-bold text-emerald-800 text-sm mt-1">$V_{bola} = 2 \\times (\\frac{2}{3} \\pi r^3) = \\frac{4}{3} \\pi r^3$</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 17: Kulit Jeruk & Luas Bola
+            {
+                section: "Materi Bola",
+                title: "Eksperimen Kulit Jeruk Archimedes",
+                subtitle: "Asal-usul Luas Permukaan Bola = 4 x Luas Lingkaran",
+                icon: "🍊",
+                render: () => `
+                    <div class="grid md:grid-cols-2 gap-4 items-center">
+                        <div class="flex justify-center bg-amber-50 p-3 rounded-2xl border">
+                            <svg class="w-36 h-36" viewBox="0 0 100 100">
+                                <!-- 4 circles representing 4x Area of circles -->
+                                <circle cx="30" cy="30" r="15" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="2 2"/>
+                                <circle cx="70" cy="30" r="15" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="2 2"/>
+                                <circle cx="30" cy="70" r="15" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="2 2"/>
+                                <circle cx="70" cy="70" r="15" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="2 2"/>
+                                <text x="18" y="33" fill="#D97706" font-size="8" font-weight="bold">$\\pi r^2$</text>
+                                <text x="58" y="33" fill="#D97706" font-size="8" font-weight="bold">$\\pi r^2$</text>
+                                <text x="18" y="73" fill="#D97706" font-size="8" font-weight="bold">$\\pi r^2$</text>
+                                <text x="58" y="73" fill="#D97706" font-size="8" font-weight="bold">$\\pi r^2$</text>
+                            </svg>
+                        </div>
+                        <div class="space-y-2 text-xs md:text-sm">
+                            <h4 class="font-bold text-gray-700">Trik Pembuktian Kulit Jeruk:</h4>
+                            <p class="text-gray-600">Archimedes membuktikan bahwa jika kulit jeruk belahan bola dipotong kecil-kecil dan ditata rata, maka seluruh kulit jeruk akan <strong>tepat memenuhi luas 4 lingkaran</strong> yang berjari-jari sama dengan jeruk tersebut!</p>
+                            <p class="font-mono bg-white p-2 rounded border font-bold text-[#E65100]">$\\text{Luas Permukaan Bola} = 4 \\pi r^2$</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 18: Memantapkan Nilai Balik Rumus
+            {
+                section: "Materi Balik Rumus",
+                title: "Memantapkan Pencarian Nilai Sisi",
+                subtitle: "Cara membalik rumus luas/volume jika dicari r atau t",
+                icon: "🔑",
+                render: () => `
+                    <div class="space-y-2.5 text-xs md:text-sm max-w-xl mx-auto">
+                        <p class="text-gray-600">Siswa kelas 9 sering kesulitan membalik rumus ketika volume sudah diketahui tetapi yang ditanyakan adalah jari-jari atau tingginya. Gunakan pembagian bertahap berikut:</p>
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 font-mono space-y-1">
+                            <p>• Jika Volume Kerucut diketahui, maka tinggi ($t$) dicari dengan:</p>
+                            <p class="font-bold text-blue-800">$t = \\frac{3 \\times V}{\\pi r^2}$</p>
+                            <p class="mt-2">• Jika Volume Bola diketahui, maka jari-jari ($r$) dicari dengan:</p>
+                            <p class="font-bold text-emerald-800">$r = \\sqrt[3]{\\frac{3 \\times V}{4 \\pi}}$</p>
+                        </div>
+                    </div>
+                `
+            },
+
+            // --- 8 DRILL SOAL TANTANGAN (Slides 19-25) ---
+            // Slide 19: Soal 1
+            {
+                section: "Latihan Soal",
+                title: "Misi 1: Volume Kerucut Langsung",
+                subtitle: "Terapkan formula sepertiga volume",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Sebuah wadah berbentuk kerucut memiliki jari-jari alas <strong>$7 \\text{ cm}$</strong> dan tinggi <strong>$9 \\text{ cm}$</strong>. Berapakah volume udara di dalamnya? (Gunakan $\\pi = \\frac{22}{7}$)</p>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="options-s19"></div>
+                    </div>
+                `,
+                isQuiz: true,
+                options: ["$462 \\text{ cm}^3$", "$154 \\text{ cm}^3$", "$1386 \\text{ cm}^3$", "$924 \\text{ cm}^3$"],
+                correct: "$462 \\text{ cm}^3$",
+                explanation: "Volume = 1/3 * pi * r² * t = 1/3 * 22/7 * 7 * 7 * 9 = 462 cm³."
+            },
+            // Slide 20: Soal 2
+            {
+                section: "Latihan Soal",
+                title: "Misi 2: Volume Bola Standar",
+                subtitle: "Gunakan formula volume bola",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Sebuah bola sepak gelembung memiliki jari-jari <strong>$3 \\text{ cm}$</strong>. Berapakah volume bola tersebut?</p>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="options-s20"></div>
+                    </div>
+                `,
+                isQuiz: true,
+                options: ["$36\\pi \\text{ cm}^3$", "$12\\pi \\text{ cm}^3$", "$48\\pi \\text{ cm}^3$", "$108\\pi \\text{ cm}^3$"],
+                correct: "$36\\pi \\text{ cm}^3$",
+                explanation: "Volume = 4/3 * pi * r³ = 4/3 * pi * 3 * 3 * 3 = 36 * pi = 36\\pi cm³."
+            },
+            // Slide 21: Soal 3
+            {
+                section: "Latihan Soal",
+                title: "Misi 3: Mencari Tinggi Kerucut dari Volume",
+                subtitle: "Membalik persamaan linear lancip (Medium)",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Sebuah nasi tumpeng kerucut memiliki <strong>Volume = $462 \\text{ cm}^3$</strong> dan jari-jari alas <strong>$7 \\text{ cm}$</strong>. Berapakah tinggi tumpeng tersebut? (Gunakan $\\pi = \\frac{22}{7}$)</p>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="options-s21"></div>
+                    </div>
+                `,
+                isQuiz: true,
+                options: ["$9 \\text{ cm}$", "$6 \\text{ cm}$", "$12 \\text{ cm}$", "$15 \\text{ cm}$"],
+                correct: "$9 \\text{ cm}$",
+                explanation: "Volume = 1/3 * pi * r² * t -> 462 = 1/3 * 22/7 * 7 * 7 * t -> 462 = 154/3 * t -> t = (462 * 3)/154 = 9 cm."
+            },
+            // Slide 22: Soal 4
+            {
+                section: "Latihan Soal",
+                title: "Misi 4: Luas Permukaan Setengah Bola",
+                subtitle: "Perhatikan bagian potongan dasar bola (Medium)",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Sebuah semangka padat dipotong menjadi setengah bagian dengan jari-jari <strong>$7 \\text{ cm}$</strong>. Berapakah luas permukaan total semangka tersebut? (Gunakan $\\pi = \\frac{22}{7}$)</p>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="options-s22"></div>
+                    </div>
+                `,
+                isQuiz: true,
+                options: ["$462 \\text{ cm}^2$", "$308 \\text{ cm}^2$", "$154 \\text{ cm}^2$", "$616 \\text{ cm}^2$"],
+                correct: "$462 \\text{ cm}^2$",
+                explanation: "Luas permukaan setengah bola padat = Luas melengkung + Luas alas datar = 2 * pi * r² + pi * r² = 3 * pi * r² = 3 * 22/7 * 7 * 7 = 462 cm²."
+            },
+            // Slide 23: Soal 5
+            {
+                section: "Latihan Soal",
+                title: "Misi 5: Mencari Jari-Jari Bola dari Volume",
+                subtitle: "Menggunakan penarikan akar pangkat tiga (Hard)",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-600 mb-4">Sebuah bola besi memiliki <strong>Volume = $\\frac{4}{3}\\pi \\text{ cm}^3$</strong>. Berapakah jari-jari bola besi tersebut?</p>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="options-s23"></div>
+                    </div>
+                `,
+                isQuiz: true,
+                options: ["$1 \\text{ cm}$", "$2 \\text{ cm}$", "$3 \\text{ cm}$", "$4 \\text{ cm}$"],
+                correct: "$1 \\text{ cm}$",
+                explanation: "Volume = 4/3 * pi * r³ -> 4/3 * pi = 4/3 * pi * r³ -> r³ = 1 -> r = 1 cm."
+            },
+
+            // Slide 24: Refleksi Kemandirian
+            {
+                section: "Refleksi",
+                title: "Refleksi Detektif Volume",
+                subtitle: "Evaluasi Kemandirian & Bernalar Kritis Kurikulum Merdeka",
+                icon: "🌿",
+                render: () => `
+                    <div class="text-center max-w-xl mx-auto">
+                        <p class="text-sm font-bold text-gray-600 mb-6">Pilih salah satu ikon yang mewakili pemahamanmu hari ini:</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="handleEmotionSelect(this, 'paham')" class="bg-white hover:bg-emerald-50 border-2 border-emerald-200 p-4 rounded-2xl flex flex-col items-center transition active:scale-95">
+                                <span class="text-4xl mb-2">😎</span>
+                                <span class="text-xs font-bold text-gray-600">Sangat Paham</span>
+                            </button>
+                            <button onclick="handleEmotionSelect(this, 'latihan')" class="bg-white hover:bg-amber-50 border-2 border-amber-200 p-4 rounded-2xl flex flex-col items-center transition active:scale-95">
+                                <span class="text-4xl mb-2">🤔</span>
+                                <span class="text-xs font-bold text-gray-600">Butuh Latihan</span>
+                            </button>
+                            <button onclick="handleEmotionSelect(this, 'siap')" class="bg-white hover:bg-indigo-50 border-2 border-indigo-200 p-4 rounded-2xl flex flex-col items-center transition active:scale-95">
+                                <span class="text-4xl mb-2">🔥</span>
+                                <span class="text-xs font-bold text-gray-600">Siap Naik Level!</span>
+                            </button>
+                        </div>
+                        <p id="emotion-feedback" class="text-xs font-bold text-[#D84315] mt-6 min-h-[16px]"></p>
+                    </div>
+                `
+            },
+            // Slide 25: Kesimpulan
+            {
+                section: "Kesimpulan",
+                title: "Misi Detektif Volume Tuntas!",
+                subtitle: "Selamat, kamu resmi dikukuhkan sebagai Detektif Volume Berbakat!",
+                icon: "🏆",
+                render: () => `
+                    <div class="text-center">
+                        <span class="text-7xl block mb-3 animate-bounce">👑🏆</span>
+                        <h2 class="heading-font text-3xl font-extrabold text-[#D84315] mb-1">Misi Selesai Dengan Gemilang!</h2>
+                        <p class="text-xs md:text-sm text-gray-600 max-w-md mx-auto mb-6">Kamu telah berhasil melintasi 25 slide tantangan membongkar pembuktian penuangan kerucut, tabung, dan bola dengan sangat luar biasa!</p>
+                        <div onclick="resetAdventure()" class="inline-block bg-gradient-to-r from-[#FF8C00] to-[#E65100] text-white font-black px-8 py-3 rounded-2xl shadow-lg hover:scale-105 transition duration-300 cursor-pointer text-xs md:text-sm">
+                            🔄 ULANGI MISI PETUALANGAN
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // --- 3. SYSTEM STATE ---
+        let currentSlide = 0;
+        let score = 0;
+
+        // Canvas Sketchpad Context
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        // Confetti Context
+        const confettiCanvas = document.getElementById('confetti');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        let confettiActive = false;
+        let particles = [];
+
+        // Dynamic Pouring Simulator 1 States
+        let pourStep1 = 0; // Ranges 0, 1, 2, 3
+
+        // Dynamic Pouring Simulator 2 States
+        let pourStep2 = 0; // Ranges 0, 1, 2
+
+        // --- 4. SHUFFLE UTILITY ---
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // --- 5. ENGINE INITIALIZATION ---
+        window.onload = function() {
+            loadSlide(0);
+            initCanvas();
+            setupTouchGestures();
+        };
+
+        // --- 6. RENDER CONTROL SYSTEM ---
+        function loadSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentSlide = index;
+
+            const slide = slides[currentSlide];
+            
+            const headerHtml = `
+                <div class="mb-5 border-b-2 border-gray-100 pb-3">
+                    <span class="text-xs font-black text-[#FF8C00] uppercase tracking-widest">${slide.section}</span>
+                    <h1 class="heading-font text-2xl md:text-3xl font-extrabold text-slate-800 flex items-center gap-2 mt-1">
+                        <span>${slide.icon}</span> ${slide.title}
+                    </h1>
+                    <p class="text-xs text-gray-400 font-semibold italic">${slide.subtitle}</p>
+                </div>
+            `;
+            
+            document.getElementById('slide-content').innerHTML = headerHtml + slide.render();
+
+            // Progress Bar
+            const percent = ((currentSlide + 1) / slides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+
+            // Footer metadata
+            document.getElementById('slide-index').innerText = `Slide ${currentSlide + 1} / ${slides.length}`;
+            document.getElementById('section-name').innerText = `Misi: ${slide.section}`;
+
+            // Arrow States
+            document.getElementById('prev-btn').style.opacity = currentSlide === 0 ? "0.3" : "1";
+            document.getElementById('next-btn').style.opacity = currentSlide === slides.length - 1 ? "0.3" : "1";
+
+            // If it is a quiz slide (Slide 19-23) -> Render shuffled options and attach verification logic
+            if (slide.isQuiz) {
+                const optContainerId = `options-s${currentSlide + 1}`;
+                const container = document.getElementById(optContainerId);
+                if (container) {
+                    const shuffledOpts = shuffleArray(slide.options);
+                    container.innerHTML = '';
+                    shuffledOpts.forEach(opt => {
+                        const btn = document.createElement('button');
+                        btn.className = "w-full p-4 bg-indigo-50 hover:bg-indigo-100 border-2 border-indigo-200 rounded-xl text-xs md:text-sm font-bold text-indigo-900 transition btn-bounce flex justify-between items-center";
+                        btn.innerHTML = `<span>${opt}</span><span class="opacity-50 text-[10px]">PILIH 👉</span>`;
+                        btn.onclick = () => verifyAnswer(btn, opt, slide.correct, slide.explanation);
+                        container.appendChild(btn);
+                    });
+                }
+            }
+
+            // Trigger Simulator Slide Actions
+            if (currentSlide === 10) { 
+                setTimeout(resetPourTabung, 100);
+            }
+            if (currentSlide === 14) { 
+                setTimeout(resetPourBola, 100);
+            }
+
+            // Trigger MathJax re-render for perfect formatting
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function changeSlide(direction) {
+            const nextIdx = currentSlide + direction;
+            if (nextIdx >= 0 && nextIdx < slides.length) {
+                playSound('click');
+                loadSlide(nextIdx);
+            }
+        }
+
+        // --- 7. ANSWER VERIFICATION & FEEDBACKS ---
+        function verifyAnswer(element, selected, correct, explanation) {
+            // Find parent and freeze option buttons
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            });
+
+            const isCorrect = selected === correct;
+
+            if (isCorrect) {
+                element.classList.remove('opacity-50');
+                element.classList.add('border-emerald-500', 'bg-emerald-100', 'text-emerald-800');
+                element.innerHTML = `<span>${selected}</span> <span>🎉 BENAR!</span>`;
+                
+                // Re-typeset LaTeX formula correctly on correct selection
+                if (window.MathJax) {
+                    MathJax.typesetPromise([element]);
+                }
+
+                playSound('correct');
+                showToast("✨ Keren! Pembahasan: " + explanation, "bg-[#10B981]");
+                score += 15;
+                document.getElementById('score-display').innerText = `${score} XP`;
+                triggerConfetti();
+            } else {
+                element.classList.remove('opacity-50');
+                element.classList.add('border-red-400', 'bg-red-100', 'text-red-800');
+                element.innerHTML = `<span>${selected}</span> <span>❌ SALAH!</span>`;
+                
+                // Re-typeset LaTeX formula correctly on incorrect selection
+                if (window.MathJax) {
+                    MathJax.typesetPromise([element]);
+                }
+
+                playSound('incorrect');
+                showToast("💡 Cakar kembali! Pembahasan: " + explanation, "bg-red-500");
+            }
+        }
+
+        function checkSlideAnswer(element, isCorrect, feedback, points = 10) {
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(btn => {
+                btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'border-red-400', 'bg-red-50');
+            });
+
+            if (isCorrect) {
+                element.classList.add('border-emerald-500', 'bg-emerald-50');
+                playSound('correct');
+                showToast("✨ " + feedback, "bg-[#10B981]");
+                score += points;
+                document.getElementById('score-display').innerText = `${score} XP`;
+                triggerConfetti();
+            } else {
+                element.classList.add('border-red-400', 'bg-red-50');
+                playSound('incorrect');
+                showToast("❌ " + feedback, "bg-red-500");
+            }
+        }
+
+        function handleEmotionSelect(element, emotion) {
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-[#FF8C00]', 'scale-105');
+            });
+            element.classList.add('ring-4', 'ring-[#FF8C00]', 'scale-105');
+            
+            const feedbackText = document.getElementById('emotion-feedback');
+            if (emotion === 'paham') {
+                feedbackText.innerText = "Luar biasa! Asal-usul sepertiga volume kerucut dan empat sepertiga volume bola sudah kamu kuasai secara mantap! 😎";
+                playSound('correct');
+                triggerConfetti();
+            } else if (emotion === 'latihan') {
+                feedbackText.innerText = "Semangat! Gunakan tombol 'Papan Cakar' di pojok kanan atas untuk melatih coret-coret menghitung kembali! 🧠";
+                playSound('click');
+            } else {
+                feedbackText.innerText = "Sangat Hebat! Jiwa detektif volume aljabarmu siap memecahkan persoalan tersulit sekalipun! 🚀";
+                playSound('correct');
+                triggerConfetti();
+            }
+        }
+
+        function showToast(text, bgClass) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toast.className = `fixed bottom-12 left-1/2 transform -translate-x-1/2 z-50 text-white font-black px-6 py-3 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce ${bgClass}`;
+            toastText.innerHTML = text;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+        }
+
+        function resetAdventure() {
+            score = 0;
+            document.getElementById('score-display').innerText = `0 XP`;
+            loadSlide(0);
+        }
+
+        // --- 8. POURING SIMULATOR 1 (KERUCUT KE TABUNG) ---
+        function pourWaterTabung() {
+            if (pourStep1 >= 3) return;
+            
+            playSound('correct');
+            pourStep1++;
+
+            const waterTabung = document.getElementById('water-tabung');
+            const waterCone = document.getElementById('water-cone');
+            const statusText = document.getElementById('pour-status-1');
+
+            // Show full cone water then empty it (animation trick)
+            waterCone.style.display = 'block';
+            
+            setTimeout(() => {
+                waterCone.style.display = 'none';
+                
+                // Increase water level inside cylinder
+                // Initial level: Y=85, Height=0. Full height: Y=25 (delta 60px). Each step adds 20px of height.
+                const newY = 85 - (pourStep1 * 20);
+                waterTabung.setAttribute('d', `M 15 85 L 15 ${newY} A 15 5 0 0 1 45 ${newY} L 45 85 Z`);
+
+                if (pourStep1 === 1) {
+                    statusText.innerText = "Tuangan Ke-1: Mengisi 1/3 kapasitas tabung.";
+                } else if (pourStep1 === 2) {
+                    statusText.innerText = "Tuangan Ke-2: Mengisi 2/3 kapasitas tabung.";
+                } else if (pourStep1 === 3) {
+                    statusText.innerText = "Tuangan Ke-3: Tabung PENUH! Terbukti Vol Kerucut = 1/3 Vol Tabung! 🎉";
+                    triggerConfetti();
+                }
+            }, 600);
+        }
+
+        function resetPourTabung() {
+            pourStep1 = 0;
+            const waterTabung = document.getElementById('water-tabung');
+            const waterCone = document.getElementById('water-cone');
+            const statusText = document.getElementById('pour-status-1');
+
+            if (waterTabung) waterTabung.setAttribute('d', "M 15 85 L 45 85 Z");
+            if (waterCone) waterCone.style.display = 'none';
+            if (statusText) statusText.innerText = "Kerucut kosong. Klik 'Tuangkan!' untuk mengisi.";
+        }
+
+        // --- 9. POURING SIMULATOR 2 (KERUCUT KE BELAHAN BOLA) ---
+        function pourWaterBola() {
+            if (pourStep2 >= 2) return;
+
+            playSound('correct');
+            pourStep2++;
+
+            const waterBola = document.getElementById('water-bola');
+            const waterCone2 = document.getElementById('water-cone-2');
+            const statusText = document.getElementById('pour-status-2');
+
+            // Show full cone water then empty it
+            waterCone2.style.display = 'block';
+
+            setTimeout(() => {
+                waterCone2.style.display = 'none';
+
+                // Hemisphere fill animation
+                // Base: (15,50) to (75,50) with center (45,50). 
+                // Full volume curve: A 30 30 0 0 0 75 50
+                if (pourStep2 === 1) {
+                    // Half filled hemisphere (smaller arc)
+                    waterBola.setAttribute('d', 'M 25 50 A 20 20 0 0 0 65 50 Z');
+                    statusText.innerText = "Tuangan Ke-1: Mengisi 1/2 kapasitas belahan bola.";
+                } else if (pourStep2 === 2) {
+                    // Fully filled hemisphere
+                    waterBola.setAttribute('d', 'M 15 50 A 30 30 0 0 0 75 50 Z');
+                    statusText.innerText = "Tuangan Ke-2: Belahan Bola PENUH! Terbukti Vol Belahan Bola = 2x Vol Kerucut! 🎉";
+                    triggerConfetti();
+                }
+            }, 600);
+        }
+
+        function resetPourBola() {
+            pourStep2 = 0;
+            const waterBola = document.getElementById('water-bola');
+            const waterCone2 = document.getElementById('water-cone-2');
+            const statusText = document.getElementById('pour-status-2');
+
+            if (waterBola) waterBola.setAttribute('d', "M 15 50 Z");
+            if (waterCone2) waterCone2.style.display = 'none';
+            if (statusText) statusText.innerText = "Belahan bola kosong. Klik 'Tuangkan!' untuk memulai.";
+        }
+
+        // --- 10. DOODLE CANVAS SYSTEM ---
+        function toggleScratchpad() {
+            const pad = document.getElementById('scratchpad');
+            pad.classList.toggle('hidden');
+            if (!pad.classList.contains('hidden')) {
+                resizeCanvas();
+            }
+        }
+
+        function initCanvas() {
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                const r = canvas.getBoundingClientRect();
+                ctx.moveTo(e.clientX - r.left, e.clientY - r.top);
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                const r = canvas.getBoundingClientRect();
+                ctx.lineTo(e.clientX - r.left, e.clientY - r.top);
+                ctx.stroke();
+            });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isDrawing = true;
+                ctx.beginPath();
+                const t = e.touches[0];
+                const r = canvas.getBoundingClientRect();
+                ctx.moveTo(t.clientX - r.left, t.clientY - r.top);
+            });
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const t = e.touches[0];
+                const r = canvas.getBoundingClientRect();
+                ctx.lineTo(t.clientX - r.left, t.clientY - r.top);
+                ctx.stroke();
+            });
+            canvas.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function resizeCanvas() {
+            const parent = canvas.parentNode;
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            ctx.lineCap = 'round';
+            ctx.lineWidth = 3.5;
+            ctx.strokeStyle = '#00838F'; 
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // --- 11. SWIPE GESTURES ---
+        let startX = 0;
+        function setupTouchGestures() {
+            const wrapper = document.getElementById('slide-wrapper');
+            wrapper.addEventListener('touchstart', (e) => {
+                startX = e.changedTouches[0].screenX;
+            }, false);
+
+            wrapper.addEventListener('touchend', (e) => {
+                const endX = e.changedTouches[0].screenX;
+                const threshold = 60;
+                if (startX - endX > threshold) {
+                    changeSlide(1); 
+                } else if (endX - startX > threshold) {
+                    changeSlide(-1); 
+                }
+            }, false);
+        }
+
+        // --- 12. CONFETTI CELEBRATION EFFECTS ---
+        function triggerConfetti() {
+            confettiActive = true;
+            confettiCanvas.classList.remove('hidden');
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+            
+            particles = [];
+            for (let i = 0; i < 75; i++) {
+                particles.push({
+                    x: Math.random() * confettiCanvas.width,
+                    y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                    r: Math.random() * 5 + 4,
+                    d: Math.random() * confettiCanvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            animateConfetti();
+            setTimeout(() => {
+                confettiActive = false;
+                confettiCanvas.classList.add('hidden');
+            }, 2500);
+        }
+
+        function animateConfetti() {
+            if (!confettiActive) return;
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            
+            particles.forEach((p, idx) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.x += Math.sin(p.tiltAngle);
+                p.tilt = Math.sin(p.tiltAngle - idx / 3) * 15;
+
+                confettiCtx.beginPath();
+                confettiCtx.lineWidth = p.r;
+                confettiCtx.strokeStyle = p.color;
+                confettiCtx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                confettiCtx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                confettiCtx.stroke();
+            });
+
+            requestAnimationFrame(animateConfetti);
+        }
+    </script>
+</body>
+</html>
