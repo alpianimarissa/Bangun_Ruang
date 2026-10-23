@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Interaktif: Luas Permukaan Kubus, Balok, & Prisma</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax for nice LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-blue-50 border border-blue-200 rounded-xl text-blue-600">
+                    <i class="fa-solid fa-cube text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600">
+                        Geo3D Interactive
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">Luas Permukaan Bangun Ruang Sisi Datar</p>
+                </div>
+            </div>
+            
+            <nav class="flex flex-wrap gap-1 bg-slate-100 p-1.5 rounded-xl border border-slate-200 text-xs font-medium">
+                <a href="#tujuan" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-blue-600 transition">Tujuan</a>
+                <a href="#warmup" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-blue-600 transition">Warm-Up</a>
+                <a href="#koneksi" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-blue-600 transition">Koneksi</a>
+                <a href="#materi-kubus" class="px-2.5 py-1.5 rounded-lg bg-white shadow-sm text-blue-600 font-semibold transition">Kubus</a>
+                <a href="#materi-balok" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-indigo-600 transition">Balok</a>
+                <a href="#materi-prisma" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-cyan-600 transition">Prisma Segitiga</a>
+                <a href="#materi-segi-lima" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-emerald-600 transition">Prisma Segi Lima</a>
+                <a href="#materi-segi-enam" class="px-2.5 py-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-amber-600 transition">Prisma Segi Enam</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 mt-8 space-y-12">
+
+        <!-- 1. TUJUAN PEMBELAJARAN -->
+        <section id="tujuan" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-600 font-bold text-sm">1</span>
+                <h2 class="text-2xl font-bold text-slate-800">Tujuan Pembelajaran</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-bullseye text-blue-600 text-xl mt-1"></i>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-1">Memahami Konsep</h3>
+                        <p class="text-sm text-slate-600">Memahami konsep dasar luas permukaan bangun ruang sebagai total luas seluruh jaring-jaring pembentuknya.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-calculator text-indigo-600 text-xl mt-1"></i>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-1">Menemukan & Mengaplikasi Formula</h3>
+                        <p class="text-sm text-slate-600">Menentukan dan menghitung rumus luas permukaan Kubus, Balok, Prisma Segitiga, Segi Lima, hingga Segi Enam.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex items-start gap-3">
+                    <i class="fa-solid fa-lightbulb text-amber-500 text-xl mt-1"></i>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-1">Penyelesaian Masalah</h3>
+                        <p class="text-sm text-slate-600">Menerapkan konsep luas permukaan dalam menyelesaikan permasalahan nyata di kehidupan sehari-hari.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. WARM-UP (4 SOAL INTERAKTIF) -->
+        <section id="warmup" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-amber-100 text-amber-600 font-bold text-sm">2</span>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">Warm-Up Quiz</h2>
+                        <p class="text-xs text-slate-500">Uji pengetahuan dasarmu sebelum masuk ke materi inti!</p>
+                    </div>
+                </div>
+                <span id="quiz-score" class="text-sm font-semibold px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg">
+                    Skor: 0 / 4
+                </span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Soal 1 -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Soal 1: Luas Persegi</span>
+                        <p class="text-sm text-slate-700 mt-2">Berapakah luas persegi yang memiliki panjang sisi \( s = 5 \text{ cm} \)?</p>
+                    </div>
+                    <div class="mt-4 space-y-2" id="q1-options">
+                        <button onclick="checkAnswer('q1', 'A', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">A. 10 cm²</button>
+                        <button onclick="checkAnswer('q1', 'B', true, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">B. 25 cm²</button>
+                        <button onclick="checkAnswer('q1', 'C', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">C. 20 cm²</button>
+                    </div>
+                    <div id="q1-feedback" class="text-xs mt-2 hidden font-medium"></div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Soal 2: Luas Persegi Panjang</span>
+                        <p class="text-sm text-slate-700 mt-2">Sebuah persegi panjang memiliki panjang \( p = 8 \text{ cm} \) dan lebar \( l = 4 \text{ cm} \). Luasnya adalah?</p>
+                    </div>
+                    <div class="mt-4 space-y-2" id="q2-options">
+                        <button onclick="checkAnswer('q2', 'A', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">A. 24 cm²</button>
+                        <button onclick="checkAnswer('q2', 'B', true, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">B. 32 cm²</button>
+                        <button onclick="checkAnswer('q2', 'C', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">C. 16 cm²</button>
+                    </div>
+                    <div id="q2-feedback" class="text-xs mt-2 hidden font-medium"></div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Soal 3: Luas Segitiga</span>
+                        <p class="text-sm text-slate-700 mt-2">Segitiga siku-siku memiliki alas \( a = 6 \text{ cm} \) dan tinggi \( t = 8 \text{ cm} \). Berapa luas segitiga tersebut?</p>
+                    </div>
+                    <div class="mt-4 space-y-2" id="q3-options">
+                        <button onclick="checkAnswer('q3', 'A', true, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">A. 24 cm²</button>
+                        <button onclick="checkAnswer('q3', 'B', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">B. 48 cm²</button>
+                        <button onclick="checkAnswer('q3', 'C', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">C. 14 cm²</button>
+                    </div>
+                    <div id="q3-feedback" class="text-xs mt-2 hidden font-medium"></div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Soal 4: Jumlah Sisi Kubus</span>
+                        <p class="text-sm text-slate-700 mt-2">Berapa banyak jumlah sisi identik berbentuk persegi yang menyusun sebuah kubus?</p>
+                    </div>
+                    <div class="mt-4 space-y-2" id="q4-options">
+                        <button onclick="checkAnswer('q4', 'A', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">A. 4 Sisi</button>
+                        <button onclick="checkAnswer('q4', 'B', true, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">B. 6 Sisi</button>
+                        <button onclick="checkAnswer('q4', 'C', false, this)" class="w-full text-left p-2.5 text-sm rounded-lg bg-white hover:bg-slate-100 border border-slate-200 transition text-slate-700">C. 8 Sisi</button>
+                    </div>
+                    <div id="q4-feedback" class="text-xs mt-2 hidden font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. KONEKSI NYATA -->
+        <section id="koneksi" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 font-bold text-sm">3</span>
+                <h2 class="text-2xl font-bold text-slate-800">Koneksi Nyata dalam Kehidupan</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 hover:border-emerald-300 transition group">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Membungkus Kado</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Saat membungkus kotak kado berbentuk balok atau kubus, kita menghitung total luas permukaan agar kertas kado yang disiapkan pas dan tidak kurang.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 hover:border-emerald-300 transition group">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-paint-roller"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Mengecat Ruangan</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Tukang menghitung luas permukaan dinding dan langit-langit ruangan (berbentuk balok) untuk menakar jumlah kaleng cat yang efisien.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 hover:border-emerald-300 transition group">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-campground"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Desain Tenda & Pipa</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Pembuatan tenda kemah (prisma segitiga) atau kemasan produk khusus (prisma segi lima/enam) memerlukan perhitungan akurat luas bahan terpal/karton.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MATERI LENGKAP -->
+
+        <!-- A. KUBUS -->
+        <section id="materi-kubus" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-600 font-bold text-sm">4A</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Luas Permukaan Kubus</h2>
+                </div>
+                <span class="text-xs px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full font-medium">6 Sisi Persegi Kongruen</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <!-- Visual Illustration Canvas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[300px] shadow-inner">
+                    <span class="absolute top-3 left-3 text-xs text-slate-400 font-mono">Ilustrasi Vektor 3D</span>
+                    <canvas id="cubeCanvas" width="280" height="250" class="max-w-full"></canvas>
+                    <div class="mt-2 text-center text-xs text-slate-300 font-medium">
+                        Kubus dengan panjang rusuk / sisi = <span class="text-amber-400 font-bold">s</span>
+                    </div>
+                </div>
+
+                <!-- Content & Formula -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Konsep Rumus</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Kubus dibentuk oleh <strong>6 buah sisi persegi</strong> yang memiliki ukuran luas persis sama.
+                    </p>
+                    <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-100">
+                        <p class="text-sm text-slate-600 mb-1">Luas 1 Sisi Persegi = \( s \times s = s^2 \)</p>
+                        <p class="text-lg font-bold text-blue-600 mt-1">
+                            \(\text{Luas Permukaan Kubus (L)} = 6 \times s^2\)
+                        </p>
+                    </div>
+
+                    <!-- Interactive Calculator -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Kalkulator Cepat Kubus</h4>
+                        <div class="flex items-center gap-3">
+                            <label class="text-sm text-slate-700">Panjang Sisi (s):</label>
+                            <input type="number" id="cube-input-s" value="6" min="1" oninput="calcCube()" class="w-24 bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-1 text-sm focus:outline-none focus:border-blue-500 font-semibold">
+                            <span class="text-sm text-slate-500">cm</span>
+                        </div>
+                        <div class="text-sm text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                            Hasil Luas Permukaan: <span id="cube-calc-result" class="font-bold text-blue-600 text-base">216</span> cm²
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal & Pembahasan -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <h4 class="text-base font-bold text-blue-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Contoh Soal & Pembahasan Kubus
+                </h4>
+                <p class="text-sm text-slate-700">
+                    Sebuah kotak mainan berbentuk kubus memiliki panjang sisi \( s = 10 \text{ cm} \). Hitunglah luas permukaan kotak tersebut!
+                </p>
+                <div class="mt-3 bg-white p-4 rounded-lg border border-slate-200 text-sm space-y-1.5 text-slate-700">
+                    <p class="text-xs text-slate-400 font-semibold uppercase mb-1">Penyelesaian:</p>
+                    <p>Diketahui: \( s = 10 \text{ cm} \)</p>
+                    <p>\( L = 6 \times s^2 \)</p>
+                    <p>\( L = 6 \times (10)^2 = 6 \times 100 = \mathbf{600 \text{ cm}^2} \)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. BALOK -->
+        <section id="materi-balok" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 font-bold text-sm">4B</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Luas Permukaan Balok</h2>
+                </div>
+                <span class="text-xs px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-full font-medium">3 Pasang Sisi Berhadapan</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <!-- Visual Illustration Canvas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[300px] shadow-inner">
+                    <span class="absolute top-3 left-3 text-xs text-slate-400 font-mono">Ilustrasi Vektor 3D</span>
+                    <canvas id="cuboidCanvas" width="290" height="250" class="max-w-full"></canvas>
+                    <div class="mt-2 text-center text-xs text-slate-300 font-medium">
+                        Balok: Panjang (<span class="text-amber-400 font-bold">p</span>), Lebar (<span class="text-amber-400 font-bold">l</span>), Tinggi (<span class="text-amber-400 font-bold">t</span>)
+                    </div>
+                </div>
+
+                <!-- Content & Formula -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Konsep Rumus</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Balok dibentuk oleh <strong>3 pasang sisi persegi panjang</strong> yang sejajar dan sama luas:
+                    </p>
+                    <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
+                        <li>Depan & Belakang: \( 2 \times (p \times t) \)</li>
+                        <li>Alas & Atas: \( 2 \times (p \times l) \)</li>
+                        <li>Kiri & Kanan: \( 2 \times (l \times t) \)</li>
+                    </ul>
+                    <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100">
+                        <p class="text-base font-bold text-indigo-600">
+                            \(\text{Luas Balok (L)} = 2 \times (p \cdot l + p \cdot t + l \cdot t)\)
+                        </p>
+                    </div>
+
+                    <!-- Interactive Calculator -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Kalkulator Cepat Balok</h4>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Panjang (p):</label>
+                                <input type="number" id="balok-p" value="8" min="1" oninput="calcBalok()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Lebar (l):</label>
+                                <input type="number" id="balok-l" value="5" min="1" oninput="calcBalok()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Tinggi (t):</label>
+                                <input type="number" id="balok-t" value="4" min="1" oninput="calcBalok()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div class="text-sm text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                            Hasil Luas Permukaan: <span id="balok-calc-result" class="font-bold text-indigo-600 text-base">184</span> cm²
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal & Pembahasan -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <h4 class="text-base font-bold text-indigo-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Contoh Soal & Pembahasan Balok
+                </h4>
+                <p class="text-sm text-slate-700">
+                    Sebuah wadah berbentuk balok berukuran panjang \( 12 \text{ cm} \), lebar \( 5 \text{ cm} \), dan tinggi \( 6 \text{ cm} \). Berapakah total luas permukaannya?
+                </p>
+                <div class="mt-3 bg-white p-4 rounded-lg border border-slate-200 text-sm space-y-1.5 text-slate-700">
+                    <p class="text-xs text-slate-400 font-semibold uppercase mb-1">Penyelesaian:</p>
+                    <p>Diketahui: \( p = 12 \), \( l = 5 \), \( t = 6 \)</p>
+                    <p>\( L = 2 \times ((12 \times 5) + (12 \times 6) + (5 \times 6)) \)</p>
+                    <p>\( L = 2 \times (60 + 72 + 30) = 2 \times 162 = \mathbf{324 \text{ cm}^2} \)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- C. PRISMA SEGITIGA -->
+        <section id="materi-prisma" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-100 text-cyan-600 font-bold text-sm">4C</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Luas Permukaan Prisma Segitiga</h2>
+                </div>
+                <span class="text-xs px-3 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full font-medium">2 Alas Segitiga + 3 Sisi Tegak</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <!-- Visual Illustration Canvas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[300px] shadow-inner">
+                    <span class="absolute top-3 left-3 text-xs text-slate-400 font-mono">Ilustrasi Vektor 3D</span>
+                    <canvas id="prismCanvas" width="290" height="250" class="max-w-full"></canvas>
+                    <div class="mt-2 text-center text-xs text-slate-300 font-medium">
+                        Prisma Alas Segitiga & Tinggi Prisma (<span class="text-amber-400 font-bold">t_p</span>)
+                    </div>
+                </div>
+
+                <!-- Content & Formula -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Konsep Rumus</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Prisma segitiga terdiri atas 2 alas segitiga yang kongruen di kedua ujungnya serta 3 selimut sisi tegak berbentuk persegi panjang.
+                    </p>
+                    <div class="bg-cyan-50/70 p-4 rounded-xl border border-cyan-100 space-y-1">
+                        <p class="text-xs text-slate-600">\(\text{Luas} = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})\)</p>
+                        <p class="text-base font-bold text-cyan-600">
+                            \(L = (2 \times \text{Luas Segitiga}) + (K_{\Delta} \times t_p)\)
+                        </p>
+                    </div>
+
+                    <!-- Interactive Calculator -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Kalkulator Cepat Prisma Segitiga Siku-Siku</h4>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Alas (\(a\)):</label>
+                                <input type="number" id="prism-a" value="6" min="1" oninput="calcPrism()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Tinggi Segitiga (\(t_a\)):</label>
+                                <input type="number" id="prism-ta" value="8" min="1" oninput="calcPrism()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Tinggi Prisma (\(t_p\)):</label>
+                                <input type="number" id="prism-tp" value="10" min="1" oninput="calcPrism()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div class="text-sm text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                            Hasil Luas Permukaan: <span id="prism-calc-result" class="font-bold text-cyan-600 text-base">288</span> cm²
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal & Pembahasan -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <h4 class="text-base font-bold text-cyan-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Contoh Soal & Pembahasan Prisma Segitiga
+                </h4>
+                <p class="text-sm text-slate-700">
+                    Alas prisma berbentuk segitiga siku-siku dengan sisi alas \( 6 \text{ cm} \), tinggi segitiga \( 8 \text{ cm} \), dan sisi miring \( 10 \text{ cm} \). Jika tinggi prisma \( 12 \text{ cm} \), hitung luas permukaannya!
+                </p>
+                <div class="mt-3 bg-white p-4 rounded-lg border border-slate-200 text-sm space-y-1.5 text-slate-700">
+                    <p class="text-xs text-slate-400 font-semibold uppercase mb-1">Penyelesaian:</p>
+                    <p>1. Luas 2 Alas = \( 2 \times (\frac{1}{2} \times 6 \times 8) = 48 \text{ cm}^2 \)</p>
+                    <p>2. Keliling Alas = \( 6 + 8 + 10 = 24 \text{ cm} \)</p>
+                    <p>3. Luas Selimut = \( 24 \times 12 = 288 \text{ cm}^2 \)</p>
+                    <p>4. Total Luas = \( 48 + 288 = \mathbf{336 \text{ cm}^2} \)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- D. PRISMA SEGI LIMA (PENTAGONAL) -->
+        <section id="materi-segi-lima" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 font-bold text-sm">4D</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Luas Permukaan Prisma Segi Lima (Pentagonal)</h2>
+                </div>
+                <span class="text-xs px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full font-medium">2 Alas Segi Lima + 5 Sisi Tegak</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <!-- Visual Illustration Canvas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[300px] shadow-inner">
+                    <span class="absolute top-3 left-3 text-xs text-slate-400 font-mono">Ilustrasi Vektor 3D</span>
+                    <canvas id="pentagonPrismCanvas" width="290" height="250" class="max-w-full"></canvas>
+                    <div class="mt-2 text-center text-xs text-slate-300 font-medium">
+                        Prisma Alas Segi Lima Beraturan & Tinggi (\(t_p\))
+                    </div>
+                </div>
+
+                <!-- Content & Formula -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Konsep & Formula</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Prisma segi lima beraturan terdiri atas <strong>2 alas berbentuk segi lima beraturan</strong> dan <strong>5 buah sisi tegak persegi panjang</strong>.
+                    </p>
+                    <div class="bg-emerald-50/70 p-4 rounded-xl border border-emerald-100 space-y-1">
+                        <p class="text-xs text-slate-600">Luas Alas Segi Lima Beraturan dapat dihitung via apotema (\(r\)): \( L_{\text{alas}} = \frac{5}{2} \times s \times r \)</p>
+                        <p class="text-base font-bold text-emerald-600">
+                            \(L = (2 \times L_{\text{alas}}) + (5 \times s \times t_p)\)
+                        </p>
+                    </div>
+
+                    <!-- Interactive Calculator -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Kalkulator Cepat Prisma Segi Lima</h4>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Sisi Alas (\(s\)):</label>
+                                <input type="number" id="penta-s" value="5" min="1" oninput="calcPentagon()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Apotema (\(r\)):</label>
+                                <input type="number" id="penta-r" value="3.4" min="1" step="0.1" oninput="calcPentagon()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Tinggi (\(t_p\)):</label>
+                                <input type="number" id="penta-tp" value="10" min="1" oninput="calcPentagon()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div class="text-sm text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                            Hasil Luas Permukaan: <span id="penta-calc-result" class="font-bold text-emerald-600 base">292.5</span> cm²
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal & Pembahasan -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <h4 class="text-base font-bold text-emerald-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Contoh Soal & Pembahasan Prisma Segi Lima
+                </h4>
+                <p class="text-sm text-slate-700">
+                    Sebuah kemasan produk berbentuk prisma segi lima beraturan dengan panjang sisi alas \( 5 \text{ cm} \), apotema \( 3.4 \text{ cm} \), dan tinggi prisma \( 10 \text{ cm} \). Berapakah luas permukaannya?
+                </p>
+                <div class="mt-3 bg-white p-4 rounded-lg border border-slate-200 text-sm space-y-1.5 text-slate-700">
+                    <p class="text-xs text-slate-400 font-semibold uppercase mb-1">Penyelesaian:</p>
+                    <p>1. Luas 1 Alas Segi Lima = \(\frac{5}{2} \times s \times r = \frac{5}{2} \times 5 \times 3.4 = 42.5 \text{ cm}^2\)</p>
+                    <p>2. Luas 2 Alas = \( 2 \times 42.5 = 85 \text{ cm}^2 \)</p>
+                    <p>3. Luas Selimut (5 sisi tegak) = \( 5 \times (s \times t_p) = 5 \times (5 \times 10) = 250 \text{ cm}^2 \)</p>
+                    <p>4. Total Luas Permukaan = \( 85 + 250 = \mathbf{335 \text{ cm}^2} \)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- E. PRISMA SEGI ENAM (HEXAGONAL) -->
+        <section id="materi-segi-enam" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-200 card-shadow">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-amber-100 text-amber-600 font-bold text-sm">4E</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Luas Permukaan Prisma Segi Enam (Hexagonal)</h2>
+                </div>
+                <span class="text-xs px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full font-medium">2 Alas Segi Enam + 6 Sisi Tegak</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <!-- Visual Illustration Canvas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[300px] shadow-inner">
+                    <span class="absolute top-3 left-3 text-xs text-slate-400 font-mono">Ilustrasi Vektor 3D</span>
+                    <canvas id="hexagonPrismCanvas" width="290" height="250" class="max-w-full"></canvas>
+                    <div class="mt-2 text-center text-xs text-slate-300 font-medium">
+                        Prisma Alas Segi Enam Beraturan & Tinggi Prisma (\(t_p\))
+                    </div>
+                </div>
+
+                <!-- Content & Formula -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Konsep & Formula</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Prisma segi enam beraturan tersusun atas <strong>2 alas berbentuk segi enam beraturan</strong> dan <strong>6 buah sisi tegak berbentuk persegi panjang</strong>.
+                    </p>
+                    <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-100 space-y-1">
+                        <p class="text-xs text-slate-600">Luas Alas Segi Enam Beraturan: \( L_{\text{alas}} = \frac{3\sqrt{3}}{2} \times s^2 \approx 2.598 \times s^2 \)</p>
+                        <p class="text-base font-bold text-amber-600">
+                            \(L = (2 \times L_{\text{alas}}) + (6 \times s \times t_p)\)
+                        </p>
+                    </div>
+
+                    <!-- Interactive Calculator -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Kalkulator Cepat Prisma Segi Enam</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Panjang Sisi (\(s\)):</label>
+                                <input type="number" id="hexa-s" value="4" min="1" oninput="calcHexagon()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-600 block mb-1">Tinggi Prisma (\(t_p\)):</label>
+                                <input type="number" id="hexa-tp" value="10" min="1" oninput="calcHexagon()" class="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-2 py-1 text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div class="text-sm text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                            Hasil Luas Permukaan: <span id="hexa-calc-result" class="font-bold text-amber-600 base">323.14</span> cm²
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEDUKSI & ASAL USUL RUMUS -->
+            <div class="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 space-y-3">
+                <h4 class="text-sm font-bold text-amber-800 flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb text-amber-600"></i> Dari Mana Asal Angka \(\frac{3\sqrt{3}}{2}\) pada Luas Segi Enam?
+                </h4>
+                <p class="text-xs text-slate-700 leading-relaxed">
+                    Segi enam beraturan terdiri dari <strong>6 segitiga sama sisi</strong> yang identik dengan panjang sisi \(s\).
+                </p>
+                <div class="grid md:grid-cols-2 gap-3 text-xs bg-white p-3.5 rounded-lg border border-amber-100 text-slate-700">
+                    <div>
+                        <p class="font-semibold text-amber-700 mb-1">1. Hitung Luas 1 Segitiga Sama Sisi:</p>
+                        <p>Tinggi segitiga (\(t\)) diperoleh via Pythagoras: \( t = \frac{\sqrt{3}}{2} s \)</p>
+                        <p>Luas 1 \(\Delta = \frac{1}{2} \times a \times t = \frac{1}{2} \times s \times \left(\frac{\sqrt{3}}{2} s\right) = \mathbf{\frac{\sqrt{3}}{4} s^2}\)</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-amber-700 mb-1">2. Kalikan dengan 6 Segitiga:</p>
+                        <p>\(L_{\text{alas}} = 6 \times \left(\frac{\sqrt{3}}{4} s^2\right) = \frac{6\sqrt{3}}{4} s^2 = \mathbf{\frac{3\sqrt{3}}{2} s^2}\)</p>
+                        <p class="text-slate-500 mt-1">Karena \(\sqrt{3} \approx 1.732\), maka \(\frac{3 \times 1.732}{2} \approx \mathbf{2.598}\)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal & Pembahasan -->
+            <div class="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <h4 class="text-base font-bold text-amber-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Contoh Soal & Pembahasan Prisma Segi Enam
+                </h4>
+                <p class="text-sm text-slate-700">
+                    Sebuah pilar bangunan berbentuk prisma segi enam beraturan dengan panjang sisi alas \( 4 \text{ cm} \) dan tinggi prisma \( 10 \text{ cm} \). Hitunglah luas permukaannya! (\(\sqrt{3} \approx 1.732\))
+                </p>
+                <div class="mt-3 bg-white p-4 rounded-lg border border-slate-200 text-sm space-y-1.5 text-slate-700">
+                    <p class="text-xs text-slate-400 font-semibold uppercase mb-1">Penyelesaian Langkah Demi Langkah:</p>
+                    <p>1. Luas 1 Alas Segi Enam = \( 2.598 \times (4)^2 = 2.598 \times 16 = 41.568 \text{ cm}^2 \)</p>
+                    <p>2. Luas 2 Alas = \( 2 \times 41.568 = 83.136 \text{ cm}^2 \)</p>
+                    <p>3. Luas Selimut (6 sisi tegak) = \( 6 \times (s \times t_p) = 6 \times (4 \times 10) = 240 \text{ cm}^2 \)</p>
+                    <p>4. Total Luas Permukaan = \( 83.136 + 240 = \mathbf{323.14 \text{ cm}^2} \)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-slate-200 bg-white text-center py-6 text-xs text-slate-500 shadow-sm">
+        <p>© 2026 Geo3D Interactive Media. Didesain untuk pembelajaran matematika interaktif berstandar modern.</p>
+    </footer>
+
+    <!-- JavaScript Logic & Canvas Rendering -->
+    <script>
+        // State Score Warmup
+        const quizState = { q1: false, q2: false, q3: false, q4: false };
+
+        function checkAnswer(qId, selectedOption, isCorrect, btnElement) {
+            const parent = document.getElementById(qId + '-options');
+            const buttons = parent.querySelectorAll('button');
+            const feedback = document.getElementById(qId + '-feedback');
+
+            buttons.forEach(b => {
+                b.classList.remove('bg-emerald-50', 'border-emerald-500', 'text-emerald-700', 'bg-rose-50', 'border-rose-500', 'text-rose-700');
+                b.classList.add('bg-white', 'border-slate-200', 'text-slate-700');
+            });
+
+            feedback.classList.remove('hidden', 'text-emerald-600', 'text-rose-600');
+
+            if (isCorrect) {
+                btnElement.classList.remove('bg-white', 'border-slate-200', 'text-slate-700');
+                btnElement.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700');
+                feedback.innerText = "✓ Jawaban Benar!";
+                feedback.classList.add('text-emerald-600');
+                quizState[qId] = true;
+            } else {
+                btnElement.classList.remove('bg-white', 'border-slate-200', 'text-slate-700');
+                btnElement.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
+                feedback.innerText = "✗ Jawaban kurang tepat, coba lagi.";
+                feedback.classList.add('text-rose-600');
+                quizState[qId] = false;
+            }
+
+            const score = Object.values(quizState).filter(Boolean).length;
+            document.getElementById('quiz-score').innerText = `Skor: ${score} / 4`;
+        }
+
+        // Calculators
+        function calcCube() {
+            const s = parseFloat(document.getElementById('cube-input-s').value) || 0;
+            const res = 6 * s * s;
+            document.getElementById('cube-calc-result').innerText = res.toLocaleString('id-ID');
+        }
+
+        function calcBalok() {
+            const p = parseFloat(document.getElementById('balok-p').value) || 0;
+            const l = parseFloat(document.getElementById('balok-l').value) || 0;
+            const t = parseFloat(document.getElementById('balok-t').value) || 0;
+            const res = 2 * (p * l + p * t + l * t);
+            document.getElementById('balok-calc-result').innerText = res.toLocaleString('id-ID');
+        }
+
+        function calcPrism() {
+            const a = parseFloat(document.getElementById('prism-a').value) || 0;
+            const ta = parseFloat(document.getElementById('prism-ta').value) || 0;
+            const tp = parseFloat(document.getElementById('prism-tp').value) || 0;
+            const c = Math.sqrt(a * a + ta * ta);
+            const luasAlas = 0.5 * a * ta;
+            const keliling = a + ta + c;
+            const res = (2 * luasAlas) + (keliling * tp);
+            document.getElementById('prism-calc-result').innerText = Math.round(res * 100) / 100;
+        }
+
+        function calcPentagon() {
+            const s = parseFloat(document.getElementById('penta-s').value) || 0;
+            const r = parseFloat(document.getElementById('penta-r').value) || 0;
+            const tp = parseFloat(document.getElementById('penta-tp').value) || 0;
+            const luasAlas = (5 / 2) * s * r;
+            const res = (2 * luasAlas) + (5 * s * tp);
+            document.getElementById('penta-calc-result').innerText = Math.round(res * 100) / 100;
+        }
+
+        function calcHexagon() {
+            const s = parseFloat(document.getElementById('hexa-s').value) || 0;
+            const tp = parseFloat(document.getElementById('hexa-tp').value) || 0;
+            const luasAlas = 2.598076 * s * s;
+            const res = (2 * luasAlas) + (6 * s * tp);
+            document.getElementById('hexa-calc-result').innerText = (Math.round(res * 100) / 100).toLocaleString('id-ID');
+        }
+
+        // CANVAS 3D VECTOR DRAWINGS
+        function drawArrow(ctx, fromx, fromy, tox, toy, label) {
+            const headlen = 8;
+            const angle = Math.atan2(toy - fromy, tox - fromx);
+            ctx.save();
+            ctx.strokeStyle = '#f59e0b';
+            ctx.fillStyle = '#f59e0b';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(fromx, fromy);
+            ctx.lineTo(tox, toy);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(tox, toy);
+            ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            if (label) {
+                ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+                ctx.fillText(label, (fromx + tox) / 2 - 10, (fromy + toy) / 2 + 16);
+            }
+            ctx.restore();
+        }
+
+        function drawCube() {
+            const canvas = document.getElementById('cubeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = 140, cy = 125, size = 65;
+
+            const p1 = { x: cx, y: cy - size };
+            const p2 = { x: cx + size * 0.866, y: cy - size * 0.5 };
+            const p3 = { x: cx, y: cy };
+            const p4 = { x: cx - size * 0.866, y: cy - size * 0.5 };
+            const p5 = { x: p1.x, y: p1.y + size * 1.1 };
+            const p6 = { x: p2.x, y: p2.y + size * 1.1 };
+            const p7 = { x: p3.x, y: p3.y + size * 1.1 };
+            const p8 = { x: p4.x, y: p4.y + size * 1.1 };
+
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.fillStyle = '#3b82f6'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(p4.x, p4.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p7.x, p7.y); ctx.lineTo(p8.x, p8.y); ctx.closePath(); ctx.fillStyle = '#1d4ed8'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(p3.x, p3.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p6.x, p6.y); ctx.lineTo(p7.x, p7.y); ctx.closePath(); ctx.fillStyle = '#1e40af'; ctx.fill();
+
+            ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.5;
+            [[p1,p2],[p2,p3],[p3,p4],[p4,p1],[p3,p7],[p2,p6],[p4,p8],[p8,p7],[p7,p6]].forEach(([from, to]) => {
+                ctx.beginPath(); ctx.moveTo(from.x, from.y); ctx.lineTo(to.x, to.y); ctx.stroke();
+            });
+            drawArrow(ctx, p8.x - 15, p8.y + 10, p7.x - 15, p7.y + 10, 's');
+        }
+
+        function drawCuboid() {
+            const canvas = document.getElementById('cuboidCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = 135, cy = 125, w = 90, h = 60, d = 48;
+
+            const p1 = { x: cx - d * 0.7, y: cy - h / 2 - d * 0.4 };
+            const p2 = { x: cx + w - d * 0.7, y: cy - h / 2 - d * 0.4 };
+            const p3 = { x: cx + w, y: cy - h / 2 };
+            const p4 = { x: cx, y: cy - h / 2 };
+            const p5 = { x: p1.x, y: p1.y + h };
+            const p6 = { x: p2.x, y: p2.y + h };
+            const p7 = { x: p3.x, y: p3.y + h };
+            const p8 = { x: p4.x, y: p4.y + h };
+
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.fillStyle = '#6366f1'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p4.x, p4.y); ctx.lineTo(p8.x, p8.y); ctx.lineTo(p5.x, p5.y); ctx.closePath(); ctx.fillStyle = '#4f46e5'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(p4.x, p4.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p7.x, p7.y); ctx.lineTo(p8.x, p8.y); ctx.closePath(); ctx.fillStyle = '#3730a3'; ctx.fill();
+
+            ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.5;
+            [[p1,p2],[p2,p3],[p3,p4],[p4,p1],[p1,p5],[p4,p8],[p3,p7],[p5,p8],[p8,p7]].forEach(([from, to]) => {
+                ctx.beginPath(); ctx.moveTo(from.x, from.y); ctx.lineTo(to.x, to.y); ctx.stroke();
+            });
+            drawArrow(ctx, p5.x - 10, p5.y + 12, p8.x - 10, p8.y + 12, 'l');
+            drawArrow(ctx, p8.x + 5, p8.y + 15, p7.x + 5, p7.y + 15, 'p');
+
+            ctx.save();
+            ctx.strokeStyle = '#f59e0b'; ctx.fillStyle = '#f59e0b'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(p7.x + 18, p3.y); ctx.lineTo(p7.x + 18, p7.y); ctx.stroke();
+            ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText('t', p7.x + 24, (p3.y + p7.y) / 2 + 5);
+            ctx.restore();
+        }
+
+        function drawPrism() {
+            const canvas = document.getElementById('prismCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = 140, cy = 115;
+
+            const t1 = { x: cx - 55, y: cy + 35 };
+            const t2 = { x: cx + 15, y: cy + 35 };
+            const t3 = { x: cx - 55, y: cy - 45 };
+            const dx = 65, dy = -30;
+            const b1 = { x: t1.x + dx, y: t1.y + dy };
+            const b2 = { x: t2.x + dx, y: t2.y + dy };
+            const b3 = { x: t3.x + dx, y: t3.y + dy };
+
+            ctx.beginPath(); ctx.moveTo(t3.x, t3.y); ctx.lineTo(t2.x, t2.y); ctx.lineTo(b2.x, b2.y); ctx.lineTo(b3.x, b3.y); ctx.closePath(); ctx.fillStyle = '#0891b2'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(t1.x, t1.y); ctx.lineTo(t2.x, t2.y); ctx.lineTo(t3.x, t3.y); ctx.closePath(); ctx.fillStyle = '#06b6d4'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(t1.x, t1.y); ctx.lineTo(t3.x, t3.y); ctx.lineTo(b3.x, b3.y); ctx.lineTo(b1.x, b1.y); ctx.closePath(); ctx.fillStyle = '#0e7490'; ctx.fill();
+
+            ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.5;
+            [[t1,t2],[t2,t3],[t3,t1],[t2,b2],[t3,b3],[b2,b3]].forEach(([from, to]) => {
+                ctx.beginPath(); ctx.moveTo(from.x, from.y); ctx.lineTo(to.x, to.y); ctx.stroke();
+            });
+
+            ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = '#67e8f9';
+            ctx.beginPath(); ctx.moveTo(b1.x, b1.y); ctx.lineTo(b2.x, b2.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(b1.x, b1.y); ctx.lineTo(b3.x, b3.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(t1.x, t1.y); ctx.lineTo(b1.x, b1.y); ctx.stroke();
+            ctx.restore();
+
+            drawArrow(ctx, t1.x, t1.y + 15, t2.x, t2.y + 15, 'a');
+            ctx.save(); ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText('t_a', t1.x - 22, (t1.y + t3.y) / 2);
+            ctx.fillText('t_p', (t2.x + b2.x) / 2 + 10, (t2.y + b2.y) / 2 + 15);
+            ctx.restore();
+        }
+
+        function drawRegularPolygonPrism(canvasId, sides, mainColor, shadeColor) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = 145, cy = 125, r = 45, hPrism = 70;
+
+            // Generate polygon vertices top & bottom
+            const topPts = [], botPts = [];
+            for (let i = 0; i < sides; i++) {
+                const angle = (i * 2 * Math.PI) / sides - Math.PI / 2;
+                topPts.push({ x: cx + r * Math.cos(angle), y: (cy - hPrism/2) + r * Math.sin(angle) * 0.5 });
+                botPts.push({ x: topPts[i].x, y: topPts[i].y + hPrism });
+            }
+
+            // Draw vertical side faces
+            for (let i = 0; i < sides; i++) {
+                const next = (i + 1) % sides;
+                ctx.beginPath();
+                ctx.moveTo(topPts[i].x, topPts[i].y);
+                ctx.lineTo(topPts[next].x, topPts[next].y);
+                ctx.lineTo(botPts[next].x, botPts[next].y);
+                ctx.lineTo(botPts[i].x, botPts[i].y);
+                ctx.closePath();
+                ctx.fillStyle = i % 2 === 0 ? mainColor : shadeColor;
+                ctx.fill();
+            }
+
+            // Draw Top Face
+            ctx.beginPath();
+            topPts.forEach((p, idx) => idx === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.fillStyle = '#38bdf8';
+            ctx.fill();
+
+            // Outlines
+            ctx.strokeStyle = '#7dd3fc'; ctx.lineWidth = 2;
+            for (let i = 0; i < sides; i++) {
+                const next = (i + 1) % sides;
+                ctx.beginPath(); ctx.moveTo(topPts[i].x, topPts[i].y); ctx.lineTo(topPts[next].x, topPts[next].y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(botPts[i].x, botPts[i].y); ctx.lineTo(botPts[next].x, botPts[next].y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(topPts[i].x, topPts[i].y); ctx.lineTo(botPts[i].x, botPts[i].y); ctx.stroke();
+            }
+        }
+
+        window.onload = function() {
+            drawCube();
+            drawCuboid();
+            drawPrism();
+            drawRegularPolygonPrism('pentagonPrismCanvas', 5, '#059669', '#047857');
+            drawRegularPolygonPrism('hexagonPrismCanvas', 6, '#d97706', '#b45309');
+            calcCube();
+            calcBalok();
+            calcPrism();
+            calcPentagon();
+            calcHexagon();
+        };
+
+        window.onresize = function() {
+            drawCube();
+            drawCuboid();
+            drawPrism();
+            drawRegularPolygonPrism('pentagonPrismCanvas', 5, '#059669', '#047857');
+            drawRegularPolygonPrism('hexagonPrismCanvas', 6, '#d97706', '#b45309');
+        };
+    </script>
+</body>
+</html>
