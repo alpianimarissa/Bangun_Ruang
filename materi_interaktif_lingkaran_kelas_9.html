@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Interaktif Lingkaran - Matematika Kelas 9</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        /* Custom Fraction Display (Pecahan Tegak) */
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 4px;
+            font-weight: 600;
+        }
+        .fraction .numerator {
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 2px;
+            line-height: 1.1;
+        }
+        .fraction .denominator {
+            padding-top: 2px;
+            line-height: 1.1;
+        }
+        .formula-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 1.15rem;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header & Navigation -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-white/10 rounded-lg backdrop-blur-md">
+                    <i class="fa-solid fa-circle-notch text-2xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight">E-Modul Matematika Interaktif</h1>
+                    <p class="text-xs sm:text-sm text-indigo-100">Materi Unsur & Rumus Lingkaran — Kelas 9 SMP</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-1 text-sm font-medium bg-white/10 p-1 rounded-xl">
+                <a href="#tujuan" class="px-3 py-2 rounded-lg hover:bg-white/20 transition">Tujuan</a>
+                <a href="#penerapan" class="px-3 py-2 rounded-lg hover:bg-white/20 transition">Penerapan</a>
+                <a href="#materi" class="px-3 py-2 rounded-lg hover:bg-white/20 transition">Materi & Visual</a>
+                <a href="#latihan" class="px-3 py-2 rounded-lg hover:bg-white/20 transition">Contoh & Latihan</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 flex-grow">
+
+        <!-- Section 1: Tujuan Pembelajaran -->
+        <section id="tujuan" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">1. Tujuan Pembelajaran</h2>
+            </div>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+                Setelah mempelajari modul ini, kamu diharapkan dapat memahami konsep dasar geometri lingkaran serta mampu menyelesaikan soal-soal terkait dengan urutan materi berikut:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 rounded-xl bg-indigo-50/50 border border-indigo-100 hover:shadow-md transition">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold mb-3">1</div>
+                    <h3 class="font-semibold text-slate-800 mb-1">Keliling Lingkaran</h3>
+                    <p class="text-sm text-slate-600">Menghitung panjang garis luar keliling lingkaran menggunakan jari-jari (r) atau diameter (d).</p>
+                </div>
+                <div class="p-4 rounded-xl bg-purple-50/50 border border-purple-100 hover:shadow-md transition">
+                    <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold mb-3">2</div>
+                    <h3 class="font-semibold text-slate-800 mb-1">Luas Lingkaran</h3>
+                    <p class="text-sm text-slate-600">Menghitung total luas bidang daerah di dalam kurva lingkaran.</p>
+                </div>
+                <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 hover:shadow-md transition">
+                    <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold mb-3">3</div>
+                    <h3 class="font-semibold text-slate-800 mb-1">Panjang Busur</h3>
+                    <p class="text-sm text-slate-600">Menghitung bagian garis lengkung keliling berdasarkan besar sudut pusat (&alpha;).</p>
+                </div>
+                <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100 hover:shadow-md transition">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold mb-3">4</div>
+                    <h3 class="font-semibold text-slate-800 mb-1">Luas Juring</h3>
+                    <p class="text-sm text-slate-600">Menentukan luas bagian daerah potongan lingkaran yang dibatasi dua jari-jari.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Penerapan Nyata dalam Kehidupan Sehari-hari -->
+        <section id="penerapan" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">2. Penerapan Nyata dalam Kehidupan Sehari-hari</h2>
+            </div>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+                Konsep geometri lingkaran banyak digunakan dalam kehidupan sehari-hari maupun dalam dunia teknik dan industri:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl text-indigo-500 mb-3"><i class="fa-solid fa-compact-disc"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Roda Sepeda / Kendaraan (Keliling)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Jarak tempuh lintasan yang dilalui roda dihitung berdasarkan berapa kali roda berputar dikalikan dengan <b>Keliling Lingkaran</b> roda tersebut.
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl text-purple-500 mb-3"><i class="fa-solid fa-monument"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Taman Bulat & Air Mancur (Luas)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Penataan rumput taman atau area jangkauan semprotan air mancur melingkar menggunakan perhitungan <b>Luas Lingkaran</b>.
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl text-amber-500 mb-3"><i class="fa-solid fa-pizza-slice"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Potongan Pizza (Juring & Busur)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Setiap sepotong pizza mewakili <b>Juring Lingkaran</b>, dan pinggiran keju di bagian luarnya mewakili <b>Panjang Busur</b>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Materi Lengkap & Visualisasi Diagram -->
+        <section id="materi" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">3. Materi Lengkap & Visualisasi Konsep</h2>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8 bg-slate-100 p-1.5 rounded-xl text-center">
+                <button onclick="switchTab('keliling')" id="tab-keliling" class="py-2.5 px-4 text-sm font-semibold rounded-lg bg-white shadow-sm text-indigo-600 transition">1. Keliling Lingkaran</button>
+                <button onclick="switchTab('luas')" id="tab-luas" class="py-2.5 px-4 text-sm font-semibold rounded-lg text-slate-600 hover:text-indigo-600 transition">2. Luas Lingkaran</button>
+                <button onclick="switchTab('busur')" id="tab-busur" class="py-2.5 px-4 text-sm font-semibold rounded-lg text-slate-600 hover:text-indigo-600 transition">3. Panjang Busur</button>
+                <button onclick="switchTab('juring')" id="tab-juring" class="py-2.5 px-4 text-sm font-semibold rounded-lg text-slate-600 hover:text-indigo-600 transition">4. Luas Juring</button>
+            </div>
+
+            <!-- Content Area: Grid Theory & Static Diagram -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Theory Column (Left) -->
+                <div class="lg:col-span-7 space-y-6 flex flex-col justify-between">
+                    
+                    <!-- Topik 1: Keliling -->
+                    <div id="content-keliling" class="space-y-4">
+                        <div class="p-4 bg-indigo-50 border-l-4 border-indigo-600 rounded-r-xl">
+                            <h3 class="font-bold text-lg text-indigo-900">1. Keliling Lingkaran (K)</h3>
+                            <p class="text-sm text-indigo-700 mt-1">Keliling adalah panjang keseluruhan garis lengkung yang membatasi tepi luar lingkaran.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                            <p class="font-semibold text-slate-800">Rumus Keliling Lingkaran:</p>
+                            <div class="p-4 bg-white rounded-lg border border-indigo-100 text-center shadow-sm">
+                                <div class="formula-box text-indigo-700 font-bold">
+                                    <span>K = 2 &times; &pi; &times; r</span>
+                                    <span class="text-slate-400 font-normal px-2">atau</span>
+                                    <span>K = &pi; &times; d</span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-600 space-y-2 pt-2 border-t border-slate-200">
+                                <p><b>Keterangan Simbol:</b></p>
+                                <ul class="list-disc list-inside space-y-1 pl-2">
+                                    <li><b>K</b> = Keliling Lingkaran</li>
+                                    <li><b>r</b> = Jari-jari (jarak titik pusat ke tepi lingkaran)</li>
+                                    <li><b>d</b> = Diameter / Garis tengah (d = 2 &times; r)</li>
+                                    <li>
+                                        <b>&pi; (Pi)</b> = 
+                                        <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span> 
+                                        (jika r atau d kelipatan 7) atau <b>3,14</b> (jika bukan kelipatan 7)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topik 2: Luas -->
+                    <div id="content-luas" class="hidden space-y-4">
+                        <div class="p-4 bg-purple-50 border-l-4 border-purple-600 rounded-r-xl">
+                            <h3 class="font-bold text-lg text-purple-900">2. Luas Lingkaran (L)</h3>
+                            <p class="text-sm text-purple-700 mt-1">Luas adalah besarnya ukuran permukaan bidang datar yang tertutup oleh garis lingkaran.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                            <p class="font-semibold text-slate-800">Rumus Luas Lingkaran:</p>
+                            <div class="p-4 bg-white rounded-lg border border-purple-100 text-center shadow-sm">
+                                <div class="formula-box text-purple-700 font-bold">
+                                    <span>L = &pi; &times; r<sup>2</sup></span>
+                                    <span class="text-slate-400 font-normal px-2">atau</span>
+                                    <span>
+                                        L = 
+                                        <span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span> 
+                                        &times; &pi; &times; d<sup>2</sup>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-600 space-y-2 pt-2 border-t border-slate-200">
+                                <p><b>Catatan Penting:</b></p>
+                                <ul class="list-disc list-inside space-y-1 pl-2">
+                                    <li><b>r<sup>2</sup></b> artinya <b>r &times; r</b> (jari-jari dikalikan dirinya sendiri).</li>
+                                    <li>Satuan luas selalu menggunakan kuadrat, misalnya: <b>cm<sup>2</sup></b> atau <b>m<sup>2</sup></b>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topik 3: Panjang Busur -->
+                    <div id="content-busur" class="hidden space-y-4">
+                        <div class="p-4 bg-amber-50 border-l-4 border-amber-600 rounded-r-xl">
+                            <h3 class="font-bold text-lg text-amber-900">3. Panjang Busur Lingkaran</h3>
+                            <p class="text-sm text-amber-700 mt-1">Busur adalah bagian dari keliling lingkaran yang dibatasi oleh dua titik dan sudut pusat tertentu.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                            <p class="font-semibold text-slate-800">Rumus Panjang Busur:</p>
+                            <div class="p-4 bg-white rounded-lg border border-amber-100 text-center shadow-sm">
+                                <div class="formula-box text-amber-700 font-bold">
+                                    <span>Panjang Busur =</span>
+                                    <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span>
+                                    <span>&times; Keliling Lingkaran</span>
+                                </div>
+                                <div class="formula-box text-amber-700 font-semibold text-sm mt-3 pt-2 border-t border-slate-100">
+                                    <span>Panjang Busur =</span>
+                                    <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span>
+                                    <span>&times; (2 &times; &pi; &times; r)</span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-600 space-y-1 pt-2 border-t border-slate-200">
+                                <p><b>Keterangan:</b></p>
+                                <p>&bull; <b>&alpha; (Alpha)</b> = Besar sudut pusat depan busur (dalam derajat &deg;).</p>
+                                <p>&bull; <b>360&deg;</b> = Sudut total satu lingkaran penuh.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topik 4: Luas Juring -->
+                    <div id="content-juring" class="hidden space-y-4">
+                        <div class="p-4 bg-emerald-50 border-l-4 border-emerald-600 rounded-r-xl">
+                            <h3 class="font-bold text-lg text-emerald-900">4. Luas Juring Lingkaran</h3>
+                            <p class="text-sm text-emerald-700 mt-1">Juring adalah daerah di dalam lingkaran yang dibatasi oleh dua buah jari-jari dan satu busur lingkaran.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                            <p class="font-semibold text-slate-800">Rumus Luas Juring:</p>
+                            <div class="p-4 bg-white rounded-lg border border-emerald-100 text-center shadow-sm">
+                                <div class="formula-box text-emerald-700 font-bold">
+                                    <span>Luas Juring =</span>
+                                    <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span>
+                                    <span>&times; Luas Lingkaran</span>
+                                </div>
+                                <div class="formula-box text-emerald-700 font-semibold text-sm mt-3 pt-2 border-t border-slate-100">
+                                    <span>Luas Juring =</span>
+                                    <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span>
+                                    <span>&times; (&pi; &times; r<sup>2</sup>)</span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-600 space-y-1 pt-2 border-t border-slate-200">
+                                <p><b>Konsep Penting:</b> Luas juring berbanding lurus dengan besar sudut pusatnya (&alpha;). Semakin besar sudut &alpha;, semakin luas daerah juringnya.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Visual Diagram Column (Right) -->
+                <div class="lg:col-span-5 bg-slate-900 text-white p-6 rounded-2xl flex flex-col justify-between shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Visual Diagram Konsep</span>
+                        <span id="diagram-title" class="px-2.5 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium">Keliling Lingkaran</span>
+                    </div>
+
+                    <!-- Diagram Container -->
+                    <div class="w-full flex justify-center items-center py-6">
+                        
+                        <!-- SVG Visual 1: Keliling -->
+                        <svg id="diagram-keliling" width="240" height="240" viewBox="0 0 240 240" class="block">
+                            <!-- Helper grid -->
+                            <circle cx="120" cy="120" r="85" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>
+                            <!-- Keliling line highlight -->
+                            <circle cx="120" cy="120" r="85" fill="none" stroke="#6366f1" stroke-width="6" stroke-dasharray="10 4"/>
+                            <!-- Center & Radius line -->
+                            <line x1="120" y1="120" x2="205" y2="120" stroke="#f43f5e" stroke-width="2"/>
+                            <circle cx="120" cy="120" r="4" fill="#ffffff"/>
+                            <!-- Labels -->
+                            <text x="110" y="115" fill="#ffffff" font-size="12" font-weight="bold">O</text>
+                            <text x="160" y="110" fill="#f43f5e" font-size="13" font-weight="bold">r</text>
+                            <text x="120" y="225" fill="#818cf8" font-size="13" font-weight="bold" text-anchor="middle">Garis Lengkung Luar (Keliling K)</text>
+                        </svg>
+
+                        <!-- SVG Visual 2: Luas -->
+                        <svg id="diagram-luas" width="240" height="240" viewBox="0 0 240 240" class="hidden">
+                            <!-- Area fill -->
+                            <circle cx="120" cy="120" r="85" fill="rgba(139, 92, 246, 0.45)" stroke="#a855f7" stroke-width="4"/>
+                            <!-- Radius line -->
+                            <line x1="120" y1="120" x2="205" y2="120" stroke="#ffffff" stroke-width="2"/>
+                            <circle cx="120" cy="120" r="4" fill="#ffffff"/>
+                            <!-- Labels (Positioning fixed to prevent overlap) -->
+                            <text x="105" y="115" fill="#ffffff" font-size="12" font-weight="bold">O</text>
+                            <text x="160" y="110" fill="#ffffff" font-size="13" font-weight="bold">r</text>
+                            <text x="120" y="160" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">Daerah Luas (L)</text>
+                            <text x="120" y="225" fill="#c084fc" font-size="13" font-weight="bold" text-anchor="middle">Seluruh Daerah Dalam Lingkaran</text>
+                        </svg>
+
+                        <!-- SVG Visual 3: Busur -->
+                        <svg id="diagram-busur" width="240" height="240" viewBox="0 0 240 240" class="hidden">
+                            <!-- Base circle muted -->
+                            <circle cx="120" cy="120" r="85" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="4 4"/>
+                            <!-- Angle lines -->
+                            <line x1="120" y1="120" x2="205" y2="120" stroke="#94a3b8" stroke-width="2"/>
+                            <line x1="120" y1="120" x2="162.5" y2="46.4" stroke="#94a3b8" stroke-width="2"/>
+                            <!-- Angle Arc -->
+                            <path d="M 145 120 A 25 25 0 0 0 137.6 97.5" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                            <!-- Busur Highlight Line -->
+                            <path d="M 205 120 A 85 85 0 0 0 162.5 46.4" fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+                            <circle cx="120" cy="120" r="4" fill="#ffffff"/>
+                            <!-- Points & Labels -->
+                            <circle cx="205" cy="120" r="4" fill="#f59e0b"/>
+                            <circle cx="162.5" cy="46.4" r="4" fill="#f59e0b"/>
+                            <text x="105" y="125" fill="#ffffff" font-size="12" font-weight="bold">O</text>
+                            <text x="212" y="125" fill="#f59e0b" font-size="12" font-weight="bold">A</text>
+                            <text x="168" y="40" fill="#f59e0b" font-size="12" font-weight="bold">B</text>
+                            <text x="148" y="105" fill="#f59e0b" font-size="12" font-weight="bold">&alpha;</text>
+                            <text x="120" y="225" fill="#fbbf24" font-size="13" font-weight="bold" text-anchor="middle">Garis Lengkung AB (Busur)</text>
+                        </svg>
+
+                        <!-- SVG Visual 4: Juring -->
+                        <svg id="diagram-juring" width="240" height="240" viewBox="0 0 240 240" class="hidden">
+                            <!-- Base circle -->
+                            <circle cx="120" cy="120" r="85" fill="none" stroke="#334155" stroke-width="2"/>
+                            <!-- Sector fill -->
+                            <path d="M 120 120 L 205 120 A 85 85 0 0 0 162.5 46.4 Z" fill="rgba(16, 185, 129, 0.45)" stroke="#10b981" stroke-width="3"/>
+                            <circle cx="120" cy="120" r="4" fill="#ffffff"/>
+                            <!-- Labels -->
+                            <text x="105" y="125" fill="#ffffff" font-size="12" font-weight="bold">O</text>
+                            <text x="160" y="85" fill="#ffffff" font-size="13" font-weight="bold">Juring</text>
+                            <text x="155" y="138" fill="#10b981" font-size="12" font-weight="bold">r</text>
+                            <text x="128" y="75" fill="#10b981" font-size="12" font-weight="bold">r</text>
+                            <text x="120" y="225" fill="#34d399" font-size="13" font-weight="bold" text-anchor="middle">Daerah Juring (Dibatasi 2 Jari-jari)</text>
+                        </svg>
+
+                    </div>
+
+                    <!-- Visual Caption Box -->
+                    <div id="diagram-desc" class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/60 text-xs text-slate-300 leading-relaxed text-center">
+                        Keliling mengukur panjang total garis tepi memutari lingkaran 360&deg;.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 4: Contoh Soal Pembahasan & Kuis Interaktif -->
+        <section id="latihan" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-8">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">4. Contoh Soal Pembahasan & Kuis Interaktif</h2>
+            </div>
+
+            <!-- Contoh Soal Terbimbing -->
+            <div class="space-y-4">
+                <h3 class="font-bold text-lg text-slate-800 border-b pb-2">Contoh Soal & Pembahasan Detail</h3>
+
+                <!-- Contoh 1: Keliling & Luas -->
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+                    <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion('example-1')">
+                        <h4 class="font-semibold text-slate-800 flex items-center">
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded font-bold mr-2">Soal 1</span>
+                            Menghitung Keliling dan Luas Roda Sepeda
+                        </h4>
+                        <i id="icon-example-1" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </div>
+                    <div id="example-1" class="mt-4 pt-4 border-t border-slate-200 text-sm space-y-4 hidden">
+                        <p class="text-slate-700">
+                            <b>Soal:</b> Sebuah roda sepeda berbentuk lingkaran memiliki jari-jari <b>r = 21 cm</b>. Hitunglah Keliling (K) dan Luas (L) roda tersebut! 
+                            (Gunakan &pi; = <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span>)
+                        </p>
+                        
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-4 text-slate-700">
+                            <!-- Pembahasan Keliling -->
+                            <div>
+                                <p class="font-bold text-indigo-700 mb-1">A. Pembahasan Keliling (K):</p>
+                                <div class="pl-3 space-y-1">
+                                    <p>K = 2 &times; &pi; &times; r</p>
+                                    <p>
+                                        K = 2 &times; 
+                                        <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span> 
+                                        &times; 21
+                                    </p>
+                                    <p>K = 2 &times; 22 &times; 3</p>
+                                    <p class="font-bold text-slate-900">K = 132 cm</p>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100">
+
+                            <!-- Pembahasan Luas -->
+                            <div>
+                                <p class="font-bold text-purple-700 mb-1">B. Pembahasan Luas (L):</p>
+                                <div class="pl-3 space-y-1">
+                                    <p>L = &pi; &times; r<sup>2</sup></p>
+                                    <p>
+                                        L = 
+                                        <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span> 
+                                        &times; 21 &times; 21
+                                    </p>
+                                    <p>L = 22 &times; 3 &times; 21</p>
+                                    <p class="font-bold text-slate-900">L = 1.386 cm<sup>2</sup></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contoh 2: Busur & Juring -->
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+                    <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion('example-2')">
+                        <h4 class="font-semibold text-slate-800 flex items-center">
+                            <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded font-bold mr-2">Soal 2</span>
+                            Menghitung Panjang Busur dan Luas Juring Pizza
+                        </h4>
+                        <i id="icon-example-2" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </div>
+                    <div id="example-2" class="mt-4 pt-4 border-t border-slate-200 text-sm space-y-4 hidden">
+                        <p class="text-slate-700">
+                            <b>Soal:</b> Sepotong pizza lingkaran memiliki jari-jari <b>r = 14 cm</b> dengan sudut pusat <b>&alpha; = 60&deg;</b>. 
+                            Hitunglah: <br>
+                            a) Panjang Busur roti bagian luar pizza <br>
+                            b) Luas Juring permukaan potongan pizza
+                        </p>
+                        
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-4 text-slate-700">
+                            <!-- Pembahasan Busur -->
+                            <div>
+                                <p class="font-bold text-amber-700 mb-1">a) Pembahasan Panjang Busur:</p>
+                                <div class="pl-3 space-y-2">
+                                    <div class="flex items-center gap-1">
+                                        <span>Panjang Busur =</span>
+                                        <span class="fraction"><span class="numerator">60&deg;</span><span class="denominator">360&deg;</span></span>
+                                        <span>&times; (2 &times;</span>
+                                        <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span>
+                                        <span>&times; 14)</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span>Panjang Busur =</span>
+                                        <span class="fraction"><span class="numerator">1</span><span class="denominator">6</span></span>
+                                        <span>&times; 88 cm</span>
+                                    </div>
+                                    <p class="font-bold text-slate-900">Panjang Busur = 14,67 cm</p>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100">
+
+                            <!-- Pembahasan Juring -->
+                            <div>
+                                <p class="font-bold text-emerald-700 mb-1">b) Pembahasan Luas Juring:</p>
+                                <div class="pl-3 space-y-2">
+                                    <div class="flex items-center gap-1">
+                                        <span>Luas Juring =</span>
+                                        <span class="fraction"><span class="numerator">60&deg;</span><span class="denominator">360&deg;</span></span>
+                                        <span>&times; (</span>
+                                        <span class="fraction"><span class="numerator">22</span><span class="denominator">7</span></span>
+                                        <span>&times; 14 &times; 14)</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span>Luas Juring =</span>
+                                        <span class="fraction"><span class="numerator">1</span><span class="denominator">6</span></span>
+                                        <span>&times; 616 cm<sup>2</sup></span>
+                                    </div>
+                                    <p class="font-bold text-slate-900">Luas Juring = 102,67 cm<sup>2</sup></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Interaktif -->
+            <div class="pt-6 border-t border-slate-200">
+                <h3 class="font-bold text-lg text-slate-800 mb-4">Uji Pemahaman Mandiri (Kuis Cepat)</h3>
+                <div class="bg-indigo-900 text-white p-6 rounded-2xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full text-indigo-200 font-semibold">Pertanyaan Kuis</span>
+                        <span id="score-badge" class="text-xs font-bold text-yellow-400">Skor: 0</span>
+                    </div>
+                    <p class="font-medium text-indigo-50 leading-relaxed">
+                        Sebuah jam dinding berbentuk lingkaran memiliki diameter <b>d = 28 cm</b> (sehingga jari-jari r = 14 cm). 
+                        Berapakah <b>Panjang Busur</b> yang dibentuk jika sudut pusat yang terbentuk adalah <b>90&deg;</b>?
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <button onclick="checkQuiz(this, false)" class="p-3 rounded-xl bg-indigo-800/80 hover:bg-indigo-700 text-left text-sm transition border border-indigo-700">A. 11 cm</button>
+                        <button onclick="checkQuiz(this, true)" class="p-3 rounded-xl bg-indigo-800/80 hover:bg-indigo-700 text-left text-sm transition border border-indigo-700">B. 22 cm</button>
+                        <button onclick="checkQuiz(this, false)" class="p-3 rounded-xl bg-indigo-800/80 hover:bg-indigo-700 text-left text-sm transition border border-indigo-700">C. 44 cm</button>
+                        <button onclick="checkQuiz(this, false)" class="p-3 rounded-xl bg-indigo-800/80 hover:bg-indigo-700 text-left text-sm transition border border-indigo-700">D. 88 cm</button>
+                    </div>
+                    <!-- Feedback Message -->
+                    <div id="quiz-feedback" class="hidden p-3.5 rounded-xl text-sm font-medium"></div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Dibuat untuk Pembelajaran Matematika SMP Kelas 9 — Kurikulum Merdeka</p>
+            <p class="text-xs text-slate-500 mt-1">Materi Geometri Lingkaran Interaktif</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interaktif Logic -->
+    <script>
+        // Tab switching & Diagram Toggle
+        function switchTab(tab) {
+            const tabs = ['keliling', 'luas', 'busur', 'juring'];
+            const titles = {
+                'keliling': 'Keliling Lingkaran',
+                'luas': 'Luas Lingkaran',
+                'busur': 'Panjang Busur Lingkaran',
+                'juring': 'Luas Juring Lingkaran'
+            };
+            const descriptions = {
+                'keliling': 'Keliling mengukur panjang total garis tepi melingkar memutari 360°.',
+                'luas': 'Luas mengukur total isi permukaan di dalam batas lingkaran.',
+                'busur': 'Panjang Busur adalah bagian dari keliling lingkaran di depan sudut pusat α.',
+                'juring': 'Luas Juring adalah potongan daerah yang dibatasi oleh dua jari-jari dan busur.'
+            };
+
+            tabs.forEach(t => {
+                const tabBtn = document.getElementById(`tab-${t}`);
+                const contentEl = document.getElementById(`content-${t}`);
+                const diagramSvg = document.getElementById(`diagram-${t}`);
+
+                if (t === tab) {
+                    tabBtn.className = 'py-2.5 px-4 text-sm font-semibold rounded-lg bg-white shadow-sm text-indigo-600 transition';
+                    contentEl.classList.remove('hidden');
+                    diagramSvg.classList.remove('hidden');
+                    diagramSvg.classList.add('block');
+                } else {
+                    tabBtn.className = 'py-2.5 px-4 text-sm font-semibold rounded-lg text-slate-600 hover:text-indigo-600 transition';
+                    contentEl.classList.add('hidden');
+                    diagramSvg.classList.remove('block');
+                    diagramSvg.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('diagram-title').innerText = titles[tab];
+            document.getElementById('diagram-desc').innerText = descriptions[tab];
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Quiz Logic
+        function checkQuiz(btn, isCorrect) {
+            const feedback = document.getElementById('quiz-feedback');
+            const scoreBadge = document.getElementById('score-badge');
+            
+            feedback.classList.remove('hidden', 'bg-emerald-500/20', 'text-emerald-300', 'bg-rose-500/20', 'text-rose-300');
+            
+            if (isCorrect) {
+                feedback.classList.add('bg-emerald-500/20', 'text-emerald-300');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> <b>Jawaban Benar (B. 22 cm)!</b><br>Panjang Busur = (90° / 360°) &times; &pi; &times; d = (1/4) &times; (22/7) &times; 28 = 22 cm.';
+                scoreBadge.innerText = 'Skor: 100';
+            } else {
+                feedback.classList.add('bg-rose-500/20', 'text-rose-300');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark mr-2"></i> <b>Kurang Tepat!</b><br>Gunakan rumus: Panjang Busur = (90° / 360°) &times; (22/7) &times; 28.';
+            }
+        }
+    </script>
+</body>
+</html>
